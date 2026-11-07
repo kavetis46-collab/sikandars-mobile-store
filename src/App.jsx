@@ -57,12 +57,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#06070c] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-slate-950">
+    <div className="min-h-screen bg-[#0A0D14] text-[#F8FAFC] flex flex-col font-sans selection:bg-[#0066FF] selection:text-[#F8FAFC] bg-obsidian-canvas">
       
-      {/* Toast Notification */}
+      {/* High-Visibility Cobalt Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-20 right-4 sm:right-8 z-50 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 px-4 py-2.5 rounded-2xl text-xs font-black shadow-2xl animate-in slide-in-from-top duration-200 flex items-center gap-2 border border-amber-300/40">
-          <span>✓</span>
+        <div className="fixed top-20 right-4 sm:right-8 z-50 bg-[#141923] text-[#00F0FF] px-4 py-2.5 rounded-xl text-xs font-bold shadow-[0_10px_30px_-5px_rgba(0,102,255,0.4)] animate-in slide-in-from-top duration-200 flex items-center gap-2 border border-[#0066FF]/60 backdrop-blur-xl">
+          <span className="w-2 h-2 rounded-full bg-[#00F0FF] animate-ping" />
           <span>{toastMessage}</span>
         </div>
       )}

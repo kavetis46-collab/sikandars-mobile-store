@@ -6,11 +6,10 @@ import {
   BatteryCharging, 
   ShieldCheck, 
   Check, 
-  Sparkles, 
   Eye, 
   Phone,
-  Flame,
-  Award
+  Award,
+  Sparkles
 } from 'lucide-react';
 import { storeData, createWhatsAppUrl } from '../data/storeData';
 
@@ -18,11 +17,17 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
   const [activeSeries, setActiveSeries] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const seriesTabs = ['All', 'iPhone 16 Series', 'iPhone 15 Series', 'iPhone 14 Series', 'iPhone 13 & Older'];
+  const seriesTabs = ['All', 'Apple iPhones', 'Samsung Galaxy', 'Google Pixel', 'OnePlus'];
 
   const filteredProducts = useMemo(() => {
     return (storeData.products || []).filter((p) => {
-      const matchesSeries = activeSeries === 'All' || p.series === activeSeries;
+      let matchesSeries = true;
+      if (activeSeries === 'Apple iPhones') {
+        matchesSeries = p.series.includes('iPhone');
+      } else if (activeSeries !== 'All') {
+        matchesSeries = p.series === activeSeries || p.brand === activeSeries;
+      }
+
       const matchesSearch = 
         p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.edition.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -34,36 +39,36 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
   const isInBag = (id) => inquiryBag.some((item) => item.id === id);
 
   return (
-    <section id="inventory" className="py-20 sm:py-28 relative bg-[#080a14] border-t border-amber-500/20 content-auto">
+    <section id="inventory" className="py-20 sm:py-28 relative bg-[#0A0D14] border-t border-[#262F40] content-auto">
       
-      {/* Background Glow */}
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-amber-500/10 blur-[130px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-0 w-96 h-96 bg-emerald-500/10 blur-[130px] pointer-events-none -z-10" />
+      {/* Background Glows (Electric Cobalt & Cyber Cyan) */}
+      <div className="absolute top-1/3 left-0 w-96 h-96 bg-[#0066FF]/10 blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#00F0FF]/08 blur-[140px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500/15 to-yellow-500/15 border border-amber-500/30 text-amber-300 text-xs font-black uppercase tracking-wider mb-3">
-              <Award className="w-3.5 h-3.5 text-amber-400" />
-              <span>Certified iPhone Showroom &amp; Stock</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141923] border border-[#262F40] text-[#00F0FF] text-xs font-bold uppercase tracking-wider mb-3">
+              <Award className="w-3.5 h-3.5 text-[#0066FF]" />
+              <span>Certified Flagship Showroom Vault</span>
             </div>
             
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-              Every iPhone Model Available <br />
-              <span className="text-gradient-gold">Tested with Store Warranty.</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#F8FAFC] tracking-tight">
+              Pre-Owned Flagship Inventory <br />
+              <span className="text-gradient-cobalt">Apple • Samsung • Pixel • OnePlus</span>
             </h2>
             
-            <p className="mt-2 text-slate-300 text-sm sm:text-base max-w-2xl">
-              From flagship iPhone 16 Pro Max to budget iPhone 11. Every phone has verified original battery health, TrueTone display, clean IMEI, and 10-minute spot handover.
+            <p className="mt-2 text-[#94A3B8] text-sm sm:text-base max-w-2xl">
+              Engineered with 3uTools transparency, verified battery health, clean IMEI, and 6-month store warranty. Ready for immediate handover at our Abids &amp; Koti showroom.
             </p>
           </div>
 
-          {/* Live Store Pill */}
-          <div className="flex items-center gap-2.5 text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 px-4 py-2.5 rounded-2xl self-start md:self-auto backdrop-blur-md">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <span className="font-bold">Ready for Pickup at Jagdish Market Counter</span>
+          {/* Live Store Status Pill */}
+          <div className="flex items-center gap-2.5 text-xs text-[#00F0FF] bg-[#141923] border border-[#262F40] px-4 py-2.5 rounded-xl self-start md:self-auto backdrop-blur-md">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#00F0FF] animate-ping" />
+            <span className="font-bold">In-Stock at Jagdish Market, Abids Counter</span>
           </div>
         </div>
 
@@ -74,18 +79,18 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
             
             {/* Search Input */}
             <div className="relative w-full sm:w-96">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="Search iPhone 16 Pro Max, 15, 14, 128GB..."
+                placeholder="Search iPhone 16 Pro, S24 Ultra, Pixel, 256GB..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#111422] border border-amber-500/20 focus:border-amber-400 text-white placeholder-slate-500 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none transition-colors"
+                className="w-full bg-[#141923] border border-[#262F40] focus:border-[#0066FF] text-[#F8FAFC] placeholder-[#94A3B8] rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none transition-colors"
               />
               {searchQuery && (
                 <button 
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-white"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#94A3B8] hover:text-[#F8FAFC]"
                 >
                   Clear
                 </button>
@@ -93,11 +98,11 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
             </div>
 
             {/* Quick Contact Helpline */}
-            <div className="flex items-center gap-2 text-xs text-slate-300">
-              <span>Checking specific model? Call:</span>
+            <div className="flex items-center gap-2 text-xs text-[#94A3B8]">
+              <span>Need custom storage or model? Call:</span>
               <a 
                 href={`tel:${storeData.storeInfo.phoneRaw}`}
-                className="text-amber-400 font-extrabold hover:underline"
+                className="text-[#00F0FF] font-extrabold hover:underline font-mono"
               >
                 {storeData.storeInfo.phone}
               </a>
@@ -111,10 +116,10 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
               <button
                 key={series}
                 onClick={() => setActiveSeries(series)}
-                className={`px-4 py-2.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
+                className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                   activeSeries === series
-                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-lg shadow-amber-500/25'
-                    : 'bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10'
+                    ? 'bg-[#0066FF] text-[#F8FAFC] shadow-[0_4px_14px_rgba(0,102,255,0.4)]'
+                    : 'bg-[#141923] hover:bg-[#1a202e] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#262F40]'
                 }`}
               >
                 {series}
@@ -124,39 +129,45 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
 
         </div>
 
-        {/* Products Grid (All iPhones) */}
+        {/* Products Grid (All Flagship Devices) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
           {filteredProducts.map((product) => {
             const inBag = isInBag(product.id);
+            const conditionTags = product.conditionTags || [
+              product.condition || "Grade A+ Flawless",
+              product.batteryHealth || "Battery Health 95%+",
+              "Store Verified",
+              "Clean IMEI"
+            ];
 
             return (
               <div
                 key={product.id}
-                className="rounded-3xl glass-luxury border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-amber-500/15"
+                className="surface-card flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
               >
                 
-                {/* Image Section */}
-                <div className="relative h-64 sm:h-72 w-full bg-gradient-to-b from-[#14182b] to-[#0c0e1a] p-6 flex items-center justify-center overflow-hidden">
+                {/* Image Section with Subtle Radial Lighting Gradient */}
+                <div className="relative h-64 sm:h-72 w-full bg-[#0E121B] p-6 flex items-center justify-center overflow-hidden device-glow-backdrop border-b border-[#262F40]">
                   
                   {/* Top Badges */}
                   <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-10 pointer-events-none">
                     {product.badge && (
-                      <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-md">
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#0066FF] text-[#F8FAFC] shadow-sm">
                         {product.badge}
                       </span>
                     )}
 
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-md text-emerald-400 border border-emerald-500/30 flex items-center gap-1 ml-auto">
-                      <BatteryCharging className="w-3.5 h-3.5" />
+                    <span className="badge-condition text-[10px] px-2.5 py-0.5 flex items-center gap-1 ml-auto">
+                      <BatteryCharging className="w-3 h-3" />
                       {product.batteryHealth}
                     </span>
                   </div>
 
-                  {/* Clean iPhone Picture */}
+                  {/* Clean Device Image */}
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="max-h-full max-w-full object-contain filter drop-shadow-2xl group-hover:scale-105 transition-transform duration-500"
+                    className="max-h-full max-w-full object-contain filter drop-shadow-[0_15px_25px_rgba(0,0,0,0.8)] group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                     decoding="async"
                     width="400"
@@ -164,18 +175,18 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
                   />
 
                   {/* Condition Tag */}
-                  <div className="absolute bottom-3 left-3 bg-black/80 backdrop-blur-md px-3 py-1 rounded-lg text-[11px] text-amber-300 border border-amber-500/30 flex items-center gap-1.5 font-medium">
-                    <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                  <div className="absolute bottom-3 left-3 bg-[#141923]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[11px] text-[#00F0FF] border border-[#262F40] flex items-center gap-1.5 font-medium">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#0066FF]" />
                     <span>{product.condition}</span>
                   </div>
 
                   {/* Quick Specs Eye */}
                   <button
                     onClick={() => onSelectProduct(product.id)}
-                    className="absolute bottom-3 right-3 p-2 rounded-xl bg-white/10 hover:bg-white/25 text-white backdrop-blur-md border border-white/20 transition-all opacity-0 group-hover:opacity-100"
+                    className="absolute bottom-3 right-3 p-2 rounded-lg bg-[#141923] hover:bg-[#0066FF] text-[#F8FAFC] border border-[#262F40] transition-all opacity-0 group-hover:opacity-100"
                     title="View Inspection Report"
                   >
-                    <Eye className="w-4 h-4 text-amber-400" />
+                    <Eye className="w-4 h-4" />
                   </button>
 
                 </div>
@@ -184,21 +195,30 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs text-slate-400">
-                      <span className="font-bold text-amber-400 uppercase tracking-wider text-[11px]">{product.series}</span>
-                      <span className="text-slate-300 font-medium">{product.warranty}</span>
+                    <div className="flex items-center justify-between text-xs text-[#94A3B8]">
+                      <span className="font-bold text-[#00F0FF] uppercase tracking-wider text-[11px]">{product.series}</span>
+                      <span className="text-[#94A3B8] font-medium">{product.warranty}</span>
                     </div>
 
-                    <h3 className="text-lg font-black text-white group-hover:text-amber-400 transition-colors line-clamp-1">
+                    <h3 className="text-lg font-extrabold text-[#F8FAFC] group-hover:text-[#00F0FF] transition-colors line-clamp-1">
                       {product.name}
                     </h3>
+
+                    {/* Condition Grade Pill Tags Directly on Card */}
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {conditionTags.slice(0, 3).map((tag, tIdx) => (
+                        <span key={tIdx} className="badge-condition px-2 py-0.5 text-[10px]">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
 
                     {/* Storage Options */}
                     <div className="flex flex-wrap gap-1.5 pt-1">
                       {product.storageOptions.map((st) => (
                         <span
                           key={st}
-                          className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-white/5 text-slate-200 border border-white/10"
+                          className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#1c2333] text-[#F8FAFC] border border-[#262F40] font-mono"
                         >
                           {st}
                         </span>
@@ -207,28 +227,28 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
 
                     {/* Specs snippets */}
                     {product.specs && (
-                      <p className="text-xs text-slate-300 line-clamp-2 pt-1">
+                      <p className="text-xs text-[#94A3B8] line-clamp-2 pt-1 font-normal">
                         {product.specs.display} • {product.specs.chip}
                       </p>
                     )}
                   </div>
 
-                  {/* Pricing Box */}
-                  <div className="pt-3 border-t border-white/10">
+                  {/* Pricing Box with Tabular Numbers */}
+                  <div className="pt-3 border-t border-[#262F40]">
                     <div className="flex items-baseline justify-between">
                       <div>
-                        <div className="text-2xl font-black text-gradient-gold">
+                        <div className="text-2xl font-extrabold text-[#F8FAFC] font-mono tabular-nums">
                           {product.price}
                         </div>
                         {product.originalPrice && (
                           <div className="flex items-center gap-2 text-xs">
-                            <span className="line-through text-slate-500">{product.originalPrice}</span>
-                            <span className="text-emerald-400 font-bold">{product.savings}</span>
+                            <span className="line-through text-[#94A3B8] font-mono">{product.originalPrice}</span>
+                            <span className="text-[#00F0FF] font-bold">{product.savings}</span>
                           </div>
                         )}
                       </div>
 
-                      <span className="text-[10px] text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2 py-1 rounded-md font-bold uppercase">
+                      <span className="text-[10px] text-[#00F0FF] bg-[rgba(0,240,255,0.08)] border border-[rgba(0,240,255,0.25)] px-2 py-0.5 rounded font-bold uppercase">
                         Spot Handover
                       </span>
                     </div>
@@ -237,41 +257,41 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
                   {/* Action Buttons: WhatsApp, Call, Bag */}
                   <div className="grid grid-cols-3 gap-2 pt-1">
                     
-                    {/* Direct WhatsApp */}
+                    {/* Direct WhatsApp Primary Cobalt */}
                     <a
-                      href={createWhatsAppUrl(`Hi Sikandar Bhai, I saw your Instagram/Website and want to buy ${product.name} (${product.price}). Is it ready at Jagdish Market?`)}
+                      href={createWhatsAppUrl(`Hi Sikandar Bhai, I saw your showroom website and want to reserve ${product.name} (${product.price}). Is it ready at Abids?`)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="py-2.5 px-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 text-xs font-black transition-all flex items-center justify-center gap-1 shadow-md shadow-emerald-500/20 active:scale-95"
+                      className="btn-primary-cobalt py-2.5 px-2 text-xs font-bold gap-1"
                       title="Direct WhatsApp"
                     >
-                      <MessageCircle className="w-3.5 h-3.5 fill-slate-950" />
+                      <MessageCircle className="w-3.5 h-3.5 fill-current" />
                       <span>WhatsApp</span>
                     </a>
 
-                    {/* Direct Call */}
+                    {/* Direct Call Secondary Titanium */}
                     <a
                       href={`tel:${storeData.storeInfo.phoneRaw}`}
-                      className="py-2.5 px-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 text-xs font-black transition-all flex items-center justify-center gap-1 shadow-md shadow-amber-500/20 active:scale-95"
-                      title="Direct Dialer"
+                      className="btn-secondary-titanium py-2.5 px-2 text-xs font-bold gap-1"
+                      title="Direct Showroom Dialer"
                     >
-                      <Phone className="w-3.5 h-3.5 fill-slate-950" />
-                      <span>Call</span>
+                      <Phone className="w-3.5 h-3.5 text-[#00F0FF]" />
+                      <span className="font-mono">Call</span>
                     </a>
 
                     {/* Add to Bag */}
                     <button
                       onClick={() => onAddToBag(product)}
-                      className={`py-2.5 px-2 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1 ${
+                      className={`py-2.5 px-2 rounded-[10px] text-xs font-bold border transition-all flex items-center justify-center gap-1 ${
                         inBag 
-                          ? 'bg-amber-500/20 border-amber-500 text-amber-300' 
-                          : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-200'
+                          ? 'bg-[#0066FF]/20 border-[#0066FF] text-[#00F0FF]' 
+                          : 'btn-secondary-titanium'
                       }`}
-                      title={inBag ? "In Bag" : "Add to Bag"}
+                      title={inBag ? "In Bag" : "Add to Inquiry Bag"}
                     >
                       {inBag ? (
                         <>
-                          <Check className="w-3.5 h-3.5 text-amber-400" />
+                          <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
                           <span>In Bag</span>
                         </>
                       ) : (

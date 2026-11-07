@@ -15,9 +15,9 @@ export const IPHONE_16_PRO_MAX_IMAGES = {
 export const storeData = {
   storeInfo: {
     name: "Sikandar's Mobile Store",
-    legalName: "“Sikandar’sMobile store - iPHONE SALES AND SERVICE”",
-    tagline: "Hyderabad's Most Trusted Hub for Certified iPhones & Precision Apple Care",
-    badge: "Official Jagdish Market iPhone Specialist",
+    legalName: "“Sikandar’sMobile store - iPHONE & FLAGSHIP SALES AND SERVICE”",
+    tagline: "Hyderabad's Premier Obsidian Showroom for Certified Flagships & Precision Smartphone Care",
+    badge: "Official Abids & Koti Flagship Specialist",
     rating: 4.9,
     reviewsCount: "242+",
     establishedYear: "2003",
@@ -25,7 +25,7 @@ export const storeData = {
     phone: "+91 9700317171",
     phoneRaw: "+919700317171",
     whatsapp: "919700317171",
-    address: "Chirag Ali Lane, Jagdish Market, Abids, Hyderabad, Telangana - 500001",
+    address: "Chirag Ali Lane, Jagdish Market (Abids & Koti Junction), Hyderabad, Telangana - 500001",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Sikandars+Mobile+Store+Jagdish+Market+Hyderabad&query_place_id=ChIJl2rsVn2XyzsR8pnP9WROa7E",
     googleReviewWriteUrl: "https://search.google.com/local/writereview?placeid=ChIJl2rsVn2XyzsR8pnP9WROa7E",
     
@@ -34,7 +34,7 @@ export const storeData = {
       handle: "@sikandarsmobilestore",
       username: "sikandarsmobilestore",
       url: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw==",
-      bio: "📍 Chirag Ali Lane, Jagdish Market, Abids, Hyderabad | Dealing in Certified Pre-Owned & New iPhones | Buy • Sell • Exchange • Apple Repairs | 📞 +91 9700317171",
+      bio: "📍 Chirag Ali Lane, Jagdish Market, Abids & Koti, Hyderabad | Certified Pre-Owned iPhones, Samsung S-Series, Pixel & OnePlus | Buy • Sell • Exchange • Apple & Android Care | 📞 +91 9700317171",
       followersCount: "15.4K+",
       postsCount: "350+",
       verifiedBadge: true
@@ -334,6 +334,121 @@ export const storeData = {
         display: "6.1\" Liquid Retina Display",
         camera: "Dual 12MP Ultra-Wide & Wide",
         box: "Handover with Testing Bill"
+      }
+    },
+    {
+      id: "samsung-s24-ultra",
+      name: "Samsung Galaxy S24 Ultra 5G",
+      edition: "Titanium Gray & Titanium Black",
+      series: "Samsung Galaxy",
+      brand: "Samsung",
+      price: "₹89,999",
+      originalPrice: "₹1,29,999",
+      savings: "SAVE ₹40,000",
+      storageOptions: ["256GB", "512GB", "12GB RAM"],
+      condition: "Pristine / Grade A+ Flawless",
+      batteryHealth: "100% Genuine Health (5000mAh)",
+      warranty: "Samsung Warranty + Store Invoice",
+      badge: "Android AI Flagship",
+      conditionTags: ["Grade A+ Flawless", "Battery Health 98%+", "Store Verified", "Clean IMEI"],
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Samsung_Galaxy_S24_(webtekno)_008.png",
+      specs: {
+        chip: "Snapdragon 8 Gen 3 for Galaxy with Galaxy AI",
+        display: "6.8\" Dynamic AMOLED 2X 120Hz Anti-Reflective",
+        camera: "200MP Quad Telephoto System with 100x Space Zoom & S-Pen",
+        box: "Original Box, S-Pen & Super Fast Cable"
+      }
+    },
+    {
+      id: "samsung-s23-ultra",
+      name: "Samsung Galaxy S23 Ultra 5G",
+      edition: "Phantom Black & Green",
+      series: "Samsung Galaxy",
+      brand: "Samsung",
+      price: "₹62,999",
+      originalPrice: "₹1,24,999",
+      savings: "SAVE ₹62,000",
+      storageOptions: ["256GB", "512GB", "12GB RAM"],
+      condition: "Flawless Grade A+",
+      batteryHealth: "94% - 98% Battery Health",
+      warranty: "6 Months Store Warranty",
+      badge: "Best Value Zoom King",
+      conditionTags: ["Grade A+ Flawless", "Battery Health 95%+", "Store Verified", "Clean IMEI"],
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Samsung_Galaxy_S24_(webtekno)_008.png",
+      specs: {
+        chip: "Snapdragon 8 Gen 2 Mobile Platform",
+        display: "6.8\" Edge QHD+ Dynamic AMOLED 2X 120Hz",
+        camera: "200MP Nightography Camera with Integrated S-Pen",
+        box: "Complete Box with Store Bill & Warranty"
+      }
+    },
+    {
+      id: "google-pixel-9-pro-xl",
+      name: "Google Pixel 9 Pro XL",
+      edition: "Obsidian Black & Porcelain",
+      series: "Google Pixel",
+      brand: "Google",
+      price: "₹82,999",
+      originalPrice: "₹1,24,999",
+      savings: "SAVE ₹42,000",
+      storageOptions: ["128GB", "256GB", "16GB RAM"],
+      condition: "Like-New Sealed Box Unit",
+      batteryHealth: "100% Battery",
+      warranty: "Google Warranty + Bill",
+      badge: "Pure Google AI",
+      conditionTags: ["Grade A+ Flawless", "Battery Health 100%", "Store Verified", "Clean IMEI"],
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_9_(Obsidian)_front.svg",
+      specs: {
+        chip: "Google Tensor G4 with Titan M2 Security & Gemini Nano",
+        display: "6.8\" Super Actua OLED Display 1-120Hz LTPO",
+        camera: "50MP Triple Camera System with 30x Super Res Zoom & 8K Video",
+        box: "Original Box, Quick Switch Adaptor & Bill"
+      }
+    },
+    {
+      id: "google-pixel-8-pro",
+      name: "Google Pixel 8 Pro",
+      edition: "Bay Blue & Obsidian",
+      series: "Google Pixel",
+      brand: "Google",
+      price: "₹52,999",
+      originalPrice: "₹1,06,999",
+      savings: "SAVE ₹54,000",
+      storageOptions: ["128GB", "256GB", "12GB RAM"],
+      condition: "Certified Pristine",
+      batteryHealth: "95% - 99%",
+      warranty: "Store Warranty Included",
+      badge: "Camera Benchmark",
+      conditionTags: ["Grade A+ Flawless", "Battery Health 95%+", "Store Verified", "Clean IMEI"],
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_8_Pro_front.svg",
+      specs: {
+        chip: "Google Tensor G3 Processor",
+        display: "6.7\" Super Actua LTPO OLED 120Hz",
+        camera: "50MP Main + 48MP Ultrawide + 48MP 5x Telephoto + Temp Sensor",
+        box: "Original Box Pack + Invoice"
+      }
+    },
+    {
+      id: "oneplus-12",
+      name: "OnePlus 12 5G",
+      edition: "Silky Black & Flowy Emerald",
+      series: "OnePlus",
+      brand: "OnePlus",
+      price: "₹46,999",
+      originalPrice: "₹64,999",
+      savings: "SAVE ₹18,000",
+      storageOptions: ["256GB / 12GB RAM", "512GB / 16GB RAM"],
+      condition: "Flawless Grade A+",
+      batteryHealth: "98% - 100% (5400mAh)",
+      warranty: "Store Warranty + Invoice",
+      badge: "Performance Beast",
+      conditionTags: ["Grade A+ Flawless", "Battery Health 98%+", "Store Verified", "Clean IMEI"],
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/OnePlus_Ace_5_Back.png",
+      specs: {
+        chip: "Snapdragon 8 Gen 3 with Dual Cryo-velocity VC Cooling",
+        display: "6.82\" 2K 120Hz ProXDR Display with Aqua Touch",
+        camera: "4th Gen Hasselblad Camera with 64MP 3x Periscope Telephoto",
+        box: "Includes 100W SUPERVOOC Fast Charger, Cable & Box"
       }
     }
   ],
