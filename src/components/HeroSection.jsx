@@ -309,6 +309,9 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
                   alt={`${currentDevice.modelName} in ${currentDevice.colorName}`}
                   className="max-h-full max-w-full object-contain filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.9)] group-hover:scale-105 transition-transform duration-700"
                   loading="eager"
+                  fetchPriority="high"
+                  width="400"
+                  height="400"
                 />
 
                 <div className="absolute bottom-3 left-3 bg-[#141923]/90 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-semibold text-[#00F0FF] border border-[#262F40]">

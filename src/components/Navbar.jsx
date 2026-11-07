@@ -37,40 +37,40 @@ export default function Navbar({ inquiryBag, onOpenBag, onOpenTradeIn }) {
   return (
     <>
       {/* Top Technical Status Micro Bar */}
-      <div className="bg-[#0A0D14] border-b border-[#262F40] py-2 px-4 text-xs text-[#94A3B8]">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div className="bg-[#0A0D14] border-b border-[#262F40] py-1.5 px-3 sm:px-4 text-xs text-[#94A3B8]">
+        <div className="max-w-7xl mx-auto flex justify-between items-center gap-2">
           
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 font-bold text-[#00F0FF]">
-              <span className="w-2 h-2 rounded-full bg-[#00F0FF] animate-ping" />
-              Showroom Open • Jagdish Market, Abids & Koti (11 AM – 10 PM)
+          <div className="flex items-center gap-3 overflow-hidden">
+            <span className="inline-flex items-center gap-1.5 font-bold text-[#00F0FF] truncate text-[11px] sm:text-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] animate-ping shrink-0" />
+              <span className="truncate">Open • Jagdish Market, Abids &amp; Koti (11 AM – 10 PM)</span>
             </span>
-            <span className="hidden md:inline text-[#262F40]">|</span>
-            <span className="hidden md:inline-flex items-center gap-1.5 text-[#F8FAFC]">
+            <span className="hidden lg:inline text-[#262F40]">|</span>
+            <span className="hidden lg:inline-flex items-center gap-1.5 text-[#F8FAFC] text-xs">
               <ShieldCheck className="w-3.5 h-3.5 text-[#0066FF]" />
-              100% Original Battery Health & 3uTools Verified Devices
+              100% Original Battery Health &amp; 3uTools Verified Devices
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-xs ml-auto">
+          <div className="flex items-center gap-2 sm:gap-4 text-xs shrink-0">
             {/* Direct Phone Dialer Link */}
             <a 
               href={`tel:${storeData.storeInfo.phoneRaw}`} 
-              className="hover:text-[#00F0FF] transition-colors flex items-center gap-1.5 font-bold text-[#F8FAFC] bg-[#141923] px-2.5 py-1 rounded-lg border border-[#262F40]"
+              className="hover:text-[#00F0FF] transition-colors flex items-center gap-1 sm:gap-1.5 font-bold text-[#F8FAFC] bg-[#141923] px-2 sm:px-2.5 py-1 rounded-lg border border-[#262F40] text-[11px] sm:text-xs"
               title="Click to dial showroom directly"
             >
               <Phone className="w-3 h-3 text-[#0066FF] fill-[#0066FF]" />
               <span className="font-mono tabular-nums">{storeData.storeInfo.phone}</span>
             </a>
 
-            <span className="text-[#262F40]">|</span>
+            <span className="hidden sm:inline text-[#262F40]">|</span>
 
             {/* Direct WhatsApp Link */}
             <a 
               href={createWhatsAppUrl("Hi Sikandar Bhai, I would like to check available flagship phones (Apple, Samsung, Pixel, OnePlus) at your Abids store.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#00F0FF] transition-colors flex items-center gap-1.5 text-[#00F0FF] font-extrabold"
+              className="hidden sm:flex hover:text-[#00F0FF] transition-colors items-center gap-1.5 text-[#00F0FF] font-extrabold text-xs"
             >
               <MessageCircle className="w-3.5 h-3.5 fill-current" />
               <span>WhatsApp Store</span>

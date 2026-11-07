@@ -99,7 +99,8 @@ export default function FloatingActions({ onOpenBag, bagCount }) {
           ======================================================== */}
       <nav 
         aria-label="Mobile Direct Quick Actions" 
-        className="fixed bottom-0 left-0 right-0 z-50 sm:hidden bg-[#0A0D14]/95 border-t border-[#262F40] backdrop-blur-2xl px-4 py-3 shadow-[0_-10px_35px_rgba(0,0,0,0.9)]"
+        style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom, 0.75rem))' }}
+        className="fixed bottom-0 left-0 right-0 z-50 sm:hidden bg-[#0A0D14]/95 border-t border-[#262F40] backdrop-blur-2xl px-4 pt-3 shadow-[0_-10px_35px_rgba(0,0,0,0.9)]"
       >
         <div className="max-w-md mx-auto grid grid-cols-12 gap-2.5 items-center">
           

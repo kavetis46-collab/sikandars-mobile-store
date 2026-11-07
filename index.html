@@ -2,10 +2,13 @@
 <html lang="en" class="scroll-smooth dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <title>Sikandar's Mobile Store | Certified Flagship Smartphones (Apple, Samsung, Pixel, OnePlus) Abids & Koti, Hyderabad</title>
     <meta name="description" content="Hyderabad's premier showroom for certified pre-owned flagships: Apple iPhones, Samsung Galaxy S-Series, Google Pixel, and OnePlus in Abids and Koti, Jagdish Market. Over 240+ 5-star Google reviews." />
     <meta name="keywords" content="Sikandar Mobile Store, Flagship Smartphones Abids, Used iPhone Hyderabad, Samsung S24 Ultra Jagdish Market, Pixel 8 Pro Hyderabad, OnePlus 12 Koti" />
+    <meta name="theme-color" content="#0A0D14" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/a-/ALV-UjX_yyrdOuEhRuDYuvuw1Tw0SUgOeVq11Bf66E5aDnak8yj2qDjk" />
     
     <!-- Open Graph -->
@@ -14,10 +17,19 @@
     <meta property="og:image" content="https://lh3.googleusercontent.com/Y6eRQr50pTtuYEs0g55ljofWjM3HLStoYFVJCYCCaGLjwTikL9oqbS4BJ9iI4yhXWsinGnBXhDBCC7AB9w=s0" />
     <meta property="og:type" content="website" />
 
-    <!-- Google Fonts for crisp modern typography -->
+    <!-- Performance: Preconnect & DNS-Prefetch for External Media -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="dns-prefetch" href="https://commons.wikimedia.org">
+    <link rel="dns-prefetch" href="https://lh3.googleusercontent.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+
+    <!-- Non-render-blocking Google Fonts for Instant Mobile First-Paint -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+    </noscript>
   </head>
   <body class="bg-[#0A0D14] text-[#F8FAFC] antialiased selection:bg-[#0066FF] selection:text-[#F8FAFC] font-sans overflow-x-hidden">
     <div id="root"></div>
