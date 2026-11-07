@@ -4,30 +4,30 @@ import {
   ChevronDown, 
   MessageCircle, 
   Sparkles,
-  ShieldAlert
+  Phone
 } from 'lucide-react';
 import { storeData, createWhatsAppUrl } from '../data/storeData';
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
-  const faqs = storeData.faqs;
+  const faqs = storeData.faqs || [];
 
   const toggle = (idx) => {
     setOpenIndex(openIndex === idx ? null : idx);
   };
 
   return (
-    <section className="py-16 sm:py-24 relative bg-[#0c0e15] border-t border-white/5">
+    <section className="py-16 sm:py-24 relative bg-[#070912] border-t border-amber-500/20 content-auto">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-3">
-            <HelpCircle className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
+            <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
             <span>Got Questions? We Have Answers</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
             Frequently Asked Questions
           </h2>
           <p className="mt-2 text-slate-300 text-sm sm:text-base">
@@ -43,7 +43,7 @@ export default function FaqSection() {
             return (
               <div
                 key={idx}
-                className="rounded-2xl bg-[#13151f] border border-white/10 overflow-hidden transition-colors"
+                className="rounded-2xl glass-luxury border border-amber-500/20 overflow-hidden transition-colors"
               >
                 <button
                   type="button"
@@ -53,7 +53,7 @@ export default function FaqSection() {
                   <span className="text-sm sm:text-base font-bold text-white">
                     {faq.q}
                   </span>
-                  <div className={`p-1.5 rounded-full bg-white/5 text-emerald-400 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180 bg-emerald-500/20' : ''}`}>
+                  <div className={`p-1.5 rounded-full bg-white/5 text-amber-400 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180 bg-amber-500/20' : ''}`}>
                     <ChevronDown className="w-4 h-4" />
                   </div>
                 </button>
@@ -68,21 +68,31 @@ export default function FaqSection() {
           })}
         </div>
 
-        {/* Still have questions banner */}
+        {/* Banner */}
         <div className="mt-10 text-center p-6 rounded-2xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-left">
             <h4 className="text-sm font-bold text-white">Still have a question not answered here?</h4>
             <p className="text-xs text-slate-400 mt-0.5">Sikandar Bhai is always available to answer your technical questions.</p>
           </div>
 
-          <a
-            href={createWhatsAppUrl("Hi Sikandar Bhai, I have a specific question about an iPhone purchase/repair.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shrink-0 transition-all shadow-md shadow-emerald-500/20"
-          >
-            Chat with Sikandar Bhai
-          </a>
+          <div className="flex items-center gap-2 shrink-0">
+            <a
+              href={`tel:${storeData.storeInfo.phoneRaw}`}
+              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs transition-all flex items-center gap-1.5"
+            >
+              <Phone className="w-3.5 h-3.5 text-amber-400" />
+              <span>Call Store</span>
+            </a>
+
+            <a
+              href={createWhatsAppUrl("Hi Sikandar Bhai, I have a specific question about an iPhone purchase/repair.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 text-slate-950 font-black text-xs transition-all shadow-md shadow-emerald-500/20"
+            >
+              Chat on WhatsApp
+            </a>
+          </div>
         </div>
 
       </div>
