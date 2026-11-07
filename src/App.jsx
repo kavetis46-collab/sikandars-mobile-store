@@ -5,7 +5,7 @@ import InventorySection from './components/InventorySection';
 import TradeInCalculator from './components/TradeInCalculator';
 import RepairServicesHub from './components/RepairServicesHub';
 import StoreGallery from './components/StoreGallery';
-import CustomerReviews from './components/CustomerReviews';
+import CustomerReviewsSection from './components/CustomerReviewsSection';
 import LatestUpdates from './components/LatestUpdates';
 import FaqSection from './components/FaqSection';
 import LocationAndContact from './components/LocationAndContact';
@@ -56,17 +56,17 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-slate-950">
+    <div className="min-h-screen bg-[#06070c] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-slate-950">
       
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-20 right-4 sm:right-8 z-50 bg-emerald-500 text-slate-950 px-4 py-2.5 rounded-xl text-xs font-bold shadow-2xl animate-in slide-in-from-top duration-200 flex items-center gap-2">
+        <div className="fixed top-20 right-4 sm:right-8 z-50 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 px-4 py-2.5 rounded-2xl text-xs font-black shadow-2xl animate-in slide-in-from-top duration-200 flex items-center gap-2 border border-amber-300/40">
           <span>✓</span>
           <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* Main Navigation */}
+      {/* Main Luxury Navigation */}
       <Navbar
         inquiryBag={inquiryBag}
         onOpenBag={() => setIsBagOpen(true)}
@@ -75,12 +75,14 @@ export default function App() {
 
       {/* Hero Section */}
       <main id="website-main" className="flex-1">
+        
+        {/* Flagship Hero with iPhone 16 Pro Max Finishes */}
         <HeroSection
           onOpenTradeIn={handleOpenTradeIn}
           onSelectProduct={(id) => setSelectedProductId(id)}
         />
 
-        {/* Live Device Inventory Showcase */}
+        {/* Live iPhone 16 Pro Max Inventory Vault */}
         <InventorySection
           onSelectProduct={(id) => setSelectedProductId(id)}
           onAddToBag={handleAddToBag}
@@ -90,24 +92,24 @@ export default function App() {
         {/* Trade-In Exchange Valuation Calculator */}
         <TradeInCalculator />
 
-        {/* Specialized Apple Repair & Diagnostics Hub */}
+        {/* Apple Certified Repair & Care Hub */}
         <RepairServicesHub
           onBookService={(service) => {}}
         />
 
-        {/* Authentic Store Photo Gallery */}
+        {/* Real Store Photo Gallery Lightbox */}
         <StoreGallery />
 
-        {/* Google Reviews Showcase */}
-        <CustomerReviews />
-
-        {/* Latest Updates & Stock Arrivals */}
+        {/* Latest Stock Alerts & Posts */}
         <LatestUpdates />
 
         {/* FAQ Accordion */}
         <FaqSection />
 
-        {/* Location, Google Map & Inquiry Form */}
+        {/* DEDICATED CUSTOMER RATING & REVIEWS SECTION AT THE BOTTOM */}
+        <CustomerReviewsSection />
+
+        {/* Store Location, Google Map & Inquiry Form */}
         <LocationAndContact />
       </main>
 
@@ -131,9 +133,8 @@ export default function App() {
         onClearBag={handleClearBag}
       />
 
-      {/* Persistent Floating Quick Buttons (Call, WhatsApp, Mobile Nav) */}
+      {/* FLOATING ACTION BUTTONS (Direct Dialer & Direct WhatsApp with native redirection) */}
       <FloatingActions
-        onOpenTradeIn={handleOpenTradeIn}
         onOpenBag={() => setIsBagOpen(true)}
         bagCount={inquiryBag.length}
       />
