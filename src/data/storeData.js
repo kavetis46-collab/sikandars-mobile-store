@@ -1,25 +1,23 @@
-// HIGH-PERFORMANCE OPTIMIZED IMAGE URLS FOR IPHONE 16 PRO MAX
-// Using compressed thumbnails and Google WebP dynamic sizing (=w600-rw) to ensure instantaneous loading.
+// High-performance image assets and Instagram store data
 export const IPHONE_16_PRO_MAX_IMAGES = {
-  // Official Apple Newsroom 1x optimized renders (60KB instead of 10MB)
+  // Official Apple Newsroom Launch Master Images (Desert, Natural, White, Black Titanium)
   heroDuo: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-240909_inline.jpg.large.jpg",
   finishLineup: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-finish-lineup-240909_big.jpg.large.jpg",
   cameraSystem: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-camera-system-240909_inline.jpg.large.jpg",
-  // Wikimedia resized thumbnail (500KB instead of 10MB raw)
   desertCutout: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_Desert_Titanium_Rear.png?width=600",
   screenCutout: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_screen.png?width=600",
-  // In-Store Photos from Sikandar's Store with Google CDN dynamic WebP resizing (45KB instead of 6MB!)
+  // Original In-Store Photography from Sikandar's Store in Jagdish Market
   storeBoxStock: "https://lh3.googleusercontent.com/Y6eRQr50pTtuYEs0g55ljofWjM3HLStoYFVJCYCCaGLjwTikL9oqbS4BJ9iI4yhXWsinGnBXhDBCC7AB9w=w600-rw",
   storeCounterStock: "https://lh3.googleusercontent.com/tzJoPiFPlLtP8e9v-tfbiVPczbnslw-UU4ysdRcm_mR6QcodMM49DSpfVUo3qN2NorgyQ72tXE7DazZ1uQ=w600-rw",
-  storeInspectionDesk: "https://lh3.googleusercontent.com/-VuECFMulcl6GsV1loRwPLSIItWHnmjubnIBojpF2bVPoLf70ajDbytqqlMZrZx6QXpkHTxK5GZ7vydTTQ=w600-rw"
+  storeInspectionDesk: "https://lh3.googleusercontent.com/-VuECFMulcl6GsV1loRwPLSIItWHnmjubnIBojpF2bVPoLf70ajDbytqqlMZrZx6QXpkHTxK5GZ7vydTTQ=w600-rw",
 };
 
 export const storeData = {
   storeInfo: {
     name: "Sikandar's Mobile Store",
     legalName: "“Sikandar’sMobile store - iPHONE SALES AND SERVICE”",
-    tagline: "Hyderabad's #1 Luxury Destination for Certified iPhone 16 Pro Max & Apple Care",
-    badge: "Official Jagdish Market Flagship Specialist",
+    tagline: "Hyderabad's Most Trusted Hub for Certified iPhones & Precision Apple Care",
+    badge: "Official Jagdish Market iPhone Specialist",
     rating: 4.9,
     reviewsCount: "242+",
     establishedYear: "2003",
@@ -30,6 +28,18 @@ export const storeData = {
     address: "Chirag Ali Lane, Jagdish Market, Abids, Hyderabad, Telangana - 500001",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Sikandars+Mobile+Store+Jagdish+Market+Hyderabad&query_place_id=ChIJl2rsVn2XyzsR8pnP9WROa7E",
     googleReviewWriteUrl: "https://search.google.com/local/writereview?placeid=ChIJl2rsVn2XyzsR8pnP9WROa7E",
+    
+    // Official Instagram Profile Integration
+    instagram: {
+      handle: "@sikandarsmobilestore",
+      username: "sikandarsmobilestore",
+      url: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw==",
+      bio: "📍 Chirag Ali Lane, Jagdish Market, Abids, Hyderabad | Dealing in Certified Pre-Owned & New iPhones | Buy • Sell • Exchange • Apple Repairs | 📞 +91 9700317171",
+      followersCount: "15.4K+",
+      postsCount: "350+",
+      verifiedBadge: true
+    },
+
     workingHours: [
       { day: "Monday", time: "11:00 AM – 10:00 PM", status: "Open" },
       { day: "Tuesday", time: "11:00 AM – 10:00 PM", status: "Open" },
@@ -41,156 +51,289 @@ export const storeData = {
     ]
   },
 
-  // EXCLUSIVELY iPhone 16 Pro Max Lineup
+  // INSTAGRAM REELS & VIDEO FEED FROM @sikandarsmobilestore
+  instagramReels: [
+    {
+      id: "reel-1",
+      title: "Fresh iPhone 16 Pro Max Desert Titanium Stock Arrival!",
+      caption: "Huge stock just landed at Jagdish Market! 100% battery health, brand new sealed and Grade A+ units. Visit Sikandar’s Mobile Store today or DM for door delivery in Hyderabad! 📱✨ #iPhone16ProMax #Hyderabad #JagdishMarket",
+      thumbnail: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-240909_inline.jpg.large.jpg",
+      views: "48.2K",
+      likes: "3.4K",
+      audio: "Original Audio – Sikandar Bhai",
+      duration: "0:45",
+      tag: "Fresh Stock Arrival",
+      instagramUrl: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw=="
+    },
+    {
+      id: "reel-2",
+      title: "Mobile to Mobile Spot Exchange & Instant Valuation",
+      caption: "Customer brought iPhone 13 and walked away with iPhone 15 Pro Max in just 10 minutes! Spot UPI payment and data transfer assisted on spot. 🤝💵 #PhoneExchange #SikandarsMobileStore #Abids",
+      thumbnail: "https://lh3.googleusercontent.com/Y6eRQr50pTtuYEs0g55ljofWjM3HLStoYFVJCYCCaGLjwTikL9oqbS4BJ9iI4yhXWsinGnBXhDBCC7AB9w=w600-rw",
+      views: "62.8K",
+      likes: "4.9K",
+      audio: "Trending Audio – Hyderabad Tech Beats",
+      duration: "0:58",
+      tag: "Exchange Live",
+      instagramUrl: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw=="
+    },
+    {
+      id: "reel-3",
+      title: "TrueTone Screen Replacement & 3uTools Transparency",
+      caption: "Zero unknown part warning! Complete TrueTone restoration and battery health testing right in front of the customer. Trust only 20+ years experience in Jagdish Market. 🛠️ #AppleRepair #TrueToneFix",
+      thumbnail: "https://lh3.googleusercontent.com/-VuECFMulcl6GsV1loRwPLSIItWHnmjubnIBojpF2bVPoLf70ajDbytqqlMZrZx6QXpkHTxK5GZ7vydTTQ=w600-rw",
+      views: "35.1K",
+      likes: "2.8K",
+      audio: "Tech Voiceover – Sikandar Bhai",
+      duration: "1:15",
+      tag: "Precision Repair",
+      instagramUrl: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw=="
+    },
+    {
+      id: "reel-4",
+      title: "Full iPhone 15 & 14 Series Lineup Showcase",
+      caption: "Looking for budget-friendly certified iPhones? iPhone 13 starting ₹31,499, iPhone 14 starting ₹38,999! Tested battery, genuine bill, and store warranty. Check it out! 🔥 #iPhoneDeals #HydTech",
+      thumbnail: "https://lh3.googleusercontent.com/tzJoPiFPlLtP8e9v-tfbiVPczbnslw-UU4ysdRcm_mR6QcodMM49DSpfVUo3qN2NorgyQ72tXE7DazZ1uQ=w600-rw",
+      views: "54.0K",
+      likes: "4.1K",
+      audio: "Original Sound – Sikandar Store Vlogs",
+      duration: "0:50",
+      tag: "Best Deals",
+      instagramUrl: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw=="
+    }
+  ],
+
+  // EVERY IPHONE MODEL AVAILABLE IN SIKANDAR'S MOBILE STORE
   products: [
     {
-      id: "iphone-16-pro-max-desert",
-      name: "Apple iPhone 16 Pro Max – Desert Titanium",
-      edition: "Signature Desert Titanium Finish",
-      category: "Desert Titanium",
-      color: "Desert Titanium",
+      id: "iphone-16-pro-max",
+      name: "Apple iPhone 16 Pro Max",
+      edition: "Desert Titanium / Natural Titanium / Black / White",
+      series: "iPhone 16 Series",
       price: "₹1,24,999",
       originalPrice: "₹1,44,900",
       savings: "SAVE ₹19,901",
       storageOptions: ["256GB", "512GB", "1TB"],
-      defaultStorage: "256GB",
       condition: "Pristine / Grade A+ Flawless",
-      batteryHealth: "100% Genuine Apple Battery",
-      warranty: "Apple Care+ / Store Warranty Included",
-      badge: "Most Desired Finish",
-      isHot: true,
-      image: IPHONE_16_PRO_MAX_IMAGES.desertCutout,
+      batteryHealth: "100% Genuine Health",
+      warranty: "Apple Care+ / Store Warranty",
+      badge: "Trending Flagship",
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_Desert_Titanium_Rear.png?width=600",
       specs: {
         chip: "A18 Pro with 6-core GPU & Apple Intelligence",
         display: "6.9\" Super Retina XDR OLED ProMotion 120Hz",
-        camera: "48MP Fusion + 48MP Ultra-Wide + 5x Optical Telephoto",
-        chassis: "Grade 5 Titanium with Microblasted Texture",
-        box: "Complete Box, Braided Type-C Cable, Bill & Warranty Card"
+        camera: "48MP Fusion + 48MP Ultra-Wide + 5x Telephoto",
+        box: "Complete Box, Cable, Bill & Testing Report"
       }
     },
     {
-      id: "iphone-16-pro-max-natural",
-      name: "Apple iPhone 16 Pro Max – Natural Titanium",
-      edition: "Raw Spacecraft Grade 5 Titanium",
-      category: "Natural Titanium",
-      color: "Natural Titanium",
-      price: "₹1,24,999",
-      originalPrice: "₹1,44,900",
-      savings: "SAVE ₹19,901",
-      storageOptions: ["256GB", "512GB", "1TB"],
-      defaultStorage: "256GB",
-      condition: "Like-New Sealed / Flawless 10/10",
-      batteryHealth: "100% Battery Health",
-      warranty: "Official Apple Warranty + Store Guarantee",
-      badge: "Classic Luxury",
-      isHot: true,
-      image: IPHONE_16_PRO_MAX_IMAGES.heroDuo,
+      id: "iphone-16-pro",
+      name: "Apple iPhone 16 Pro",
+      edition: "Natural Titanium & Black Titanium",
+      series: "iPhone 16 Series",
+      price: "₹1,09,999",
+      originalPrice: "₹1,19,900",
+      savings: "SAVE ₹9,901",
+      storageOptions: ["128GB", "256GB", "512GB"],
+      condition: "Like-New Sealed / Flawless",
+      batteryHealth: "100% Battery",
+      warranty: "Apple Warranty + Store Bill",
+      badge: "Compact Flagship",
+      image: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-camera-system-240909_inline.jpg.large.jpg",
       specs: {
-        chip: "A18 Pro Chip (Next-Gen Neural Engine)",
-        display: "6.9\" Borderless ProMotion Always-On Display",
-        camera: "Camera Control Button with 2-Stage Shutter",
-        chassis: "Natural Titanium Satin Matte Finish",
-        box: "Original Box + Official Store Invoice with IMEI"
+        chip: "A18 Pro Silicon with Neural Engine",
+        display: "6.3\" Super Retina XDR ProMotion 120Hz",
+        camera: "48MP Fusion Camera Control with 5x Zoom",
+        box: "Box Pack with Original Accessories"
       }
     },
     {
-      id: "iphone-16-pro-max-black",
-      name: "Apple iPhone 16 Pro Max – Black Titanium",
-      edition: "Deep Stealth Obsidian Black",
-      category: "Black Titanium",
-      color: "Black Titanium",
-      price: "₹1,24,999",
-      originalPrice: "₹1,44,900",
-      savings: "SAVE ₹19,901",
-      storageOptions: ["256GB", "512GB", "1TB"],
-      defaultStorage: "512GB",
-      condition: "Flawless Grade A+ Certified",
-      batteryHealth: "100% Verified Battery",
-      warranty: "6 Months Store Warranty + Bill",
-      badge: "Executive Stealth",
-      isHot: false,
-      image: IPHONE_16_PRO_MAX_IMAGES.cameraSystem,
-      specs: {
-        chip: "A18 Pro Chip with Hardware Ray Tracing",
-        display: "6.9\" Ceramic Shield (2x Tougher than Glass)",
-        camera: "4K 120fps Dolby Vision Video Capture",
-        chassis: "Deep Black Titanium PVD Coating",
-        box: "Box Pack with Original Fast Charging Cord"
-      }
-    },
-    {
-      id: "iphone-16-pro-max-white",
-      name: "Apple iPhone 16 Pro Max – White Titanium",
-      edition: "Pure Ceramic White Titanium",
-      category: "White Titanium",
-      color: "White Titanium",
-      price: "₹1,24,999",
-      originalPrice: "₹1,44,900",
-      savings: "SAVE ₹19,901",
-      storageOptions: ["256GB", "512GB"],
-      defaultStorage: "256GB",
-      condition: "Scratchless Mint Condition",
-      batteryHealth: "100% Genuine Health",
+      id: "iphone-16-standard",
+      name: "Apple iPhone 16",
+      edition: "Teal, Ultramarine & Black",
+      series: "iPhone 16 Series",
+      price: "₹69,999",
+      originalPrice: "₹79,900",
+      savings: "SAVE ₹9,901",
+      storageOptions: ["128GB", "256GB"],
+      condition: "Pristine Grade A+",
+      batteryHealth: "100% Health",
       warranty: "Store Warranty + Bill",
-      badge: "Collector Edition",
-      isHot: false,
-      image: IPHONE_16_PRO_MAX_IMAGES.finishLineup,
+      badge: "Latest Release",
+      image: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-finish-lineup-240909_big.jpg.large.jpg",
       specs: {
-        chip: "A18 Pro with 16-Core Neural Engine",
-        display: "Thinnest Borders Ever on an Apple Display",
-        camera: "Studio-Quality 4-Mic Array with Audio Mix",
-        chassis: "Pure White Titanium with Frosted Matte Glass",
-        box: "Box + Accessories + Screen Protector Free"
+        chip: "A18 3nm Chip with Apple Intelligence",
+        display: "6.1\" OLED with Action & Camera Control Buttons",
+        camera: "48MP Fusion 2x Telephoto System",
+        box: "Original Packaging Included"
       }
     },
     {
-      id: "iphone-16-pro-max-store-stock",
-      name: "iPhone 16 Pro Max – Jagdish Market Certified Unit",
-      edition: "Ready for Spot Handover at Counter",
-      category: "Desert Titanium",
-      color: "Desert Titanium (Store Stock)",
-      price: "₹1,22,999",
-      originalPrice: "₹1,44,900",
-      savings: "SAVE ₹21,901",
+      id: "iphone-15-pro-max",
+      name: "Apple iPhone 15 Pro Max",
+      edition: "Natural Titanium & Blue Titanium",
+      series: "iPhone 15 Series",
+      price: "₹84,999",
+      originalPrice: "₹1,34,900",
+      savings: "SAVE ₹49,901",
       storageOptions: ["256GB", "512GB"],
-      defaultStorage: "256GB",
-      condition: "Inspected In-Store 10/10",
-      batteryHealth: "100% 3uTools Tested",
-      warranty: "Full Store Warranty with GST/Retail Bill",
-      badge: "Spot Handover",
-      isHot: true,
-      image: IPHONE_16_PRO_MAX_IMAGES.storeBoxStock,
+      condition: "Flawless Grade A+",
+      batteryHealth: "92% - 98% Original",
+      warranty: "6 Months Store Warranty",
+      badge: "Best Seller",
+      image: "https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/article/Apple-iPhone-15-Pro-lineup-hero-230912_Full-Bleed-Image.jpg.large.jpg",
       specs: {
-        chip: "A18 Pro 3nm Precision Silicon",
-        display: "Verified Original Super Retina Display (TrueTone Active)",
-        camera: "FaceID & Camera Controls 100% Verified",
-        chassis: "Zero Dents, Zero Scratches, Mint Condition",
-        box: "Sealed/Mint Box Pack with Serial Number Verification"
+        chip: "A17 Pro 3nm Industry-First Chip",
+        display: "6.7\" Dynamic Island 120Hz Always-On",
+        camera: "48MP Main + 5x Optical Periscope Zoom",
+        box: "With Box & Fast Charging Cable"
       }
     },
     {
-      id: "iphone-16-pro-max-1tb",
-      name: "Apple iPhone 16 Pro Max – 1TB Ultimate Edition",
-      edition: "Max Storage for Filmmakers & Creators",
-      category: "Natural Titanium",
-      color: "Natural Titanium",
-      price: "₹1,54,999",
-      originalPrice: "₹1,84,900",
-      savings: "SAVE ₹29,901",
-      storageOptions: ["1TB Ultimate"],
-      defaultStorage: "1TB",
-      condition: "Pristine Luxury Pack",
-      batteryHealth: "100% Original Battery",
-      warranty: "Apple Care Coverage + Store Guarantee",
-      badge: "1TB Maximum Capacity",
-      isHot: true,
-      image: IPHONE_16_PRO_MAX_IMAGES.cameraSystem,
+      id: "iphone-15-pro",
+      name: "Apple iPhone 15 Pro",
+      edition: "Black Titanium & White Titanium",
+      series: "iPhone 15 Series",
+      price: "₹72,999",
+      originalPrice: "₹1,19,900",
+      savings: "SAVE ₹46,901",
+      storageOptions: ["128GB", "256GB"],
+      condition: "Mint Condition (Zero Scratches)",
+      batteryHealth: "91% - 97%",
+      warranty: "6 Months Store Warranty",
+      badge: "Compact Power",
+      image: "https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/tile/Apple-iPhone-15-Pro-lineup-hero-230912.jpg.og.jpg",
       specs: {
-        chip: "A18 Pro with 1TB High-Speed NVMe Storage",
-        display: "ProRes Log Video & ACES Color Standard",
-        camera: "4K 120fps ProRes Direct to External SSD",
-        chassis: "Natural Titanium Aerospace Grade",
-        box: "VIP Packaging + Free 20W Fast Charger + Case"
+        chip: "A17 Pro with USB-C 10Gbps Speed",
+        display: "6.1\" Super Retina XDR OLED ProMotion",
+        camera: "48MP Triple Lens with Action Button",
+        box: "Original Box with IMEI Bill"
+      }
+    },
+    {
+      id: "iphone-15",
+      name: "Apple iPhone 15",
+      edition: "Pink, Blue, Green & Black",
+      series: "iPhone 15 Series",
+      price: "₹49,999",
+      originalPrice: "₹69,900",
+      savings: "SAVE ₹19,901",
+      storageOptions: ["128GB", "256GB"],
+      condition: "Excellent Tested",
+      batteryHealth: "90% - 96%",
+      warranty: "Store Warranty + Invoice",
+      badge: "Top Value Buy",
+      image: "https://www.apple.com/newsroom/images/2023/09/apple-debuts-iphone-15-and-iphone-15-plus/article/Apple-iPhone-15-lineup-hero-230912_inline.jpg.large.jpg",
+      specs: {
+        chip: "A16 Bionic Chip",
+        display: "6.1\" Dynamic Island Super Retina",
+        camera: "48MP 2x Telephoto Sensor",
+        box: "Box Pack with Cable"
+      }
+    },
+    {
+      id: "iphone-14-pro-max",
+      name: "Apple iPhone 14 Pro Max",
+      edition: "Deep Purple, Space Black & Gold",
+      series: "iPhone 14 Series",
+      price: "₹67,999",
+      originalPrice: "₹1,29,900",
+      savings: "SAVE ₹61,901",
+      storageOptions: ["128GB", "256GB", "512GB"],
+      condition: "Flawless Grade A+",
+      batteryHealth: "88% - 95%",
+      warranty: "Store Warranty Included",
+      badge: "Fan Favorite",
+      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-Pro-iPhone-14-Pro-Max-deep-purple-220907_inline.jpg.large.jpg",
+      specs: {
+        chip: "A16 Bionic Silicon",
+        display: "6.7\" Dynamic Island 120Hz ProMotion",
+        camera: "48MP Pro Triple Camera System",
+        box: "With Box and Store Warranty"
+      }
+    },
+    {
+      id: "iphone-14",
+      name: "Apple iPhone 14",
+      edition: "Midnight, Starlight & Blue",
+      series: "iPhone 14 Series",
+      price: "₹38,999",
+      originalPrice: "₹59,900",
+      savings: "SAVE ₹20,901",
+      storageOptions: ["128GB", "256GB"],
+      condition: "Scratchless Certified",
+      batteryHealth: "87% - 94%",
+      warranty: "Store Warranty + Bill",
+      badge: "Budget King",
+      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-iPhone-14-Plus-hero-220907_Full-Bleed-Image.jpg.large.jpg",
+      specs: {
+        chip: "A15 Bionic 5-Core GPU",
+        display: "6.1\" Super Retina XDR OLED",
+        camera: "Dual 12MP with Photonic Engine",
+        box: "Box Pack + Charging Cable"
+      }
+    },
+    {
+      id: "iphone-13",
+      name: "Apple iPhone 13",
+      edition: "Midnight, Blue & Starlight",
+      series: "iPhone 13 & Older",
+      price: "₹31,499",
+      originalPrice: "₹49,900",
+      savings: "SAVE ₹18,401",
+      storageOptions: ["128GB"],
+      condition: "Certified Grade A",
+      batteryHealth: "86% - 92%",
+      warranty: "Store Warranty Included",
+      badge: "Entry Flagship",
+      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iphone13_hero_09142021_inline.jpg.large.jpg",
+      specs: {
+        chip: "A15 Bionic Chip",
+        display: "6.1\" Super Retina OLED Display",
+        camera: "Dual 12MP Cinematic 4K Recording",
+        box: "Original Bill + Cable"
+      }
+    },
+    {
+      id: "iphone-12",
+      name: "Apple iPhone 12",
+      edition: "Black, Blue & White",
+      series: "iPhone 13 & Older",
+      price: "₹23,999",
+      originalPrice: "₹39,900",
+      savings: "SAVE ₹15,901",
+      storageOptions: ["64GB", "128GB"],
+      condition: "Certified Mint",
+      batteryHealth: "85% - 90%",
+      warranty: "Store Warranty Included",
+      badge: "Affordable 5G",
+      image: "https://www.apple.com/newsroom/images/product/iphone/standard/apple_iphone-12_new-design_10132020_big.jpg.large.jpg",
+      specs: {
+        chip: "A14 Bionic Silicon with 5G",
+        display: "6.1\" Super Retina XDR Display",
+        camera: "Dual 12MP Night Mode on all cameras",
+        box: "With Bill & Cable"
+      }
+    },
+    {
+      id: "iphone-11",
+      name: "Apple iPhone 11",
+      edition: "Black, White & Purple",
+      series: "iPhone 13 & Older",
+      price: "₹16,999",
+      originalPrice: "₹29,900",
+      savings: "SAVE ₹12,901",
+      storageOptions: ["64GB", "128GB"],
+      condition: "Clean Certified",
+      batteryHealth: "85% - 90%",
+      warranty: "Store Warranty",
+      badge: "Best Starter iPhone",
+      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iphone_11-rosette-family-lineup-091019_big.jpg.large.jpg",
+      specs: {
+        chip: "A13 Bionic Chip",
+        display: "6.1\" Liquid Retina Display",
+        camera: "Dual 12MP Ultra-Wide & Wide",
+        box: "Handover with Testing Bill"
       }
     }
   ],
@@ -234,7 +377,7 @@ export const storeData = {
       priceEstimate: "Highest Hyderabad Exchange",
       icon: "Repeat",
       badge: "Top Value",
-      description: "Upgrade any old phone to a certified pre-owned iPhone 16 Pro Max with maximum exchange valuation and spot device switch.",
+      description: "Upgrade any old phone to a certified pre-owned iPhone with maximum exchange valuation and spot device switch.",
       points: [
         "Complete data transfer & WhatsApp backup assistance",
         "Free tempered glass & back cover with exchange",
@@ -490,7 +633,7 @@ export const storeData = {
   // Store FAQs
   faqs: [
     {
-      q: "Are the iPhone 16 Pro Max phones sold at Sikandar's Mobile Store 100% original?",
+      q: "Are the iPhones sold at Sikandar's Mobile Store 100% original?",
       a: "Yes, 100% original. We do not sell refurbished clones or Chinese refurbished parts. Every phone is tested for original OLED displays, working TrueTone, original FaceID, and authentic Apple cameras. You are welcome to inspect with 3uTools right at our counter before buying."
     },
     {
@@ -527,7 +670,7 @@ export const storeData = {
     },
     {
       id: "post-2",
-      title: "100% Quality Verification Checklist for iPhone 16 Pro Max",
+      title: "100% Quality Verification Checklist for Certified iPhones",
       date: "November 4, 2026",
       tag: "Buyer Guide",
       image: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-240909_inline.jpg.large.jpg",
@@ -554,6 +697,6 @@ export const storeData = {
 
 export const createWhatsAppUrl = (message) => {
   const phone = storeData.storeInfo.whatsapp;
-  const encoded = encodeURIComponent(message || `Hi Sikandar Bhai, I saw your flagship website and want to inquire about iPhone 16 Pro Max stock.`);
+  const encoded = encodeURIComponent(message || `Hi Sikandar Bhai, I saw your Instagram profile @sikandarsmobilestore and want to inquire about iPhone stock.`);
   return `https://wa.me/${phone}?text=${encoded}`;
 };

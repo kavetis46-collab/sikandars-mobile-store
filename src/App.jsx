@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import InventorySection from './components/InventorySection';
+import InstagramFeedSection from './components/InstagramFeedSection';
 import TradeInCalculator from './components/TradeInCalculator';
 import RepairServicesHub from './components/RepairServicesHub';
 import StoreGallery from './components/StoreGallery';
@@ -82,12 +83,15 @@ export default function App() {
           onSelectProduct={(id) => setSelectedProductId(id)}
         />
 
-        {/* Live iPhone 16 Pro Max Inventory Vault */}
+        {/* Live iPhone Inventory Vault */}
         <InventorySection
           onSelectProduct={(id) => setSelectedProductId(id)}
           onAddToBag={handleAddToBag}
           inquiryBag={inquiryBag}
         />
+
+        {/* Live Instagram Reels & Store Social Feed */}
+        <InstagramFeedSection />
 
         {/* Trade-In Exchange Valuation Calculator */}
         <TradeInCalculator />

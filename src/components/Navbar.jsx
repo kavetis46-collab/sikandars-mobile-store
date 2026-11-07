@@ -26,12 +26,13 @@ export default function Navbar({ inquiryBag, onOpenBag, onOpenTradeIn }) {
   }, []);
 
   const navLinks = [
-    { name: 'iPhone 16 Pro Max', href: '#inventory', badge: 'Vault' },
-    { name: 'Trade-In Calculator', href: '#trade-in', badge: 'Spot Cash' },
-    { name: 'Apple Repairs & Care', href: '#services' },
+    { name: 'iPhone Inventory', href: '#inventory', badge: '11+ Models' },
+    { name: 'Instagram Reels', href: '#instagram-feed', badge: 'Reels' },
+    { name: 'Trade-In', href: '#trade-in', badge: 'Spot Cash' },
+    { name: 'Apple Repairs', href: '#services' },
     { name: 'Store Gallery', href: '#gallery' },
-    { name: 'Customer Reviews (4.9★)', href: '#customer-reviews', badge: '242+ Reviews' },
-    { name: 'Store Location', href: '#location' },
+    { name: 'Reviews (4.9★)', href: '#customer-reviews', badge: '242+' },
+    { name: 'Location', href: '#location' },
   ];
 
   return (

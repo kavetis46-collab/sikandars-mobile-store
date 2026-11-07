@@ -15,27 +15,26 @@ import {
 import { storeData, createWhatsAppUrl } from '../data/storeData';
 
 export default function InventorySection({ onSelectProduct, onAddToBag, inquiryBag }) {
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeSeries, setActiveSeries] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const categories = ['All', 'Desert Titanium', 'Natural Titanium', 'Black Titanium', 'White Titanium'];
+  const seriesTabs = ['All', 'iPhone 16 Series', 'iPhone 15 Series', 'iPhone 14 Series', 'iPhone 13 & Older'];
 
   const filteredProducts = useMemo(() => {
-    return storeData.products.filter((p) => {
-      const matchesCategory = activeCategory === 'All' || p.category === activeCategory;
+    return (storeData.products || []).filter((p) => {
+      const matchesSeries = activeSeries === 'All' || p.series === activeSeries;
       const matchesSearch = 
         p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.color.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.edition.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.storageOptions.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchesCategory && matchesSearch;
+      return matchesSeries && matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeSeries, searchQuery]);
 
   const isInBag = (id) => inquiryBag.some((item) => item.id === id);
 
   return (
-    <section id="inventory" className="py-20 sm:py-28 relative bg-[#080a14] border-t border-amber-500/20">
+    <section id="inventory" className="py-20 sm:py-28 relative bg-[#080a14] border-t border-amber-500/20 content-auto">
       
       {/* Background Glow */}
       <div className="absolute top-1/3 left-0 w-96 h-96 bg-amber-500/10 blur-[130px] pointer-events-none -z-10" />
@@ -48,23 +47,23 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500/15 to-yellow-500/15 border border-amber-500/30 text-amber-300 text-xs font-black uppercase tracking-wider mb-3">
               <Award className="w-3.5 h-3.5 text-amber-400" />
-              <span>Certified iPhone 16 Pro Max Vault</span>
+              <span>Certified iPhone Showroom &amp; Stock</span>
             </div>
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-              Genuine iPhone 16 Pro Max <br />
-              <span className="text-gradient-gold">Available for Immediate Pickup.</span>
+              Every iPhone Model Available <br />
+              <span className="text-gradient-gold">Tested with Store Warranty.</span>
             </h2>
             
             <p className="mt-2 text-slate-300 text-sm sm:text-base max-w-2xl">
-              Every unit includes authentic Grade 5 titanium, 100% verified battery health report, TrueTone active display, and store invoice.
+              From flagship iPhone 16 Pro Max to budget iPhone 11. Every phone has verified original battery health, TrueTone display, clean IMEI, and 10-minute spot handover.
             </p>
           </div>
 
           {/* Live Store Pill */}
           <div className="flex items-center gap-2.5 text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 px-4 py-2.5 rounded-2xl self-start md:self-auto backdrop-blur-md">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <span className="font-bold">Live Inventory at Jagdish Market Counter</span>
+            <span className="font-bold">Ready for Pickup at Jagdish Market Counter</span>
           </div>
         </div>
 
@@ -78,7 +77,7 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="Search Desert Titanium, 1TB, 512GB..."
+                placeholder="Search iPhone 16 Pro Max, 15, 14, 128GB..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-[#111422] border border-amber-500/20 focus:border-amber-400 text-white placeholder-slate-500 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none transition-colors"
@@ -95,7 +94,7 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
 
             {/* Quick Contact Helpline */}
             <div className="flex items-center gap-2 text-xs text-slate-300">
-              <span>Need custom storage? Call:</span>
+              <span>Checking specific model? Call:</span>
               <a 
                 href={`tel:${storeData.storeInfo.phoneRaw}`}
                 className="text-amber-400 font-extrabold hover:underline"
@@ -106,26 +105,26 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
 
           </div>
 
-          {/* Category Titanium Tabs */}
+          {/* Series Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            {categories.map((cat) => (
+            {seriesTabs.map((series) => (
               <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
+                key={series}
+                onClick={() => setActiveSeries(series)}
                 className={`px-4 py-2.5 rounded-xl text-xs font-black whitespace-nowrap transition-all ${
-                  activeCategory === cat
+                  activeSeries === series
                     ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-lg shadow-amber-500/25'
                     : 'bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10'
                 }`}
               >
-                {cat}
+                {series}
               </button>
             ))}
           </div>
 
         </div>
 
-        {/* Products Grid */}
+        {/* Products Grid (All iPhones) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
           {filteredProducts.map((product) => {
             const inBag = isInBag(product.id);
@@ -137,7 +136,7 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
               >
                 
                 {/* Image Section */}
-                <div className="relative h-72 w-full bg-gradient-to-b from-[#14182b] to-[#0c0e1a] p-6 flex items-center justify-center overflow-hidden">
+                <div className="relative h-64 sm:h-72 w-full bg-gradient-to-b from-[#14182b] to-[#0c0e1a] p-6 flex items-center justify-center overflow-hidden">
                   
                   {/* Top Badges */}
                   <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-10 pointer-events-none">
@@ -153,12 +152,15 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
                     </span>
                   </div>
 
-                  {/* PERFECT iPhone 16 Pro Max Picture */}
+                  {/* Clean iPhone Picture */}
                   <img
                     src={product.image}
                     alt={product.name}
                     className="max-h-full max-w-full object-contain filter drop-shadow-2xl group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
+                    decoding="async"
+                    width="400"
+                    height="300"
                   />
 
                   {/* Condition Tag */}
@@ -183,7 +185,7 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
                   
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs text-slate-400">
-                      <span className="font-bold text-amber-400 uppercase tracking-wider text-[11px]">{product.color}</span>
+                      <span className="font-bold text-amber-400 uppercase tracking-wider text-[11px]">{product.series}</span>
                       <span className="text-slate-300 font-medium">{product.warranty}</span>
                     </div>
 
@@ -237,7 +239,7 @@ export default function InventorySection({ onSelectProduct, onAddToBag, inquiryB
                     
                     {/* Direct WhatsApp */}
                     <a
-                      href={createWhatsAppUrl(`Hi Sikandar Bhai, I want to inquire about ${product.name} (${product.price}). Is it available in stock today at Jagdish Market?`)}
+                      href={createWhatsAppUrl(`Hi Sikandar Bhai, I saw your Instagram/Website and want to buy ${product.name} (${product.price}). Is it ready at Jagdish Market?`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="py-2.5 px-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 text-xs font-black transition-all flex items-center justify-center gap-1 shadow-md shadow-emerald-500/20 active:scale-95"
