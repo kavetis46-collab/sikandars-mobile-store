@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://sikandarsmobilestore.netlify.app/sitemap.xml
