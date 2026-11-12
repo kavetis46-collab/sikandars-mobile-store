@@ -3,106 +3,106 @@ import {
   ShieldCheck, 
   BatteryCharging, 
   Sparkles, 
-  ChevronRight, 
   MessageCircle, 
-  Repeat, 
   Star, 
   MapPin, 
   CheckCircle2, 
   Phone,
   Award,
   Flame,
-  ArrowRight
+  ArrowRight,
+  ExternalLink,
+  Smartphone
 } from 'lucide-react';
-import { storeData, createWhatsAppUrl, IPHONE_16_PRO_MAX_IMAGES } from '../data/storeData';
+import { storeData, createWhatsAppUrl, IPHONE_16_PRO_MAX_IMAGES, CASHIFY_APP_URL } from '../data/storeData';
 
-export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
-  // Flagship Hero Switcher (iPhone 16 Pro Max finishes & Android flagships)
+export default function HeroSection({ onSelectProduct }) {
+  // Flagship iPhone Hero Switcher (iPhone 18 Pro Max down to iPhone 13 mini)
   const flagshipShowcase = [
     {
-      id: "iphone-16-pro-max-desert",
-      modelName: "iPhone 16 Pro Max",
-      brand: "Apple",
+      id: "iphone-18-pro-max",
+      modelName: "iPhone 18 Pro Max",
+      colorName: "Burgundy / Glacier",
+      colorCode: "#5c202c",
+      edition: "256GB / 512GB / 1TB / 2TB • A20 Pro",
+      headline: "Present 2026 Titanium Pro Flagship",
+      cashifyAppPrice: "₹1,49,500",
+      price: "₹1,50,000",
+      mrp: "₹1,79,900",
+      savings: "Save ₹29,900",
+      battery: "100% Apple Health",
+      condition: "Grade A+ Flawless • Open Box",
+      image: "https://www.apple.com/v/iphone-18-pro/d/images/meta/iphone-18-pro_overview__bl9no3txkonm_og.png",
+      tag: "Present 2026 Flagship",
+      badgeTags: ["Grade A+ Flawless", "Battery Health 100%", "Cashify App + ₹500", "Clean IMEI"]
+    },
+    {
+      id: "iphone-17-pro-max",
+      modelName: "iPhone 17 Pro Max",
       colorName: "Desert Titanium",
       colorCode: "#c4a387",
-      edition: "256GB / 512GB / 1TB • Grade 5 Titanium",
-      headline: "The Signature Titanium Flagship",
-      price: "₹1,24,999",
-      mrp: "₹1,44,900",
-      savings: "Save ₹19,901",
-      battery: "100% Apple Health",
-      condition: "Pristine / Grade A+ Flawless",
-      image: IPHONE_16_PRO_MAX_IMAGES.desertCutout,
-      tag: "Flagship Edition",
-      badgeTags: ["Grade A+ Flawless", "Battery Health 100%", "Store Verified", "Clean IMEI"]
-    },
-    {
-      id: "samsung-s24-ultra-titanium",
-      modelName: "Galaxy S24 Ultra 5G",
-      brand: "Samsung",
-      colorName: "Titanium Gray",
-      colorCode: "#7d828a",
-      edition: "12GB RAM • 256GB / 512GB • S-Pen",
-      headline: "Snapdragon 8 Gen 3 with Galaxy AI",
-      price: "₹89,999",
-      mrp: "₹1,29,999",
-      savings: "Save ₹40,000",
-      battery: "5000mAh 100% Tested",
-      condition: "Like-New Sealed / Flawless",
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Samsung_Galaxy_S24_(webtekno)_008.png",
-      tag: "200MP Zoom King",
-      badgeTags: ["Grade A+ Flawless", "Battery Health 98%+", "Store Verified", "Clean IMEI"]
-    },
-    {
-      id: "iphone-16-pro-max-natural",
-      modelName: "iPhone 16 Pro Max",
-      brand: "Apple",
-      colorName: "Natural Titanium",
-      colorCode: "#9e9a93",
-      edition: "256GB / 512GB • Aerospace Grade",
-      headline: "A18 Pro Silicon with Camera Control",
-      price: "₹1,24,999",
-      mrp: "₹1,44,900",
-      savings: "Save ₹19,901",
-      battery: "100% Battery",
+      edition: "256GB / 512GB / 1TB / 2TB • A19 Pro",
+      headline: "6.9\" ProMotion XDR Flagship",
+      cashifyAppPrice: "₹1,04,500",
+      price: "₹1,05,000",
+      mrp: "₹1,49,900",
+      savings: "Save ₹44,900",
+      battery: "98% – 100% Tested",
       condition: "Grade A+ Flawless",
       image: IPHONE_16_PRO_MAX_IMAGES.heroDuo,
-      tag: "Customer Favorite",
-      badgeTags: ["Grade A+ Flawless", "Battery Health 100%", "Store Verified", "Clean IMEI"]
+      tag: "Top Pro Max Buy",
+      badgeTags: ["Grade A+ Flawless", "Battery Health 98%+", "Cashify App + ₹500", "Clean IMEI"]
     },
     {
-      id: "google-pixel-9-pro-xl",
-      modelName: "Google Pixel 9 Pro XL",
-      brand: "Google",
-      colorName: "Obsidian Black",
-      colorCode: "#1c1f24",
-      edition: "16GB RAM • 256GB • Tensor G4",
-      headline: "Pro Triple Camera & Gemini Nano",
-      price: "₹82,999",
-      mrp: "₹1,24,999",
-      savings: "Save ₹42,000",
-      battery: "100% Battery Health",
-      condition: "Pristine Box Pack",
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_9_(Obsidian)_front.svg",
-      tag: "Pure Google AI",
-      badgeTags: ["Grade A+ Flawless", "Battery Health 100%", "Store Verified", "Clean IMEI"]
-    },
-    {
-      id: "iphone-16-pro-max-black",
+      id: "iphone-16-pro-max",
       modelName: "iPhone 16 Pro Max",
-      brand: "Apple",
-      colorName: "Black Titanium",
-      colorCode: "#2e2f33",
-      edition: "512GB Studio Edition",
-      headline: "Stealth Deep Obsidian Finish",
-      price: "₹1,24,999",
+      colorName: "Desert Titanium",
+      colorCode: "#9e9a93",
+      edition: "256GB / 512GB / 1TB • A18 Pro",
+      headline: "Grade 5 Titanium Pro Camera",
+      cashifyAppPrice: "₹89,500",
+      price: "₹90,000",
       mrp: "₹1,44,900",
-      savings: "Save ₹19,901",
-      battery: "100% Genuine Health",
-      condition: "Collector Grade Mint",
-      image: IPHONE_16_PRO_MAX_IMAGES.cameraSystem,
-      tag: "Stealth Luxury",
-      badgeTags: ["Grade A+ Flawless", "Battery Health 100%", "Store Verified", "Clean IMEI"]
+      savings: "Save ₹54,900",
+      battery: "96% – 100% Battery",
+      condition: "Grade A+ Flawless",
+      image: IPHONE_16_PRO_MAX_IMAGES.desertCutout,
+      tag: "Customer Favorite",
+      badgeTags: ["Grade A+ Flawless", "Battery Health 96%+", "Cashify App + ₹500", "Clean IMEI"]
+    },
+    {
+      id: "iphone-15-pro-max",
+      modelName: "iPhone 15 Pro Max",
+      colorName: "Natural Titanium",
+      colorCode: "#aba69e",
+      edition: "256GB / 512GB / 1TB • USB-C",
+      headline: "A17 Pro & 5x Periscope Zoom",
+      cashifyAppPrice: "₹75,500",
+      price: "₹76,000",
+      mrp: "₹1,59,900",
+      savings: "Save ₹83,900",
+      battery: "91% – 97% Original",
+      condition: "Grade A+ Flawless",
+      image: "https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/article/Apple-iPhone-15-Pro-lineup-hero-230912_Full-Bleed-Image.jpg.large.jpg",
+      tag: "Best Seller",
+      badgeTags: ["Grade A+ Flawless", "Battery Health 95%+", "Cashify App + ₹500", "Clean IMEI"]
+    },
+    {
+      id: "iphone-13-mini",
+      modelName: "iPhone 13 mini",
+      colorName: "Pink / Midnight / Starlight",
+      colorCode: "#faddd7",
+      edition: "128GB / 256GB / 512GB • A15 Bionic",
+      headline: "Compact 5.4\" Super Retina XDR",
+      cashifyAppPrice: "₹25,000",
+      price: "₹25,500",
+      mrp: "₹64,900",
+      savings: "Save ₹39,400",
+      battery: "86% – 92% Health",
+      condition: "Certified Grade A",
+      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iphone13_hero_09142021_inline.jpg.large.jpg",
+      tag: "App ₹25K → ₹25.5K",
+      badgeTags: ["Grade A Certified", "Cashify App ₹25,000", "Store Buy ₹25,500", "Clean IMEI"]
     }
   ];
 
@@ -112,10 +112,8 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
   return (
     <section className="relative pt-6 sm:pt-12 pb-20 lg:pb-28 overflow-hidden bg-obsidian-canvas border-b border-[#262F40]">
       
-      {/* Obsidian Titanium Ambient Glow Flares (Electric Cobalt & Cyber Cyan) */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[750px] sm:w-[1200px] h-[550px] bg-gradient-to-tr from-[#0066FF]/12 via-[#00F0FF]/08 to-transparent blur-[160px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute top-1/4 -right-20 w-[450px] h-[450px] bg-[#0066FF]/10 blur-[140px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute bottom-10 -left-20 w-[450px] h-[450px] bg-[#00F0FF]/08 blur-[140px] rounded-full pointer-events-none -z-10" />
+      {/* Obsidian Titanium Ambient Glow Flares */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[750px] sm:w-[1200px] h-[550px] bg-gradient-to-tr from-[#0066FF]/12 via-[#00F0FF]/08 to-transparent blur-[120px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -123,8 +121,19 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
         <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#141923] border border-[#262F40] text-[#00F0FF] text-xs font-bold tracking-wide backdrop-blur-md shadow-[0_4px_14px_rgba(0,102,255,0.2)]">
             <Award className="w-3.5 h-3.5 text-[#0066FF]" />
-            <span>HYDERABAD'S PREMIER CERTIFIED FLAGSHIP SHOWROOM • ABIDS &amp; KOTI</span>
+            <span>CERTIFIED PRE-OWNED iPHONES ONLY • ABIDS &amp; KOTI</span>
           </div>
+
+          <a 
+            href={CASHIFY_APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141923] border border-[#262F40] hover:border-[#00F0FF] text-[#F8FAFC] text-xs font-semibold backdrop-blur-md transition-all shadow-md group"
+          >
+            <Smartphone className="w-3.5 h-3.5 text-[#00F0FF]" />
+            <span>Price Synced with <strong className="text-[#00F0FF]">Cashify App</strong> + ₹500</span>
+            <ExternalLink className="w-3 h-3 text-[#94A3B8] group-hover:text-[#00F0FF]" />
+          </a>
 
           <a 
             href="#customer-reviews"
@@ -137,57 +146,56 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
             </div>
             <span className="font-extrabold text-[#F8FAFC]">4.9 / 5</span>
             <span className="text-[#94A3B8]">({storeData.storeInfo.reviewsCount} Google Reviews)</span>
-            <span className="text-[#00F0FF] text-[10px] group-hover:translate-x-0.5 transition-transform">→</span>
           </a>
         </div>
 
         {/* Hero Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
-          {/* Left Column: Engineered Pitch & High-Visibility Actions (7 cols) */}
+          {/* Left Column: Engineered Pitch & Buy Actions (7 cols) */}
           <div className="lg:col-span-7 text-center lg:text-left space-y-6">
             
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#F8FAFC] leading-[1.08]">
-                Certified Pre-Owned <br />
-                <span className="text-gradient-cobalt">Flagship Smartphones</span> <br />
+                Buy Certified Pre-Owned <br />
+                <span className="text-gradient-cobalt">iPhone 12 to 18 Pro Max</span> <br />
                 <span className="text-gradient-titanium">In Abids &amp; Koti, Hyderabad.</span>
               </h1>
               
               <p className="text-[#94A3B8] text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-                Step into Hyderabad’s official Apple &amp; Android flagship vault. Specializing in verified <strong className="text-[#F8FAFC] font-semibold">iPhones, Samsung Galaxy S-Series, Google Pixel &amp; OnePlus</strong>. Inspected with 3uTools, genuine battery health, TrueTone displays, and store warranty.
+                Every Apple iPhone from <strong className="text-[#F8FAFC] font-semibold">iPhone 12 mini up to iPhone 18 Pro Max</strong> — including every mini, Standard, Plus, Air, Pro &amp; Pro Max in all original colors and storage variants. Transparently priced at <strong className="text-[#00F0FF]">Cashify App Price + ₹500</strong> only.
               </p>
             </div>
 
             {/* Condition Grade Badges directly on Hero */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1">
-              <span className="badge-condition px-3 py-1 text-xs">✓ Grade A+ Flawless</span>
-              <span className="badge-condition px-3 py-1 text-xs">⚡ Battery Health 95%+</span>
-              <span className="badge-condition px-3 py-1 text-xs">🛡️ Store Verified Warranty</span>
-              <span className="badge-condition px-3 py-1 text-xs">📄 Clean IMEI &amp; Tax Invoice</span>
+              <span className="badge-condition px-3 py-1 text-xs">✓ All Models 12 – 18 Pro Max</span>
+              <span className="badge-condition px-3 py-1 text-xs">🎨 All Colors &amp; Variants</span>
+              <span className="badge-condition px-3 py-1 text-xs">⚡ Cashify App + ₹500</span>
+              <span className="badge-condition px-3 py-1 text-xs">🛡️ 6-Month Store Warranty</span>
             </div>
 
             {/* Premium Guarantee Bento Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 text-xs sm:text-sm text-[#F8FAFC]">
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#141923] border border-[#262F40]">
                 <CheckCircle2 className="w-4 h-4 text-[#0066FF] shrink-0" />
-                <span>100% Genuine Silicon</span>
+                <span>All 28 iPhone Models</span>
               </div>
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#141923] border border-[#262F40]">
                 <CheckCircle2 className="w-4 h-4 text-[#00F0FF] shrink-0" />
-                <span>60-Point Diagnostic</span>
+                <span>3uTools Live Check</span>
               </div>
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#141923] border border-[#262F40]">
                 <CheckCircle2 className="w-4 h-4 text-[#0066FF] shrink-0" />
-                <span>TrueTone &amp; 120Hz LTPO</span>
+                <span>App ₹25K → Store ₹25.5K</span>
               </div>
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#141923] border border-[#262F40]">
                 <CheckCircle2 className="w-4 h-4 text-[#00F0FF] shrink-0" />
-                <span>Store Bill &amp; Warranty</span>
+                <span>GST Bill &amp; Warranty</span>
               </div>
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#141923] border border-[#262F40]">
                 <CheckCircle2 className="w-4 h-4 text-[#0066FF] shrink-0" />
-                <span>Spot Trade-In Cash</span>
+                <span>64GB up to 2TB Variants</span>
               </div>
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#141923] border border-[#262F40]">
                 <CheckCircle2 className="w-4 h-4 text-[#00F0FF] shrink-0" />
@@ -195,38 +203,38 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
               </div>
             </div>
 
-            {/* Direct High-Ticket Action Buttons */}
+            {/* Direct High-Ticket Buy Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-4">
               
-              {/* Primary Action: Solid #0066FF with 0 4px 14px rgba(0, 102, 255, 0.4) */}
+              {/* Primary Action: Browse Buy Inventory */}
               <a
-                href={createWhatsAppUrl(`Hi Sikandar Bhai, I want to reserve/buy the ${currentDevice.modelName} (${currentDevice.colorName}) shown on your website.`)}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#inventory"
                 className="w-full sm:w-auto btn-primary-cobalt px-7 py-4 text-sm font-bold gap-2.5 active:scale-95 group"
               >
-                <MessageCircle className="w-5 h-5 fill-[#F8FAFC] text-[#F8FAFC]" />
-                <span>Reserve on WhatsApp</span>
+                <Smartphone className="w-5 h-5 text-[#F8FAFC]" />
+                <span>Buy All iPhones (12 – 18 Pro)</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
 
-              {/* Secondary Action: Sleek Titanium Outline #262F40 */}
+              {/* Secondary Action: Cashify Play Store App */}
               <a
-                href={`tel:${storeData.storeInfo.phoneRaw}`}
-                className="w-full sm:w-auto btn-secondary-titanium px-6 py-4 text-sm font-bold gap-2.5"
-              >
-                <Phone className="w-4 h-4 text-[#00F0FF]" />
-                <span className="font-mono tabular-nums">Call: {storeData.storeInfo.phone}</span>
-              </a>
-
-              {/* Trade-In Action */}
-              <button
-                onClick={onOpenTradeIn}
+                href={CASHIFY_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto btn-secondary-titanium px-5 py-4 text-sm font-bold gap-2"
               >
-                <Repeat className="w-4 h-4 text-[#0066FF]" />
-                <span>Trade-In Calculator</span>
-              </button>
+                <ExternalLink className="w-4 h-4 text-[#00F0FF]" />
+                <span>Check Cashify App</span>
+              </a>
+
+              {/* Direct Call Button */}
+              <a
+                href={`tel:${storeData.storeInfo.phoneRaw}`}
+                className="w-full sm:w-auto btn-secondary-titanium px-5 py-4 text-sm font-bold gap-2"
+              >
+                <Phone className="w-4 h-4 text-[#00F0FF]" />
+                <span className="font-mono tabular-nums">{storeData.storeInfo.phone}</span>
+              </a>
 
             </div>
 
@@ -252,12 +260,12 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
           {/* Right Column: Engineered Flagship Showcase Card (5 cols) */}
           <div className="lg:col-span-5 relative">
             
-            {/* Color Finish Switcher Tabs */}
+            {/* iPhone Model Switcher Tabs */}
             <div className="mb-4">
               <div className="text-center sm:text-left mb-2 flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#00F0FF] flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-[#0066FF]" />
-                  <span>Select Flagship Showcase:</span>
+                  <span>Featured Buy Models:</span>
                 </span>
                 <span className="text-[11px] text-[#94A3B8] font-mono">{currentDevice.colorName}</span>
               </div>
@@ -277,18 +285,15 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
                       className="w-2.5 h-2.5 rounded-full border border-black/50 shrink-0" 
                       style={{ backgroundColor: device.colorCode }}
                     />
-                    <span>{device.modelName.replace('Pro Max', 'PM').replace('Ultra 5G', 'Ultra')}</span>
+                    <span>{device.modelName.replace('Pro Max', 'PM')}</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* The Master Luxury Showcase Card with 1px #262F40 and 16px border-radius */}
+            {/* Showcase Card */}
             <div className="relative surface-card p-6 sm:p-7 overflow-hidden group">
               
-              {/* Card Radial Ambient Lighting */}
-              <div className="absolute -top-24 -right-24 w-60 h-60 bg-gradient-to-br from-[#0066FF]/20 via-[#00F0FF]/10 to-transparent blur-3xl rounded-full pointer-events-none" />
-
               {/* Top Card Badges */}
               <div className="flex items-center justify-between mb-4 relative z-10">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#0066FF] text-[#F8FAFC] shadow-md">
@@ -302,8 +307,8 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
                 </span>
               </div>
 
-              {/* Image Frame featuring SUBTLE RADIAL LIGHTING GRADIENT so phone edges and camera lenses pop */}
-              <div className="relative h-72 sm:h-80 w-full rounded-xl bg-[#0A0D14] border border-[#262F40] flex items-center justify-center p-5 overflow-hidden device-glow-hero">
+              {/* Image Frame featuring Radial Gradient */}
+              <div className="relative h-64 sm:h-76 w-full rounded-xl bg-[#0A0D14] border border-[#262F40] flex items-center justify-center p-5 overflow-hidden device-glow-hero">
                 <img
                   src={currentDevice.image}
                   alt={`${currentDevice.modelName} in ${currentDevice.colorName}`}
@@ -322,7 +327,7 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
               {/* Card Footer Details */}
               <div className="mt-5 space-y-4">
                 
-                <div className="flex items-baseline justify-between">
+                <div className="flex items-baseline justify-between gap-2">
                   <div>
                     <h3 className="text-xl font-extrabold text-[#F8FAFC] tracking-tight">
                       {currentDevice.modelName}
@@ -332,9 +337,12 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
                     </p>
                   </div>
 
-                  <div className="text-right">
+                  <div className="text-right shrink-0">
                     <div className="text-2xl font-extrabold text-[#F8FAFC] font-mono tabular-nums">
                       {currentDevice.price}
+                    </div>
+                    <div className="text-[11px] text-[#00F0FF] font-mono">
+                      Cashify App: {currentDevice.cashifyAppPrice} + ₹500
                     </div>
                     <div className="flex items-center gap-1.5 justify-end text-xs">
                       <span className="line-through text-[#94A3B8] font-mono">{currentDevice.mrp}</span>
@@ -352,28 +360,26 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
                   ))}
                 </div>
 
-                {/* Instant Dual CTA: WhatsApp & Direct Dialer */}
+                {/* Instant Dual CTA: WhatsApp & Inspect All Variants */}
                 <div className="grid grid-cols-2 gap-2.5 pt-1">
                   
-                  {/* WhatsApp */}
                   <a
-                    href={createWhatsAppUrl(`Hi Sikandar Bhai, I want to reserve the ${currentDevice.modelName} (${currentDevice.colorName}) priced at ${currentDevice.price}. Is it available today?`)}
+                    href={createWhatsAppUrl(`Hi Sikandar Bhai, I want to BUY ${currentDevice.modelName} (${currentDevice.colorName}) listed at ${currentDevice.price} (Cashify App ${currentDevice.cashifyAppPrice} + ₹500).`)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary-cobalt py-3 px-3 text-xs gap-1.5"
+                    className="btn-primary-cobalt py-3 px-3 text-xs font-bold gap-2"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
-                    <span>Reserve WhatsApp</span>
+                    <span>Buy on WhatsApp</span>
                   </a>
 
-                  {/* Dialer */}
-                  <a
-                    href={`tel:${storeData.storeInfo.phoneRaw}`}
-                    className="btn-secondary-titanium py-3 px-3 text-xs gap-1.5"
+                  <button
+                    onClick={() => onSelectProduct(currentDevice.id)}
+                    className="btn-secondary-titanium py-3 px-3 text-xs font-bold gap-2"
                   >
-                    <Phone className="w-4 h-4 text-[#00F0FF]" />
-                    <span className="font-mono">Call Showroom</span>
-                  </a>
+                    <ShieldCheck className="w-4 h-4 text-[#00F0FF]" />
+                    <span>All Colors &amp; Storage</span>
+                  </button>
 
                 </div>
 
@@ -383,26 +389,6 @@ export default function HeroSection({ onOpenTradeIn, onSelectProduct }) {
 
           </div>
 
-        </div>
-
-        {/* Bottom Trust Stat Bar */}
-        <div className="mt-16 pt-8 border-t border-[#262F40] grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-extrabold text-[#F8FAFC] font-mono">20+ Years</div>
-            <p className="text-xs text-[#94A3B8] font-medium">In Jagdish Market, Abids &amp; Koti</p>
-          </div>
-          <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-extrabold text-[#00F0FF] font-mono">4.9 ★</div>
-            <p className="text-xs text-[#94A3B8] font-medium">242+ Audited Google Reviews</p>
-          </div>
-          <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-extrabold text-[#F8FAFC] font-mono">60-Point</div>
-            <p className="text-xs text-[#94A3B8] font-medium">Apple &amp; Android Diagnostic</p>
-          </div>
-          <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-extrabold text-[#0066FF] font-mono">10 Mins</div>
-            <p className="text-xs text-[#94A3B8] font-medium">Spot Cash Payout for Old Devices</p>
-          </div>
         </div>
 
       </div>

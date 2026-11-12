@@ -28,7 +28,7 @@ export default function FloatingActions({ onOpenBag, bagCount }) {
 
   const handleWhatsAppClick = () => {
     window.open(
-      createWhatsAppUrl("Hi Sikandar Bhai! I am looking for certified flagship devices (iPhone, Galaxy, Pixel, OnePlus). Please share available models and prices at your Abids showroom."),
+      createWhatsAppUrl("Hi Sikandar Bhai! I want to buy a certified pre-owned iPhone (12 mini to 18 Pro Max). Please share available colors and variants at your Abids showroom."),
       '_blank'
     );
   };
@@ -131,7 +131,7 @@ export default function FloatingActions({ onOpenBag, bagCount }) {
 
           {/* 2. DIRECT WHATSAPP BUTTON (5 cols) */}
           <a
-            href={createWhatsAppUrl("Hi Sikandar Bhai! I want to inquire about certified flagship smartphone stock at Abids.")}
+            href={createWhatsAppUrl("Hi Sikandar Bhai! I want to buy a certified pre-owned iPhone (12 to 18 Pro Max) at your Abids showroom.")}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Direct WhatsApp Message"

@@ -14,17 +14,20 @@ export default function InquiryBagDrawer({ isOpen, onClose, items, onRemoveItem,
   if (!isOpen) return null;
 
   const getConsolidatedWhatsAppMessage = () => {
-    let msg = `Hi Sikandar Bhai! I selected the following flagship smartphone(s) from your showroom website and want to check availability & reserve for pickup:\n\n`;
+    let msg = `Hi Sikandar Bhai! I selected the following certified iPhone(s) to BUY from your showroom website:\n\n`;
 
     items.forEach((item, index) => {
-      msg += `${index + 1}. ${item.name} (${item.price})\n   Condition: ${item.condition} | Battery: ${item.batteryHealth}\n`;
+      const variantLabel = item.selectedStorage ? `${item.selectedStorage}` : '';
+      const colorLabel = item.selectedColor ? ` • ${item.selectedColor}` : '';
+      const variantDetails = variantLabel || colorLabel ? ` (${variantLabel}${colorLabel})` : '';
+      msg += `${index + 1}. ${item.name}${variantDetails} — Buy Price: ${item.price}\n   Condition: ${item.condition} | Battery: ${item.batteryHealth}\n`;
     });
 
     if (customerNote) {
       msg += `\nCustomer Note: ${customerNote}\n`;
     }
 
-    msg += `\nPlease let me know if these are ready for pickup at your Abids showroom or if doorstep delivery in Hyderabad is available!`;
+    msg += `\nPlease confirm availability for pickup at your Abids showroom or Hyderabad doorstep delivery!`;
     return msg;
   };
 
@@ -85,6 +88,11 @@ export default function InquiryBagDrawer({ isOpen, onClose, items, onRemoveItem,
 
                     <div className="flex-1 min-w-0">
                       <h4 className="text-xs font-bold text-[#F8FAFC] truncate">{item.name}</h4>
+                      {(item.selectedStorage || item.selectedColor) && (
+                        <div className="text-[11px] text-[#94A3B8] truncate">
+                          {item.selectedStorage} {item.selectedColor ? `• ${item.selectedColor}` : ''}
+                        </div>
+                      )}
                       <div className="text-[11px] text-[#00F0FF] font-extrabold font-mono tabular-nums">{item.price}</div>
                       <div className="flex items-center gap-2 text-[10px] text-[#94A3B8] mt-1 font-mono">
                         <span>{item.batteryHealth}</span>
@@ -109,11 +117,11 @@ export default function InquiryBagDrawer({ isOpen, onClose, items, onRemoveItem,
             {items.length > 0 && (
               <div className="mt-4 pt-4 border-t border-[#262F40]">
                 <label className="block text-[11px] font-semibold text-[#94A3B8] uppercase tracking-wider mb-1.5">
-                  Optional Note (Trade-in details or model preference):
+                  Optional Note (Pickup Time or Delivery Address):
                 </label>
                 <textarea
                   rows={2}
-                  placeholder="e.g. Also trading in an iPhone 13, or want to pickup by 6 PM today."
+                  placeholder="e.g. Want to pick up at 6 PM today in Abids, or deliver to Banjara Hills."
                   value={customerNote}
                   onChange={(e) => setCustomerNote(e.target.value)}
                   className="w-full bg-[#0E121B] border border-[#262F40] rounded-xl p-2.5 text-xs text-[#F8FAFC] placeholder-[#94A3B8] focus:outline-none focus:border-[#0066FF] resize-none"

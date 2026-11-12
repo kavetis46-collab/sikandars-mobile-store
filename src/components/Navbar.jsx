@@ -11,9 +11,9 @@ import {
   Sparkles,
   ExternalLink
 } from 'lucide-react';
-import { storeData, createWhatsAppUrl } from '../data/storeData';
+import { storeData, createWhatsAppUrl, CASHIFY_APP_URL } from '../data/storeData';
 
-export default function Navbar({ inquiryBag, onOpenBag, onOpenTradeIn }) {
+export default function Navbar({ inquiryBag, onOpenBag }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -26,12 +26,11 @@ export default function Navbar({ inquiryBag, onOpenBag, onOpenTradeIn }) {
   }, []);
 
   const navLinks = [
-    { name: 'Flagship Vault', href: '#inventory', badge: 'Apple • Galaxy • Pixel' },
-    { name: 'Instagram Reels', href: '#instagram-feed', badge: 'Live Feed' },
-    { name: 'Trade-In Valuation', href: '#trade-in', badge: 'Spot Cash' },
-    { name: 'Care & Repairs', href: '#services' },
-    { name: 'Customer Reviews (4.9★)', href: '#customer-reviews', badge: '242+ Audited' },
-    { name: 'Abids & Koti Location', href: '#location' },
+    { name: 'Buy iPhones (12–18 Pro)', href: '#inventory', badge: '28 Models' },
+    { name: 'Instagram Stock Reels', href: '#instagram-feed', badge: 'Live' },
+    { name: 'Store Gallery', href: '#gallery' },
+    { name: 'Buyer Reviews (4.9★)', href: '#customer-reviews', badge: '242+' },
+    { name: 'Abids Location', href: '#location' },
   ];
 
   return (
@@ -67,13 +66,13 @@ export default function Navbar({ inquiryBag, onOpenBag, onOpenTradeIn }) {
 
             {/* Direct WhatsApp Link */}
             <a 
-              href={createWhatsAppUrl("Hi Sikandar Bhai, I would like to check available flagship phones (Apple, Samsung, Pixel, OnePlus) at your Abids store.")}
+              href={createWhatsAppUrl("Hi Sikandar Bhai, I want to buy a certified pre-owned iPhone from your Abids store.")}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:flex hover:text-[#00F0FF] transition-colors items-center gap-1.5 text-[#00F0FF] font-extrabold text-xs"
             >
               <MessageCircle className="w-3.5 h-3.5 fill-current" />
-              <span>WhatsApp Store</span>
+              <span>WhatsApp Buy Desk</span>
             </a>
           </div>
 
@@ -106,7 +105,7 @@ export default function Navbar({ inquiryBag, onOpenBag, onOpenTradeIn }) {
                 </span>
               </div>
               <span className="text-[11px] text-[#94A3B8] tracking-wide font-normal">
-                Flagship Smartphone Showroom • Abids & Koti, Hyderabad
+                Certified Pre-Owned iPhone Showroom • Abids &amp; Koti
               </span>
             </div>
           </a>

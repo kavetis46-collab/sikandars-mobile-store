@@ -5,10 +5,8 @@ import InventorySection from './components/InventorySection';
 import FloatingActions from './components/FloatingActions';
 import { storeData } from './data/storeData';
 
-// Below-the-fold components lazy-loaded for maximum performance on mobile and PC
+// Below-the-fold Buy-Focused components lazy-loaded for instant performance on mobile & PC
 const InstagramFeedSection = lazy(() => import('./components/InstagramFeedSection'));
-const TradeInCalculator = lazy(() => import('./components/TradeInCalculator'));
-const RepairServicesHub = lazy(() => import('./components/RepairServicesHub'));
 const StoreGallery = lazy(() => import('./components/StoreGallery'));
 const CustomerReviewsSection = lazy(() => import('./components/CustomerReviewsSection'));
 const LatestUpdates = lazy(() => import('./components/LatestUpdates'));
@@ -28,10 +26,12 @@ const SectionLoader = () => (
 export default function App() {
   const [inquiryBag, setInquiryBag] = useState([]);
   const [isBagOpen, setIsBagOpen] = useState(false);
-  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [selectedModalState, setSelectedModalState] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
 
-  const selectedProduct = storeData.products.find(p => p.id === selectedProductId);
+  const selectedProduct = selectedModalState
+    ? storeData.products.find((p) => p.id === selectedModalState.id)
+    : null;
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -40,29 +40,38 @@ export default function App() {
     }, 2800);
   };
 
-  const handleAddToBag = (product) => {
-    if (inquiryBag.some(item => item.id === product.id)) {
-      setInquiryBag(inquiryBag.filter(item => item.id !== product.id));
-      showToast(`Removed ${product.name} from inquiry bag`);
+  const handleOpenProduct = (id, variantIdx = 0, colorIdx = 0) => {
+    setSelectedModalState({ id, variantIdx, colorIdx });
+  };
+
+  const handleAddToBag = (productItem) => {
+    const existsIndex = inquiryBag.findIndex((item) => item.id === productItem.id);
+    if (existsIndex >= 0) {
+      const existing = inquiryBag[existsIndex];
+      const sameVariant =
+        existing.selectedStorage === productItem.selectedStorage &&
+        existing.selectedColor === productItem.selectedColor;
+      if (sameVariant) {
+        setInquiryBag(inquiryBag.filter((item) => item.id !== productItem.id));
+        showToast(`Removed ${productItem.name} from buy bag`);
+      } else {
+        const updated = [...inquiryBag];
+        updated[existsIndex] = productItem;
+        setInquiryBag(updated);
+        showToast(`Updated ${productItem.name} (${productItem.selectedStorage || ''}) in bag`);
+      }
     } else {
-      setInquiryBag([...inquiryBag, product]);
-      showToast(`Added ${product.name} to inquiry bag`);
+      setInquiryBag([...inquiryBag, productItem]);
+      showToast(`Added ${productItem.name} to buy bag`);
     }
   };
 
   const handleRemoveFromBag = (id) => {
-    setInquiryBag(inquiryBag.filter(item => item.id !== id));
+    setInquiryBag(inquiryBag.filter((item) => item.id !== id));
   };
 
   const handleClearBag = () => {
     setInquiryBag([]);
-  };
-
-  const handleOpenTradeIn = () => {
-    const el = document.getElementById('trade-in');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   return (
@@ -76,25 +85,23 @@ export default function App() {
         </div>
       )}
 
-      {/* Main Luxury Navigation (Immediate Paint) */}
+      {/* Main Luxury Buy-Only Navigation (Immediate Paint) */}
       <Navbar
         inquiryBag={inquiryBag}
         onOpenBag={() => setIsBagOpen(true)}
-        onOpenTradeIn={handleOpenTradeIn}
       />
 
       {/* Main Content Area */}
       <main id="website-main" className="flex-1 pb-24 sm:pb-0">
         
-        {/* Flagship Hero (Immediate Paint - 0ms Delay) */}
+        {/* Flagship iPhone Hero (Immediate Paint - 0ms Delay) */}
         <HeroSection
-          onOpenTradeIn={handleOpenTradeIn}
-          onSelectProduct={(id) => setSelectedProductId(id)}
+          onSelectProduct={(id) => handleOpenProduct(id, 0, 0)}
         />
 
-        {/* Live Flagship Inventory Vault (Immediate Paint) */}
+        {/* Complete Certified iPhone Buy Vault: iPhone 12 mini to iPhone 18 Pro Max */}
         <InventorySection
-          onSelectProduct={(id) => setSelectedProductId(id)}
+          onSelectProduct={handleOpenProduct}
           onAddToBag={handleAddToBag}
           inquiryBag={inquiryBag}
         />
@@ -102,30 +109,22 @@ export default function App() {
         {/* Below-the-fold sections wrapped in Suspense for instant page responsiveness */}
         <Suspense fallback={<SectionLoader />}>
           
-          {/* Live Instagram Reels & Store Social Feed */}
+          {/* Live Instagram Reels & Store Stock Feed */}
           <InstagramFeedSection />
-
-          {/* Trade-In Exchange Valuation Calculator */}
-          <TradeInCalculator />
-
-          {/* Apple & Android Certified Repair & Care Hub */}
-          <RepairServicesHub
-            onBookService={(service) => {}}
-          />
 
           {/* Real Store Photo Gallery Lightbox */}
           <StoreGallery />
 
-          {/* Latest Stock Alerts & Posts */}
+          {/* Latest Buy Stock Alerts */}
           <LatestUpdates />
 
           {/* FAQ Accordion */}
           <FaqSection />
 
-          {/* DEDICATED CUSTOMER RATING & REVIEWS SECTION AT THE BOTTOM */}
+          {/* Dedicated Customer Rating & Reviews Section */}
           <CustomerReviewsSection />
 
-          {/* Store Location, Google Map & Inquiry Form */}
+          {/* Store Location, Google Map & Buy Inquiry Form */}
           <LocationAndContact />
 
           {/* Footer */}
@@ -134,14 +133,16 @@ export default function App() {
         </Suspense>
       </main>
 
-      {/* Product Details Specs Modal (Lazy) */}
-      {selectedProductId && (
+      {/* Product Details Specs & Variant Modal (Lazy) */}
+      {selectedProduct && (
         <Suspense fallback={null}>
           <ProductDetailsModal
             product={selectedProduct}
-            onClose={() => setSelectedProductId(null)}
+            initialVariantIdx={selectedModalState.variantIdx}
+            initialColorIdx={selectedModalState.colorIdx}
+            onClose={() => setSelectedModalState(null)}
             onAddToBag={handleAddToBag}
-            isInBag={selectedProduct ? inquiryBag.some(i => i.id === selectedProduct.id) : false}
+            isInBag={inquiryBag.some((i) => i.id === selectedProduct.id)}
           />
         </Suspense>
       )}
@@ -159,7 +160,7 @@ export default function App() {
         </Suspense>
       )}
 
-      {/* FLOATING ACTION BUTTONS (Direct Dialer & Direct WhatsApp with native redirection) */}
+      {/* FLOATING ACTION BUTTONS (Direct Dialer & Direct WhatsApp) */}
       <FloatingActions
         onOpenBag={() => setIsBagOpen(true)}
         bagCount={inquiryBag.length}

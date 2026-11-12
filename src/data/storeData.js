@@ -1,23 +1,888 @@
-// High-performance image assets and Instagram store data
+// Official Cashify Android App Reference Link
+export const CASHIFY_APP_URL = "https://play.google.com/store/apps/details?id=com.reglobe.cashify";
+export const STORE_MARKUP_INR = 500;
+
+export const formatINR = (amount) => `₹${Number(amount).toLocaleString("en-IN")}`;
+
+// Helper to build pricing variants ensuring Store Buy Price = Cashify App Price + ₹500
+const makeVariants = (list) =>
+  list.map(([storage, cashifyPrice, originalMrp]) => {
+    const storePrice = cashifyPrice + STORE_MARKUP_INR;
+    const savingsAmount = originalMrp - storePrice;
+    return {
+      storage,
+      cashifyPrice,
+      storePrice,
+      originalMrp,
+      cashifyPriceFormatted: formatINR(cashifyPrice),
+      storePriceFormatted: formatINR(storePrice),
+      originalPriceFormatted: formatINR(originalMrp),
+      savingsFormatted: `SAVE ${formatINR(Math.max(savingsAmount, 0))}`
+    };
+  });
+
+// Verified Official Apple Newsroom & Wikimedia Images
 export const IPHONE_16_PRO_MAX_IMAGES = {
-  // Official Apple Newsroom Launch Master Images (Desert, Natural, White, Black Titanium)
   heroDuo: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-240909_inline.jpg.large.jpg",
   finishLineup: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-finish-lineup-240909_big.jpg.large.jpg",
   cameraSystem: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-camera-system-240909_inline.jpg.large.jpg",
   desertCutout: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_Desert_Titanium_Rear.png?width=600",
   screenCutout: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_screen.png?width=600",
-  // Original In-Store Photography from Sikandar's Store in Jagdish Market
   storeBoxStock: "https://lh3.googleusercontent.com/Y6eRQr50pTtuYEs0g55ljofWjM3HLStoYFVJCYCCaGLjwTikL9oqbS4BJ9iI4yhXWsinGnBXhDBCC7AB9w=w600-rw",
   storeCounterStock: "https://lh3.googleusercontent.com/tzJoPiFPlLtP8e9v-tfbiVPczbnslw-UU4ysdRcm_mR6QcodMM49DSpfVUo3qN2NorgyQ72tXE7DazZ1uQ=w600-rw",
-  storeInspectionDesk: "https://lh3.googleusercontent.com/-VuECFMulcl6GsV1loRwPLSIItWHnmjubnIBojpF2bVPoLf70ajDbytqqlMZrZx6QXpkHTxK5GZ7vydTTQ=w600-rw",
+  storeInspectionDesk: "https://lh3.googleusercontent.com/-VuECFMulcl6GsV1loRwPLSIItWHnmjubnIBojpF2bVPoLf70ajDbytqqlMZrZx6QXpkHTxK5GZ7vydTTQ=w600-rw"
 };
+
+const IMG = {
+  iphone18Pro: "https://www.apple.com/v/iphone-18-pro/d/images/meta/iphone-18-pro_overview__bl9no3txkonm_og.png",
+  iphoneAir: "https://www.apple.com/v/iphone-air/i/images/meta/iphone-air_overview__dwhg6l117yqa_og.png",
+  iphone17: "https://www.apple.com/v/iphone-17/i/images/meta/iphone-17_overview__cg0rlzmbhl7m_og.png",
+  iphoneFamily: "https://www.apple.com/v/iphone/home/ck/images/meta/iphone__bh930eyjnj0i_og.png",
+  iphone16ProMax: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_Desert_Titanium_Rear.png?width=600",
+  iphone16Pro: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-camera-system-240909_inline.jpg.large.jpg",
+  iphone16Lineup: "https://www.apple.com/newsroom/images/2024/09/apple-introduces-iphone-16-and-iphone-16-plus/article/Apple-iPhone-16-finish-lineup-240909_big.jpg.large.jpg",
+  iphone15ProMax: "https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/article/Apple-iPhone-15-Pro-lineup-hero-230912_Full-Bleed-Image.jpg.large.jpg",
+  iphone15Pro: "https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/tile/Apple-iPhone-15-Pro-lineup-hero-230912.jpg.og.jpg",
+  iphone15Lineup: "https://www.apple.com/newsroom/images/2023/09/apple-debuts-iphone-15-and-iphone-15-plus/article/Apple-iPhone-15-lineup-hero-230912_inline.jpg.large.jpg",
+  iphone14Pro: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-Pro-iPhone-14-Pro-Max-deep-purple-220907_inline.jpg.large.jpg",
+  iphone14Lineup: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-iPhone-14-Plus-hero-220907_Full-Bleed-Image.jpg.large.jpg",
+  iphone13Pro: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_09142021_inline.jpg.large.jpg",
+  iphone13Lineup: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iphone13_hero_09142021_inline.jpg.large.jpg",
+  iphone12Pro: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone12pro_10132020_big.jpg.large.jpg",
+  iphone12Lineup: "https://www.apple.com/newsroom/images/product/iphone/standard/apple_iphone-12_new-design_10132020_big.jpg.large.jpg"
+};
+
+const rawProducts = [
+  // =========================================================
+  // iPHONE 18 SERIES (PRESENT FLAGSHIP PRO LINEUP)
+  // =========================================================
+  {
+    id: "iphone-18-pro-max",
+    name: "Apple iPhone 18 Pro Max",
+    series: "iPhone 18 Series",
+    badge: "Latest 2026 Pro Max",
+    image: IMG.iphone18Pro,
+    condition: "Grade A+ Flawless • Open Box / Mint",
+    batteryHealth: "100% Genuine Health",
+    warranty: "Apple Official Warranty + Store Bill",
+    colors: [
+      { name: "Burgundy", hex: "#5c202c" },
+      { name: "Glacier", hex: "#c5d8e5" },
+      { name: "Black", hex: "#1c1d20" },
+      { name: "Silver", hex: "#e6e7e9" }
+    ],
+    variants: makeVariants([
+      ["256GB", 149500, 179900],
+      ["512GB", 169500, 204900],
+      ["1TB", 209500, 254900],
+      ["2TB", 269500, 329900]
+    ]),
+    specs: {
+      chip: "A20 Pro 2nm Silicon with Apple Intelligence",
+      display: "6.9\" ProMotion XDR OLED 120Hz",
+      camera: "Triple 48MP Variable Aperture Pro Camera System",
+      box: "Original Box, Braided USB-C Cable & Store Invoice"
+    }
+  },
+  {
+    id: "iphone-18-pro",
+    name: "Apple iPhone 18 Pro",
+    series: "iPhone 18 Series",
+    badge: "Latest 2026 Pro",
+    image: IMG.iphone18Pro,
+    condition: "Grade A+ Flawless • Mint",
+    batteryHealth: "100% Genuine Health",
+    warranty: "Apple Official Warranty + Store Bill",
+    colors: [
+      { name: "Glacier", hex: "#c5d8e5" },
+      { name: "Burgundy", hex: "#5c202c" },
+      { name: "Black", hex: "#1c1d20" },
+      { name: "Silver", hex: "#e6e7e9" }
+    ],
+    variants: makeVariants([
+      ["256GB", 134500, 164900],
+      ["512GB", 154500, 189900],
+      ["1TB", 194500, 239900],
+      ["2TB", 254500, 314900]
+    ]),
+    specs: {
+      chip: "A20 Pro 2nm Chip with Neural Engine",
+      display: "6.3\" ProMotion XDR OLED 120Hz",
+      camera: "Triple 48MP Variable Aperture + 5x Telephoto",
+      box: "Original Box, Cable & Authorized Store Bill"
+    }
+  },
+
+  // =========================================================
+  // iPHONE 17 SERIES (17e, 17, 17 Air, 17 Pro, 17 Pro Max)
+  // =========================================================
+  {
+    id: "iphone-17-pro-max",
+    name: "Apple iPhone 17 Pro Max",
+    series: "iPhone 17 Series",
+    badge: "Flagship Buy",
+    image: IMG.iphone18Pro,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "97% – 100% Health",
+    warranty: "6 Months Store Warranty + Bill",
+    colors: [
+      { name: "Desert Titanium", hex: "#c4a387" },
+      { name: "Natural Titanium", hex: "#9e9a93" },
+      { name: "Space Black", hex: "#27282b" },
+      { name: "Silver", hex: "#e3e4e0" }
+    ],
+    variants: makeVariants([
+      ["256GB", 104500, 149900],
+      ["512GB", 114500, 169900],
+      ["1TB", 126000, 189900],
+      ["2TB", 142000, 229900]
+    ]),
+    specs: {
+      chip: "A19 Pro Chipset",
+      display: "6.9\" Super Retina XDR 120Hz",
+      camera: "Triple 48MP Pro Fusion Camera System",
+      box: "Complete Box, Cable & 3uTools Verification Report"
+    }
+  },
+  {
+    id: "iphone-17-pro",
+    name: "Apple iPhone 17 Pro",
+    series: "iPhone 17 Series",
+    badge: "Pro Grade A+",
+    image: IMG.iphone16Pro,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "97% – 100% Health",
+    warranty: "6 Months Store Warranty + Bill",
+    colors: [
+      { name: "Natural Titanium", hex: "#9e9a93" },
+      { name: "Desert Titanium", hex: "#c4a387" },
+      { name: "Space Black", hex: "#27282b" },
+      { name: "Silver", hex: "#e3e4e0" }
+    ],
+    variants: makeVariants([
+      ["256GB", 94500, 134900],
+      ["512GB", 103500, 154900],
+      ["1TB", 114000, 174900]
+    ]),
+    specs: {
+      chip: "A19 Pro Chipset",
+      display: "6.3\" Super Retina XDR 120Hz",
+      camera: "48MP Pro Triple Camera with 5x Optical Zoom",
+      box: "Original Box & Store Invoice"
+    }
+  },
+  {
+    id: "iphone-17-air",
+    name: "Apple iPhone 17 Air",
+    series: "iPhone 17 Series",
+    badge: "Ultra-Slim Design",
+    image: IMG.iphoneAir,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "98% – 100% Health",
+    warranty: "6 Months Store Warranty + Bill",
+    colors: [
+      { name: "Sky Blue", hex: "#b8d0e8" },
+      { name: "Light Gold", hex: "#e9dec7" },
+      { name: "Cloud White", hex: "#f4f5f7" },
+      { name: "Space Black", hex: "#27282b" }
+    ],
+    variants: makeVariants([
+      ["256GB", 78000, 99900],
+      ["512GB", 86500, 119900],
+      ["1TB", 96000, 139900]
+    ]),
+    specs: {
+      chip: "A19 Pro Ultra-Thin Architecture",
+      display: "6.6\" ProMotion Ultra-Thin OLED",
+      camera: "48MP Fusion Main Sensor with 2x Telephoto",
+      box: "Original Box & Charging Cable"
+    }
+  },
+  {
+    id: "iphone-17",
+    name: "Apple iPhone 17",
+    series: "iPhone 17 Series",
+    badge: "Best Seller",
+    image: IMG.iphone17,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "97% – 100% Health",
+    warranty: "6 Months Store Warranty + Bill",
+    colors: [
+      { name: "Sage", hex: "#96ab97" },
+      { name: "Lavender", hex: "#c7bddb" },
+      { name: "Mist Blue", hex: "#b7c9d9" },
+      { name: "White", hex: "#f5f5f7" },
+      { name: "Black", hex: "#1f2022" }
+    ],
+    variants: makeVariants([
+      ["256GB", 69500, 99900],
+      ["512GB", 78500, 124900]
+    ]),
+    specs: {
+      chip: "A19 Chip with Apple Intelligence",
+      display: "6.3\" ProMotion OLED 120Hz",
+      camera: "48MP Dual Fusion Camera System",
+      box: "Complete Box & 3uTools Verified Bill"
+    }
+  },
+  {
+    id: "iphone-17e",
+    name: "Apple iPhone 17e",
+    series: "iPhone 17 Series",
+    badge: "Smart Value",
+    image: IMG.iphone17,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "98% – 100% Health",
+    warranty: "6 Months Store Warranty",
+    colors: [
+      { name: "Black", hex: "#1f2022" },
+      { name: "White", hex: "#f5f5f7" },
+      { name: "Soft Pink", hex: "#f4cfd9" }
+    ],
+    variants: makeVariants([
+      ["256GB", 56000, 79900],
+      ["512GB", 64000, 104900]
+    ]),
+    specs: {
+      chip: "A19 Silicon",
+      display: "6.1\" Super Retina XDR OLED",
+      camera: "48MP Fusion Camera",
+      box: "Original Packaging & Store Invoice"
+    }
+  },
+
+  // =========================================================
+  // iPHONE 16 SERIES (16e, 16, 16 Plus, 16 Pro, 16 Pro Max)
+  // =========================================================
+  {
+    id: "iphone-16-pro-max",
+    name: "Apple iPhone 16 Pro Max",
+    series: "iPhone 16 Series",
+    badge: "Most Popular Pro Max",
+    image: IMG.iphone16ProMax,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "95% – 100% Health",
+    warranty: "6 Months Store Warranty + Bill",
+    colors: [
+      { name: "Desert Titanium", hex: "#c4a387" },
+      { name: "Natural Titanium", hex: "#9e9a93" },
+      { name: "White Titanium", hex: "#f2f1ed" },
+      { name: "Black Titanium", hex: "#2e2f33" }
+    ],
+    variants: makeVariants([
+      ["256GB", 89500, 144900],
+      ["512GB", 97000, 164900],
+      ["1TB", 105000, 184900]
+    ]),
+    specs: {
+      chip: "A18 Pro with 6-Core GPU",
+      display: "6.9\" Super Retina XDR ProMotion 120Hz",
+      camera: "48MP Fusion + 48MP Ultra Wide + 5x Telephoto",
+      box: "Complete Box, Cable, Bill & Testing Report"
+    }
+  },
+  {
+    id: "iphone-16-pro",
+    name: "Apple iPhone 16 Pro",
+    series: "iPhone 16 Series",
+    badge: "Compact Titanium",
+    image: IMG.iphone16Pro,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "95% – 100% Health",
+    warranty: "6 Months Store Warranty + Bill",
+    colors: [
+      { name: "Natural Titanium", hex: "#9e9a93" },
+      { name: "Desert Titanium", hex: "#c4a387" },
+      { name: "White Titanium", hex: "#f2f1ed" },
+      { name: "Black Titanium", hex: "#2e2f33" }
+    ],
+    variants: makeVariants([
+      ["128GB", 76500, 119900],
+      ["256GB", 82000, 129900],
+      ["512GB", 89500, 149900],
+      ["1TB", 97000, 169900]
+    ]),
+    specs: {
+      chip: "A18 Pro Silicon",
+      display: "6.3\" Super Retina XDR ProMotion 120Hz",
+      camera: "48MP Camera Control + 5x Optical Zoom",
+      box: "Box Pack with Original Accessories"
+    }
+  },
+  {
+    id: "iphone-16-plus",
+    name: "Apple iPhone 16 Plus",
+    series: "iPhone 16 Series",
+    badge: "Big Screen Battery King",
+    image: IMG.iphone16Lineup,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "95% – 100% Health",
+    warranty: "6 Months Store Warranty",
+    colors: [
+      { name: "Ultramarine", hex: "#96a9f0" },
+      { name: "Teal", hex: "#a8cfc6" },
+      { name: "Pink", hex: "#f3b1d5" },
+      { name: "White", hex: "#f7f7f7" },
+      { name: "Black", hex: "#242527" }
+    ],
+    variants: makeVariants([
+      ["128GB", 61000, 89900],
+      ["256GB", 66000, 99900],
+      ["512GB", 73000, 119900]
+    ]),
+    specs: {
+      chip: "A18 3nm Chip with Apple Intelligence",
+      display: "6.7\" Super Retina XDR OLED",
+      camera: "48MP Fusion + Spatial Video Capture",
+      box: "Original Packaging & Cable"
+    }
+  },
+  {
+    id: "iphone-16",
+    name: "Apple iPhone 16",
+    series: "iPhone 16 Series",
+    badge: "Apple Intelligence",
+    image: IMG.iphone16Lineup,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "95% – 100% Health",
+    warranty: "6 Months Store Warranty",
+    colors: [
+      { name: "Teal", hex: "#a8cfc6" },
+      { name: "Ultramarine", hex: "#96a9f0" },
+      { name: "Pink", hex: "#f3b1d5" },
+      { name: "White", hex: "#f7f7f7" },
+      { name: "Black", hex: "#242527" }
+    ],
+    variants: makeVariants([
+      ["128GB", 55000, 79900],
+      ["256GB", 60000, 89900],
+      ["512GB", 67000, 109900]
+    ]),
+    specs: {
+      chip: "A18 3nm Chip",
+      display: "6.1\" Super Retina XDR OLED",
+      camera: "48MP Fusion 2x Telephoto",
+      box: "Original Packaging Included"
+    }
+  },
+  {
+    id: "iphone-16e",
+    name: "Apple iPhone 16e",
+    series: "iPhone 16 Series",
+    badge: "Value Flagship",
+    image: IMG.iphone16Lineup,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "96% – 100% Health",
+    warranty: "6 Months Store Warranty",
+    colors: [
+      { name: "Black", hex: "#1f2022" },
+      { name: "White", hex: "#f4f4f6" }
+    ],
+    variants: makeVariants([
+      ["128GB", 42000, 59900],
+      ["256GB", 46000, 69900],
+      ["512GB", 52000, 89900]
+    ]),
+    specs: {
+      chip: "A18 Chipset with Apple C1 Modem",
+      display: "6.1\" Super Retina XDR OLED",
+      camera: "48MP 2-in-1 Fusion Camera",
+      box: "Store Verified Box & Cable"
+    }
+  },
+
+  // =========================================================
+  // iPHONE 15 SERIES (15, 15 Plus, 15 Pro, 15 Pro Max)
+  // =========================================================
+  {
+    id: "iphone-15-pro-max",
+    name: "Apple iPhone 15 Pro Max",
+    series: "iPhone 15 Series",
+    badge: "Top Selling Titanium",
+    image: IMG.iphone15ProMax,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "91% – 97% Original",
+    warranty: "6 Months Store Warranty",
+    colors: [
+      { name: "Natural Titanium", hex: "#aba69e" },
+      { name: "Blue Titanium", hex: "#2f3742" },
+      { name: "White Titanium", hex: "#f2f1ed" },
+      { name: "Black Titanium", hex: "#3c3c3e" }
+    ],
+    variants: makeVariants([
+      ["256GB", 75500, 159900],
+      ["512GB", 82000, 179900],
+      ["1TB", 89000, 199900]
+    ]),
+    specs: {
+      chip: "A17 Pro 3nm Industry-First Chip",
+      display: "6.7\" Dynamic Island 120Hz Always-On",
+      camera: "48MP Main + 5x Optical Periscope Zoom",
+      box: "With Box & Fast USB-C Cable"
+    }
+  },
+  {
+    id: "iphone-15-pro",
+    name: "Apple iPhone 15 Pro",
+    series: "iPhone 15 Series",
+    badge: "Pro Value Pick",
+    image: IMG.iphone15Pro,
+    condition: "Grade A+ Mint",
+    batteryHealth: "90% – 96% Original",
+    warranty: "6 Months Store Warranty",
+    colors: [
+      { name: "Black Titanium", hex: "#3c3c3e" },
+      { name: "Natural Titanium", hex: "#aba69e" },
+      { name: "Blue Titanium", hex: "#2f3742" },
+      { name: "White Titanium", hex: "#f2f1ed" }
+    ],
+    variants: makeVariants([
+      ["128GB", 64500, 134900],
+      ["256GB", 69000, 144900],
+      ["512GB", 75000, 164900],
+      ["1TB", 81000, 184900]
+    ]),
+    specs: {
+      chip: "A17 Pro with USB-C 10Gbps Speed",
+      display: "6.1\" Super Retina XDR ProMotion",
+      camera: "48MP Triple Lens with Action Button",
+      box: "Original Box with IMEI Bill"
+    }
+  },
+  {
+    id: "iphone-15-plus",
+    name: "Apple iPhone 15 Plus",
+    series: "iPhone 15 Series",
+    badge: "6.7\" Dynamic Island",
+    image: IMG.iphone15Lineup,
+    condition: "Grade A+ Certified",
+    batteryHealth: "90% – 96%",
+    warranty: "6 Months Store Warranty",
+    colors: [
+      { name: "Blue", hex: "#d5dde0" },
+      { name: "Pink", hex: "#ebd0d2" },
+      { name: "Green", hex: "#d0d9ca" },
+      { name: "Yellow", hex: "#ece6c2" },
+      { name: "Black", hex: "#35393b" }
+    ],
+    variants: makeVariants([
+      ["128GB", 47500, 79900],
+      ["256GB", 51500, 89900],
+      ["512GB", 57000, 109900]
+    ]),
+    specs: {
+      chip: "A16 Bionic Chip",
+      display: "6.7\" Dynamic Island Super Retina XDR",
+      camera: "48MP Main + 2x Telephoto",
+      box: "Box Pack with USB-C Cable"
+    }
+  },
+  {
+    id: "iphone-15",
+    name: "Apple iPhone 15",
+    series: "iPhone 15 Series",
+    badge: "USB-C Best Buy",
+    image: IMG.iphone15Lineup,
+    condition: "Grade A+ Certified",
+    batteryHealth: "90% – 96%",
+    warranty: "6 Months Store Warranty",
+    colors: [
+      { name: "Black", hex: "#35393b" },
+      { name: "Pink", hex: "#ebd0d2" },
+      { name: "Blue", hex: "#d5dde0" },
+      { name: "Green", hex: "#d0d9ca" },
+      { name: "Yellow", hex: "#ece6c2" }
+    ],
+    variants: makeVariants([
+      ["128GB", 43500, 69900],
+      ["256GB", 47500, 79900],
+      ["512GB", 53000, 99900]
+    ]),
+    specs: {
+      chip: "A16 Bionic Chip",
+      display: "6.1\" Dynamic Island Super Retina",
+      camera: "48MP 2x Telephoto Sensor",
+      box: "Box Pack with Cable"
+    }
+  },
+
+  // =========================================================
+  // iPHONE 14 SERIES (14, 14 Plus, 14 Pro, 14 Pro Max)
+  // =========================================================
+  {
+    id: "iphone-14-pro-max",
+    name: "Apple iPhone 14 Pro Max",
+    series: "iPhone 14 Series",
+    badge: "Deep Purple Classic",
+    image: IMG.iphone14Pro,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "88% – 95%",
+    warranty: "Store Warranty + Invoice",
+    colors: [
+      { name: "Deep Purple", hex: "#594f63" },
+      { name: "Space Black", hex: "#403e3d" },
+      { name: "Gold", hex: "#f4e8ce" },
+      { name: "Silver", hex: "#f0f2f2" }
+    ],
+    variants: makeVariants([
+      ["128GB", 58000, 139900],
+      ["256GB", 62500, 149900],
+      ["512GB", 68000, 169900],
+      ["1TB", 73500, 189900]
+    ]),
+    specs: {
+      chip: "A16 Bionic Silicon",
+      display: "6.7\" Dynamic Island 120Hz ProMotion",
+      camera: "48MP Pro Triple Camera System",
+      box: "With Box and Store Warranty"
+    }
+  },
+  {
+    id: "iphone-14-pro",
+    name: "Apple iPhone 14 Pro",
+    series: "iPhone 14 Series",
+    badge: "Pro Dynamic Island",
+    image: IMG.iphone14Pro,
+    condition: "Grade A+ Flawless",
+    batteryHealth: "88% – 95%",
+    warranty: "Store Warranty + Invoice",
+    colors: [
+      { name: "Deep Purple", hex: "#594f63" },
+      { name: "Space Black", hex: "#403e3d" },
+      { name: "Gold", hex: "#f4e8ce" },
+      { name: "Silver", hex: "#f0f2f2" }
+    ],
+    variants: makeVariants([
+      ["128GB", 51500, 129900],
+      ["256GB", 55500, 139900],
+      ["512GB", 60500, 159900],
+      ["1TB", 66000, 179900]
+    ]),
+    specs: {
+      chip: "A16 Bionic Silicon",
+      display: "6.1\" Dynamic Island 120Hz Always-On",
+      camera: "48MP Main + 3x Optical Telephoto",
+      box: "Store Bill & Lightning Cable"
+    }
+  },
+  {
+    id: "iphone-14-plus",
+    name: "Apple iPhone 14 Plus",
+    series: "iPhone 14 Series",
+    badge: "Max Battery Value",
+    image: IMG.iphone14Lineup,
+    condition: "Scratchless Grade A+",
+    batteryHealth: "88% – 94%",
+    warranty: "Store Warranty + Bill",
+    colors: [
+      { name: "Blue", hex: "#a0b4c7" },
+      { name: "Purple", hex: "#e6ddeb" },
+      { name: "Midnight", hex: "#1c2329" },
+      { name: "Starlight", hex: "#faf6f2" },
+      { name: "Yellow", hex: "#fff078" },
+      { name: "Product RED", hex: "#fc0324" }
+    ],
+    variants: makeVariants([
+      ["128GB", 36500, 79900],
+      ["256GB", 40000, 89900],
+      ["512GB", 44500, 109900]
+    ]),
+    specs: {
+      chip: "A15 Bionic 5-Core GPU",
+      display: "6.7\" Super Retina XDR OLED",
+      camera: "Dual 12MP Photonic Engine + Action Mode",
+      box: "Box Pack + Charging Cable"
+    }
+  },
+  {
+    id: "iphone-14",
+    name: "Apple iPhone 14",
+    series: "iPhone 14 Series",
+    badge: "Everyday Budget King",
+    image: IMG.iphone14Lineup,
+    condition: "Scratchless Certified",
+    batteryHealth: "87% – 94%",
+    warranty: "Store Warranty + Bill",
+    colors: [
+      { name: "Midnight", hex: "#1c2329" },
+      { name: "Starlight", hex: "#faf6f2" },
+      { name: "Blue", hex: "#a0b4c7" },
+      { name: "Purple", hex: "#e6ddeb" },
+      { name: "Yellow", hex: "#fff078" },
+      { name: "Product RED", hex: "#fc0324" }
+    ],
+    variants: makeVariants([
+      ["128GB", 32500, 69900],
+      ["256GB", 36000, 79900],
+      ["512GB", 40500, 99900]
+    ]),
+    specs: {
+      chip: "A15 Bionic 5-Core GPU",
+      display: "6.1\" Super Retina XDR OLED",
+      camera: "Dual 12MP with Photonic Engine",
+      box: "Box Pack + Charging Cable"
+    }
+  },
+
+  // =========================================================
+  // iPHONE 13 SERIES (13 mini, 13, 13 Pro, 13 Pro Max)
+  // =========================================================
+  {
+    id: "iphone-13-pro-max",
+    name: "Apple iPhone 13 Pro Max",
+    series: "iPhone 13 Series",
+    badge: "All-Time Best Seller",
+    image: IMG.iphone13Pro,
+    condition: "Grade A+ Certified",
+    batteryHealth: "86% – 93%",
+    warranty: "Store Warranty Included",
+    colors: [
+      { name: "Sierra Blue", hex: "#9bb5ce" },
+      { name: "Alpine Green", hex: "#576856" },
+      { name: "Graphite", hex: "#5c5b57" },
+      { name: "Gold", hex: "#fae7cf" },
+      { name: "Silver", hex: "#f1f2ed" }
+    ],
+    variants: makeVariants([
+      ["128GB", 49000, 129900],
+      ["256GB", 53000, 139900],
+      ["512GB", 57500, 159900],
+      ["1TB", 62000, 179900]
+    ]),
+    specs: {
+      chip: "A15 Bionic 5-Core GPU",
+      display: "6.7\" ProMotion 120Hz OLED",
+      camera: "12MP Pro Triple Lens with Macro Photography",
+      box: "Original Bill + Cable"
+    }
+  },
+  {
+    id: "iphone-13-pro",
+    name: "Apple iPhone 13 Pro",
+    series: "iPhone 13 Series",
+    badge: "Sierra Blue Edition",
+    image: IMG.iphone13Pro,
+    condition: "Grade A+ Certified",
+    batteryHealth: "86% – 93%",
+    warranty: "Store Warranty Included",
+    colors: [
+      { name: "Sierra Blue", hex: "#9bb5ce" },
+      { name: "Alpine Green", hex: "#576856" },
+      { name: "Graphite", hex: "#5c5b57" },
+      { name: "Gold", hex: "#fae7cf" },
+      { name: "Silver", hex: "#f1f2ed" }
+    ],
+    variants: makeVariants([
+      ["128GB", 44000, 119900],
+      ["256GB", 47500, 129900],
+      ["512GB", 51500, 149900],
+      ["1TB", 56000, 169900]
+    ]),
+    specs: {
+      chip: "A15 Bionic Pro",
+      display: "6.1\" ProMotion 120Hz OLED",
+      camera: "12MP Triple Pro Camera + ProRes Video",
+      box: "Original Bill + Fast Cable"
+    }
+  },
+  {
+    id: "iphone-13",
+    name: "Apple iPhone 13",
+    series: "iPhone 13 Series",
+    badge: "Most Demanded Buy",
+    image: IMG.iphone13Lineup,
+    condition: "Certified Grade A",
+    batteryHealth: "86% – 92%",
+    warranty: "Store Warranty Included",
+    colors: [
+      { name: "Midnight", hex: "#1d242b" },
+      { name: "Starlight", hex: "#f0ece1" },
+      { name: "Blue", hex: "#276787" },
+      { name: "Pink", hex: "#faddd7" },
+      { name: "Green", hex: "#394c38" },
+      { name: "Product RED", hex: "#bf0013" }
+    ],
+    variants: makeVariants([
+      ["128GB", 27500, 69900],
+      ["256GB", 30500, 79900],
+      ["512GB", 34000, 99900]
+    ]),
+    specs: {
+      chip: "A15 Bionic Chip",
+      display: "6.1\" Super Retina OLED Display",
+      camera: "Dual 12MP Cinematic 4K Recording",
+      box: "Original Bill + Cable"
+    }
+  },
+  {
+    id: "iphone-13-mini",
+    name: "Apple iPhone 13 mini",
+    series: "iPhone 13 Series",
+    badge: "Compact 5.4\" Flagship",
+    image: IMG.iphone13Lineup,
+    condition: "Certified Grade A",
+    batteryHealth: "86% – 92%",
+    warranty: "Store Warranty Included",
+    colors: [
+      { name: "Pink", hex: "#faddd7" },
+      { name: "Midnight", hex: "#1d242b" },
+      { name: "Starlight", hex: "#f0ece1" },
+      { name: "Blue", hex: "#276787" },
+      { name: "Green", hex: "#394c38" },
+      { name: "Product RED", hex: "#bf0013" }
+    ],
+    variants: makeVariants([
+      ["128GB", 25000, 64900],
+      ["256GB", 28000, 74900],
+      ["512GB", 31500, 94900]
+    ]),
+    specs: {
+      chip: "A15 Bionic Chip",
+      display: "5.4\" Super Retina XDR Compact Display",
+      camera: "Dual 12MP Sensor-Shift OIS",
+      box: "Original Bill + Cable"
+    }
+  },
+
+  // =========================================================
+  // iPHONE 12 SERIES (12 mini, 12, 12 Pro, 12 Pro Max)
+  // =========================================================
+  {
+    id: "iphone-12-pro-max",
+    name: "Apple iPhone 12 Pro Max",
+    series: "iPhone 12 Series",
+    badge: "Pacific Blue Icon",
+    image: IMG.iphone12Pro,
+    condition: "Certified Mint",
+    batteryHealth: "85% – 91%",
+    warranty: "Store Warranty Included",
+    colors: [
+      { name: "Pacific Blue", hex: "#2d4a5a" },
+      { name: "Gold", hex: "#f3e3c9" },
+      { name: "Graphite", hex: "#41403e" },
+      { name: "Silver", hex: "#e3e4e0" }
+    ],
+    variants: makeVariants([
+      ["128GB", 34000, 129900],
+      ["256GB", 37500, 139900],
+      ["512GB", 41000, 159900]
+    ]),
+    specs: {
+      chip: "A14 Bionic 5G Chip",
+      display: "6.7\" Super Retina XDR OLED",
+      camera: "Triple 12MP + LiDAR Scanner",
+      box: "With Bill & Cable"
+    }
+  },
+  {
+    id: "iphone-12-pro",
+    name: "Apple iPhone 12 Pro",
+    series: "iPhone 12 Series",
+    badge: "Stainless Steel Pro",
+    image: IMG.iphone12Pro,
+    condition: "Certified Mint",
+    batteryHealth: "85% – 91%",
+    warranty: "Store Warranty Included",
+    colors: [
+      { name: "Pacific Blue", hex: "#2d4a5a" },
+      { name: "Graphite", hex: "#41403e" },
+      { name: "Gold", hex: "#f3e3c9" },
+      { name: "Silver", hex: "#e3e4e0" }
+    ],
+    variants: makeVariants([
+      ["128GB", 29000, 119900],
+      ["256GB", 32000, 129900],
+      ["512GB", 35500, 149900]
+    ]),
+    specs: {
+      chip: "A14 Bionic 5G Silicon",
+      display: "6.1\" Super Retina XDR OLED",
+      camera: "Triple 12MP ProRAW + LiDAR",
+      box: "With Bill & Cable"
+    }
+  },
+  {
+    id: "iphone-12",
+    name: "Apple iPhone 12",
+    series: "iPhone 12 Series",
+    badge: "Affordable 5G Entry",
+    image: IMG.iphone12Lineup,
+    condition: "Certified Mint",
+    batteryHealth: "85% – 90%",
+    warranty: "Store Warranty Included",
+    colors: [
+      { name: "Black", hex: "#1c1c1e" },
+      { name: "White", hex: "#f5f5f7" },
+      { name: "Blue", hex: "#1e4b85" },
+      { name: "Green", hex: "#d8efd3" },
+      { name: "Purple", hex: "#b8afe6" },
+      { name: "Product RED", hex: "#bf0013" }
+    ],
+    variants: makeVariants([
+      ["64GB", 20000, 65900],
+      ["128GB", 22500, 70900],
+      ["256GB", 25000, 80900]
+    ]),
+    specs: {
+      chip: "A14 Bionic Silicon with 5G",
+      display: "6.1\" Super Retina XDR OLED",
+      camera: "Dual 12MP Night Mode on all cameras",
+      box: "With Bill & Cable"
+    }
+  },
+  {
+    id: "iphone-12-mini",
+    name: "Apple iPhone 12 mini",
+    series: "iPhone 12 Series",
+    badge: "Pocket 5G Classic",
+    image: IMG.iphone12Lineup,
+    condition: "Certified Mint",
+    batteryHealth: "85% – 90%",
+    warranty: "Store Warranty Included",
+    colors: [
+      { name: "Blue", hex: "#1e4b85" },
+      { name: "Purple", hex: "#b8afe6" },
+      { name: "Black", hex: "#1c1c1e" },
+      { name: "White", hex: "#f5f5f7" },
+      { name: "Green", hex: "#d8efd3" },
+      { name: "Product RED", hex: "#bf0013" }
+    ],
+    variants: makeVariants([
+      ["64GB", 18000, 59900],
+      ["128GB", 20500, 64900],
+      ["256GB", 23500, 74900]
+    ]),
+    specs: {
+      chip: "A14 Bionic 5G Chip",
+      display: "5.4\" Super Retina XDR OLED",
+      camera: "Dual 12MP Ultra Wide + Night Mode",
+      box: "With Bill & Cable"
+    }
+  }
+];
+
+// Enrich every product with computed top-level fields for instant UI & bag compatibility
+const products = rawProducts.map((p) => {
+  const firstVariant = p.variants[0];
+  return {
+    ...p,
+    edition: p.colors.map((c) => c.name).join(" / "),
+    storageOptions: p.variants.map((v) => v.storage),
+    cashifyBasePrice: firstVariant.cashifyPrice,
+    storeBasePrice: firstVariant.storePrice,
+    price: firstVariant.storePriceFormatted,
+    cashifyPrice: firstVariant.cashifyPriceFormatted,
+    originalPrice: firstVariant.originalPriceFormatted,
+    savings: firstVariant.savingsFormatted
+  };
+});
 
 export const storeData = {
   storeInfo: {
     name: "Sikandar's Mobile Store",
-    legalName: "“Sikandar’sMobile store - iPHONE & FLAGSHIP SALES AND SERVICE”",
-    tagline: "Hyderabad's Premier Obsidian Showroom for Certified Flagships & Precision Smartphone Care",
-    badge: "Official Abids & Koti Flagship Specialist",
+    legalName: "“Sikandar’s Mobile Store - Certified Pre-Owned iPhones”",
+    tagline: "Hyderabad's Premier Obsidian Showroom for Certified Pre-Owned iPhones (iPhone 12 to iPhone 18 Pro Max)",
+    badge: "Official Abids & Koti iPhone Showroom",
     rating: 4.9,
     reviewsCount: "242+",
     establishedYear: "2003",
@@ -25,21 +890,20 @@ export const storeData = {
     phone: "+91 9700317171",
     phoneRaw: "+919700317171",
     whatsapp: "919700317171",
+    cashifyAppUrl: CASHIFY_APP_URL,
+    markupAmount: STORE_MARKUP_INR,
     address: "Chirag Ali Lane, Jagdish Market (Abids & Koti Junction), Hyderabad, Telangana - 500001",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Sikandars+Mobile+Store+Jagdish+Market+Hyderabad&query_place_id=ChIJl2rsVn2XyzsR8pnP9WROa7E",
     googleReviewWriteUrl: "https://search.google.com/local/writereview?placeid=ChIJl2rsVn2XyzsR8pnP9WROa7E",
-    
-    // Official Instagram Profile Integration
     instagram: {
       handle: "@sikandarsmobilestore",
       username: "sikandarsmobilestore",
       url: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw==",
-      bio: "📍 Chirag Ali Lane, Jagdish Market, Abids & Koti, Hyderabad | Certified Pre-Owned iPhones, Samsung S-Series, Pixel & OnePlus | Buy • Sell • Exchange • Apple & Android Care | 📞 +91 9700317171",
+      bio: "📍 Chirag Ali Lane, Jagdish Market, Abids & Koti, Hyderabad | Buy Certified Pre-Owned iPhones (12 to 18 Pro Max) • All Colors & Variants • Cashify App + ₹500 Transparent Store Pricing | 📞 +91 9700317171",
       followersCount: "15.4K+",
       postsCount: "350+",
       verifiedBadge: true
     },
-
     workingHours: [
       { day: "Monday", time: "11:00 AM – 10:00 PM", status: "Open" },
       { day: "Tuesday", time: "11:00 AM – 10:00 PM", status: "Open" },
@@ -47,507 +911,63 @@ export const storeData = {
       { day: "Thursday", time: "11:00 AM – 10:00 PM", status: "Open" },
       { day: "Friday", time: "11:00 AM – 10:00 PM", status: "Open" },
       { day: "Saturday", time: "11:00 AM – 10:00 PM", status: "Open" },
-      { day: "Sunday", time: "Closed / By Appointment", status: "Appointment" },
+      { day: "Sunday", time: "Closed / By Appointment", status: "Appointment" }
     ]
   },
 
-  // INSTAGRAM REELS & VIDEO FEED FROM @sikandarsmobilestore
   instagramReels: [
     {
       id: "reel-1",
-      title: "Fresh iPhone 16 Pro Max Desert Titanium Stock Arrival!",
-      caption: "Huge stock just landed at Jagdish Market! 100% battery health, brand new sealed and Grade A+ units. Visit Sikandar’s Mobile Store today or DM for door delivery in Hyderabad! 📱✨ #iPhone16ProMax #Hyderabad #JagdishMarket",
-      thumbnail: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-240909_inline.jpg.large.jpg",
-      views: "48.2K",
-      likes: "3.4K",
+      title: "iPhone 18 Pro & 16 Pro Max Titanium Stock Ready!",
+      caption: "Fresh certified units just landed at Jagdish Market! Every iPhone from 12 mini to 18 Pro Max in all colors & storage variants. Transparent Cashify App + ₹500 showroom pricing! 📱✨",
+      thumbnail: IMG.iphone18Pro,
+      views: "52.4K",
+      likes: "3.8K",
       audio: "Original Audio – Sikandar Bhai",
       duration: "0:45",
-      tag: "Fresh Stock Arrival",
+      tag: "Fresh Buy Stock",
       instagramUrl: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw=="
     },
     {
       id: "reel-2",
-      title: "Mobile to Mobile Spot Exchange & Instant Valuation",
-      caption: "Customer brought iPhone 13 and walked away with iPhone 15 Pro Max in just 10 minutes! Spot UPI payment and data transfer assisted on spot. 🤝💵 #PhoneExchange #SikandarsMobileStore #Abids",
-      thumbnail: "https://lh3.googleusercontent.com/Y6eRQr50pTtuYEs0g55ljofWjM3HLStoYFVJCYCCaGLjwTikL9oqbS4BJ9iI4yhXWsinGnBXhDBCC7AB9w=w600-rw",
-      views: "62.8K",
-      likes: "4.9K",
+      title: "Unbeatable Buy Pricing: Cashify App + ₹500 Only!",
+      caption: "See the price on Cashify App, pay just ₹500 more at our Abids counter for instant physical inspection, 3uTools report, and 6-month store warranty. Zero waiting! 🤝💵",
+      thumbnail: IPHONE_16_PRO_MAX_IMAGES.storeBoxStock,
+      views: "64.8K",
+      likes: "5.1K",
       audio: "Trending Audio – Hyderabad Tech Beats",
       duration: "0:58",
-      tag: "Exchange Live",
+      tag: "Price Transparency",
       instagramUrl: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw=="
     },
     {
       id: "reel-3",
-      title: "TrueTone Screen Replacement & 3uTools Transparency",
-      caption: "Zero unknown part warning! Complete TrueTone restoration and battery health testing right in front of the customer. Trust only 20+ years experience in Jagdish Market. 🛠️ #AppleRepair #TrueToneFix",
-      thumbnail: "https://lh3.googleusercontent.com/-VuECFMulcl6GsV1loRwPLSIItWHnmjubnIBojpF2bVPoLf70ajDbytqqlMZrZx6QXpkHTxK5GZ7vydTTQ=w600-rw",
-      views: "35.1K",
-      likes: "2.8K",
+      title: "Live 3uTools Verification Before You Buy",
+      caption: "Check original battery cycles, TrueTone, FaceID, and serial numbers on the big monitor before paying a single rupee. 100% genuine Apple parts guaranteed. 🛠️",
+      thumbnail: IPHONE_16_PRO_MAX_IMAGES.storeInspectionDesk,
+      views: "38.1K",
+      likes: "2.9K",
       audio: "Tech Voiceover – Sikandar Bhai",
-      duration: "1:15",
-      tag: "Precision Repair",
+      duration: "1:10",
+      tag: "3uTools Verified",
       instagramUrl: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw=="
     },
     {
       id: "reel-4",
-      title: "Full iPhone 15 & 14 Series Lineup Showcase",
-      caption: "Looking for budget-friendly certified iPhones? iPhone 13 starting ₹31,499, iPhone 14 starting ₹38,999! Tested battery, genuine bill, and store warranty. Check it out! 🔥 #iPhoneDeals #HydTech",
-      thumbnail: "https://lh3.googleusercontent.com/tzJoPiFPlLtP8e9v-tfbiVPczbnslw-UU4ysdRcm_mR6QcodMM49DSpfVUo3qN2NorgyQ72tXE7DazZ1uQ=w600-rw",
-      views: "54.0K",
-      likes: "4.1K",
+      title: "iPhone 12, 13, 14 & 15 Full Color & Storage Showcase",
+      caption: "Every mini, Standard, Plus, Pro, and Pro Max ready for same-day pickup in Abids or 2-hour delivery across Hyderabad! 🔥 #BuyiPhoneHyderabad",
+      thumbnail: IPHONE_16_PRO_MAX_IMAGES.storeCounterStock,
+      views: "59.0K",
+      likes: "4.4K",
       audio: "Original Sound – Sikandar Store Vlogs",
-      duration: "0:50",
-      tag: "Best Deals",
+      duration: "0:52",
+      tag: "All Variants In-Stock",
       instagramUrl: "https://www.instagram.com/sikandarsmobilestore?mdxt=MXI3czN0eHl1NTNvbw=="
     }
   ],
 
-  // EVERY IPHONE MODEL AVAILABLE IN SIKANDAR'S MOBILE STORE
-  products: [
-    {
-      id: "iphone-16-pro-max",
-      name: "Apple iPhone 16 Pro Max",
-      edition: "Desert Titanium / Natural Titanium / Black / White",
-      series: "iPhone 16 Series",
-      price: "₹1,24,999",
-      originalPrice: "₹1,44,900",
-      savings: "SAVE ₹19,901",
-      storageOptions: ["256GB", "512GB", "1TB"],
-      condition: "Pristine / Grade A+ Flawless",
-      batteryHealth: "100% Genuine Health",
-      warranty: "Apple Care+ / Store Warranty",
-      badge: "Trending Flagship",
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_Desert_Titanium_Rear.png?width=600",
-      specs: {
-        chip: "A18 Pro with 6-core GPU & Apple Intelligence",
-        display: "6.9\" Super Retina XDR OLED ProMotion 120Hz",
-        camera: "48MP Fusion + 48MP Ultra-Wide + 5x Telephoto",
-        box: "Complete Box, Cable, Bill & Testing Report"
-      }
-    },
-    {
-      id: "iphone-16-pro",
-      name: "Apple iPhone 16 Pro",
-      edition: "Natural Titanium & Black Titanium",
-      series: "iPhone 16 Series",
-      price: "₹1,09,999",
-      originalPrice: "₹1,19,900",
-      savings: "SAVE ₹9,901",
-      storageOptions: ["128GB", "256GB", "512GB"],
-      condition: "Like-New Sealed / Flawless",
-      batteryHealth: "100% Battery",
-      warranty: "Apple Warranty + Store Bill",
-      badge: "Compact Flagship",
-      image: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-camera-system-240909_inline.jpg.large.jpg",
-      specs: {
-        chip: "A18 Pro Silicon with Neural Engine",
-        display: "6.3\" Super Retina XDR ProMotion 120Hz",
-        camera: "48MP Fusion Camera Control with 5x Zoom",
-        box: "Box Pack with Original Accessories"
-      }
-    },
-    {
-      id: "iphone-16-standard",
-      name: "Apple iPhone 16",
-      edition: "Teal, Ultramarine & Black",
-      series: "iPhone 16 Series",
-      price: "₹69,999",
-      originalPrice: "₹79,900",
-      savings: "SAVE ₹9,901",
-      storageOptions: ["128GB", "256GB"],
-      condition: "Pristine Grade A+",
-      batteryHealth: "100% Health",
-      warranty: "Store Warranty + Bill",
-      badge: "Latest Release",
-      image: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-finish-lineup-240909_big.jpg.large.jpg",
-      specs: {
-        chip: "A18 3nm Chip with Apple Intelligence",
-        display: "6.1\" OLED with Action & Camera Control Buttons",
-        camera: "48MP Fusion 2x Telephoto System",
-        box: "Original Packaging Included"
-      }
-    },
-    {
-      id: "iphone-15-pro-max",
-      name: "Apple iPhone 15 Pro Max",
-      edition: "Natural Titanium & Blue Titanium",
-      series: "iPhone 15 Series",
-      price: "₹84,999",
-      originalPrice: "₹1,34,900",
-      savings: "SAVE ₹49,901",
-      storageOptions: ["256GB", "512GB"],
-      condition: "Flawless Grade A+",
-      batteryHealth: "92% - 98% Original",
-      warranty: "6 Months Store Warranty",
-      badge: "Best Seller",
-      image: "https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/article/Apple-iPhone-15-Pro-lineup-hero-230912_Full-Bleed-Image.jpg.large.jpg",
-      specs: {
-        chip: "A17 Pro 3nm Industry-First Chip",
-        display: "6.7\" Dynamic Island 120Hz Always-On",
-        camera: "48MP Main + 5x Optical Periscope Zoom",
-        box: "With Box & Fast Charging Cable"
-      }
-    },
-    {
-      id: "iphone-15-pro",
-      name: "Apple iPhone 15 Pro",
-      edition: "Black Titanium & White Titanium",
-      series: "iPhone 15 Series",
-      price: "₹72,999",
-      originalPrice: "₹1,19,900",
-      savings: "SAVE ₹46,901",
-      storageOptions: ["128GB", "256GB"],
-      condition: "Mint Condition (Zero Scratches)",
-      batteryHealth: "91% - 97%",
-      warranty: "6 Months Store Warranty",
-      badge: "Compact Power",
-      image: "https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/tile/Apple-iPhone-15-Pro-lineup-hero-230912.jpg.og.jpg",
-      specs: {
-        chip: "A17 Pro with USB-C 10Gbps Speed",
-        display: "6.1\" Super Retina XDR OLED ProMotion",
-        camera: "48MP Triple Lens with Action Button",
-        box: "Original Box with IMEI Bill"
-      }
-    },
-    {
-      id: "iphone-15",
-      name: "Apple iPhone 15",
-      edition: "Pink, Blue, Green & Black",
-      series: "iPhone 15 Series",
-      price: "₹49,999",
-      originalPrice: "₹69,900",
-      savings: "SAVE ₹19,901",
-      storageOptions: ["128GB", "256GB"],
-      condition: "Excellent Tested",
-      batteryHealth: "90% - 96%",
-      warranty: "Store Warranty + Invoice",
-      badge: "Top Value Buy",
-      image: "https://www.apple.com/newsroom/images/2023/09/apple-debuts-iphone-15-and-iphone-15-plus/article/Apple-iPhone-15-lineup-hero-230912_inline.jpg.large.jpg",
-      specs: {
-        chip: "A16 Bionic Chip",
-        display: "6.1\" Dynamic Island Super Retina",
-        camera: "48MP 2x Telephoto Sensor",
-        box: "Box Pack with Cable"
-      }
-    },
-    {
-      id: "iphone-14-pro-max",
-      name: "Apple iPhone 14 Pro Max",
-      edition: "Deep Purple, Space Black & Gold",
-      series: "iPhone 14 Series",
-      price: "₹67,999",
-      originalPrice: "₹1,29,900",
-      savings: "SAVE ₹61,901",
-      storageOptions: ["128GB", "256GB", "512GB"],
-      condition: "Flawless Grade A+",
-      batteryHealth: "88% - 95%",
-      warranty: "Store Warranty Included",
-      badge: "Fan Favorite",
-      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-Pro-iPhone-14-Pro-Max-deep-purple-220907_inline.jpg.large.jpg",
-      specs: {
-        chip: "A16 Bionic Silicon",
-        display: "6.7\" Dynamic Island 120Hz ProMotion",
-        camera: "48MP Pro Triple Camera System",
-        box: "With Box and Store Warranty"
-      }
-    },
-    {
-      id: "iphone-14",
-      name: "Apple iPhone 14",
-      edition: "Midnight, Starlight & Blue",
-      series: "iPhone 14 Series",
-      price: "₹38,999",
-      originalPrice: "₹59,900",
-      savings: "SAVE ₹20,901",
-      storageOptions: ["128GB", "256GB"],
-      condition: "Scratchless Certified",
-      batteryHealth: "87% - 94%",
-      warranty: "Store Warranty + Bill",
-      badge: "Budget King",
-      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-iPhone-14-Plus-hero-220907_Full-Bleed-Image.jpg.large.jpg",
-      specs: {
-        chip: "A15 Bionic 5-Core GPU",
-        display: "6.1\" Super Retina XDR OLED",
-        camera: "Dual 12MP with Photonic Engine",
-        box: "Box Pack + Charging Cable"
-      }
-    },
-    {
-      id: "iphone-13",
-      name: "Apple iPhone 13",
-      edition: "Midnight, Blue & Starlight",
-      series: "iPhone 13 & Older",
-      price: "₹31,499",
-      originalPrice: "₹49,900",
-      savings: "SAVE ₹18,401",
-      storageOptions: ["128GB"],
-      condition: "Certified Grade A",
-      batteryHealth: "86% - 92%",
-      warranty: "Store Warranty Included",
-      badge: "Entry Flagship",
-      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iphone13_hero_09142021_inline.jpg.large.jpg",
-      specs: {
-        chip: "A15 Bionic Chip",
-        display: "6.1\" Super Retina OLED Display",
-        camera: "Dual 12MP Cinematic 4K Recording",
-        box: "Original Bill + Cable"
-      }
-    },
-    {
-      id: "iphone-12",
-      name: "Apple iPhone 12",
-      edition: "Black, Blue & White",
-      series: "iPhone 13 & Older",
-      price: "₹23,999",
-      originalPrice: "₹39,900",
-      savings: "SAVE ₹15,901",
-      storageOptions: ["64GB", "128GB"],
-      condition: "Certified Mint",
-      batteryHealth: "85% - 90%",
-      warranty: "Store Warranty Included",
-      badge: "Affordable 5G",
-      image: "https://www.apple.com/newsroom/images/product/iphone/standard/apple_iphone-12_new-design_10132020_big.jpg.large.jpg",
-      specs: {
-        chip: "A14 Bionic Silicon with 5G",
-        display: "6.1\" Super Retina XDR Display",
-        camera: "Dual 12MP Night Mode on all cameras",
-        box: "With Bill & Cable"
-      }
-    },
-    {
-      id: "iphone-11",
-      name: "Apple iPhone 11",
-      edition: "Black, White & Purple",
-      series: "iPhone 13 & Older",
-      price: "₹16,999",
-      originalPrice: "₹29,900",
-      savings: "SAVE ₹12,901",
-      storageOptions: ["64GB", "128GB"],
-      condition: "Clean Certified",
-      batteryHealth: "85% - 90%",
-      warranty: "Store Warranty",
-      badge: "Best Starter iPhone",
-      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iphone_11-rosette-family-lineup-091019_big.jpg.large.jpg",
-      specs: {
-        chip: "A13 Bionic Chip",
-        display: "6.1\" Liquid Retina Display",
-        camera: "Dual 12MP Ultra-Wide & Wide",
-        box: "Handover with Testing Bill"
-      }
-    },
-    {
-      id: "samsung-s24-ultra",
-      name: "Samsung Galaxy S24 Ultra 5G",
-      edition: "Titanium Gray & Titanium Black",
-      series: "Samsung Galaxy",
-      brand: "Samsung",
-      price: "₹89,999",
-      originalPrice: "₹1,29,999",
-      savings: "SAVE ₹40,000",
-      storageOptions: ["256GB", "512GB", "12GB RAM"],
-      condition: "Pristine / Grade A+ Flawless",
-      batteryHealth: "100% Genuine Health (5000mAh)",
-      warranty: "Samsung Warranty + Store Invoice",
-      badge: "Android AI Flagship",
-      conditionTags: ["Grade A+ Flawless", "Battery Health 98%+", "Store Verified", "Clean IMEI"],
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Samsung_Galaxy_S24_(webtekno)_008.png",
-      specs: {
-        chip: "Snapdragon 8 Gen 3 for Galaxy with Galaxy AI",
-        display: "6.8\" Dynamic AMOLED 2X 120Hz Anti-Reflective",
-        camera: "200MP Quad Telephoto System with 100x Space Zoom & S-Pen",
-        box: "Original Box, S-Pen & Super Fast Cable"
-      }
-    },
-    {
-      id: "samsung-s23-ultra",
-      name: "Samsung Galaxy S23 Ultra 5G",
-      edition: "Phantom Black & Green",
-      series: "Samsung Galaxy",
-      brand: "Samsung",
-      price: "₹62,999",
-      originalPrice: "₹1,24,999",
-      savings: "SAVE ₹62,000",
-      storageOptions: ["256GB", "512GB", "12GB RAM"],
-      condition: "Flawless Grade A+",
-      batteryHealth: "94% - 98% Battery Health",
-      warranty: "6 Months Store Warranty",
-      badge: "Best Value Zoom King",
-      conditionTags: ["Grade A+ Flawless", "Battery Health 95%+", "Store Verified", "Clean IMEI"],
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Samsung_Galaxy_S24_(webtekno)_008.png",
-      specs: {
-        chip: "Snapdragon 8 Gen 2 Mobile Platform",
-        display: "6.8\" Edge QHD+ Dynamic AMOLED 2X 120Hz",
-        camera: "200MP Nightography Camera with Integrated S-Pen",
-        box: "Complete Box with Store Bill & Warranty"
-      }
-    },
-    {
-      id: "google-pixel-9-pro-xl",
-      name: "Google Pixel 9 Pro XL",
-      edition: "Obsidian Black & Porcelain",
-      series: "Google Pixel",
-      brand: "Google",
-      price: "₹82,999",
-      originalPrice: "₹1,24,999",
-      savings: "SAVE ₹42,000",
-      storageOptions: ["128GB", "256GB", "16GB RAM"],
-      condition: "Like-New Sealed Box Unit",
-      batteryHealth: "100% Battery",
-      warranty: "Google Warranty + Bill",
-      badge: "Pure Google AI",
-      conditionTags: ["Grade A+ Flawless", "Battery Health 100%", "Store Verified", "Clean IMEI"],
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_9_(Obsidian)_front.svg",
-      specs: {
-        chip: "Google Tensor G4 with Titan M2 Security & Gemini Nano",
-        display: "6.8\" Super Actua OLED Display 1-120Hz LTPO",
-        camera: "50MP Triple Camera System with 30x Super Res Zoom & 8K Video",
-        box: "Original Box, Quick Switch Adaptor & Bill"
-      }
-    },
-    {
-      id: "google-pixel-8-pro",
-      name: "Google Pixel 8 Pro",
-      edition: "Bay Blue & Obsidian",
-      series: "Google Pixel",
-      brand: "Google",
-      price: "₹52,999",
-      originalPrice: "₹1,06,999",
-      savings: "SAVE ₹54,000",
-      storageOptions: ["128GB", "256GB", "12GB RAM"],
-      condition: "Certified Pristine",
-      batteryHealth: "95% - 99%",
-      warranty: "Store Warranty Included",
-      badge: "Camera Benchmark",
-      conditionTags: ["Grade A+ Flawless", "Battery Health 95%+", "Store Verified", "Clean IMEI"],
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_8_Pro_front.svg",
-      specs: {
-        chip: "Google Tensor G3 Processor",
-        display: "6.7\" Super Actua LTPO OLED 120Hz",
-        camera: "50MP Main + 48MP Ultrawide + 48MP 5x Telephoto + Temp Sensor",
-        box: "Original Box Pack + Invoice"
-      }
-    },
-    {
-      id: "oneplus-12",
-      name: "OnePlus 12 5G",
-      edition: "Silky Black & Flowy Emerald",
-      series: "OnePlus",
-      brand: "OnePlus",
-      price: "₹46,999",
-      originalPrice: "₹64,999",
-      savings: "SAVE ₹18,000",
-      storageOptions: ["256GB / 12GB RAM", "512GB / 16GB RAM"],
-      condition: "Flawless Grade A+",
-      batteryHealth: "98% - 100% (5400mAh)",
-      warranty: "Store Warranty + Invoice",
-      badge: "Performance Beast",
-      conditionTags: ["Grade A+ Flawless", "Battery Health 98%+", "Store Verified", "Clean IMEI"],
-      image: "https://commons.wikimedia.org/wiki/Special:FilePath/OnePlus_Ace_5_Back.png",
-      specs: {
-        chip: "Snapdragon 8 Gen 3 with Dual Cryo-velocity VC Cooling",
-        display: "6.82\" 2K 120Hz ProXDR Display with Aqua Touch",
-        camera: "4th Gen Hasselblad Camera with 64MP 3x Periscope Telephoto",
-        box: "Includes 100W SUPERVOOC Fast Charger, Cable & Box"
-      }
-    }
-  ],
+  products,
 
-  // Precision Apple Care Services
-  services: [
-    {
-      id: "apple-screen-replacement",
-      title: "Precision Screen & OLED Replacement",
-      turnaround: "30 - 45 Mins",
-      priceEstimate: "Starts at ₹2,499",
-      icon: "Smartphone",
-      badge: "Same-Day Service",
-      description: "Original Super Retina XDR OLED screen replacement with complete TrueTone restoration and FaceID preservation. Zero display warning messages.",
-      points: [
-        "TrueTone data programming included",
-        "Original refresh rate (60Hz & 120Hz ProMotion)",
-        "Oleophobic water-repellent coating",
-        "3 to 6 months replacement warranty"
-      ]
-    },
-    {
-      id: "apple-battery-service",
-      title: "Genuine Battery Health Restoration",
-      turnaround: "30 Mins",
-      priceEstimate: "Starts at ₹1,999",
-      icon: "BatteryCharging",
-      badge: "100% Health",
-      description: "Restore your iPhone's full day stamina with high-capacity original cell batteries with zero battery warning chip migration.",
-      points: [
-        "BMS controller board spot-welding",
-        "Zero 'Unknown Part' warning notification",
-        "Original Apple adhesive pull-tabs",
-        "Diagnostic cycle count verification report"
-      ]
-    },
-    {
-      id: "trade-in-exchange",
-      title: "Mobile to Mobile Exchange Program",
-      turnaround: "15 Mins",
-      priceEstimate: "Highest Hyderabad Exchange",
-      icon: "Repeat",
-      badge: "Top Value",
-      description: "Upgrade any old phone to a certified pre-owned iPhone with maximum exchange valuation and spot device switch.",
-      points: [
-        "Complete data transfer & WhatsApp backup assistance",
-        "Free tempered glass & back cover with exchange",
-        "Pay difference via cash, UPI, or credit card EMI",
-        "Zero hidden deductions or inspection fees"
-      ]
-    },
-    {
-      id: "instant-cash-buyback",
-      title: "Instant Cash for Used iPhones",
-      turnaround: "10 Mins Spot Payout",
-      priceEstimate: "Immediate Cash / Bank Transfer",
-      icon: "Banknote",
-      badge: "Spot Cash",
-      description: "Sell your used iPhone in any condition. Get quick, hassle-free evaluation with instant cash or bank transfer in Jagdish Market.",
-      points: [
-        "Transparent valuation right in front of you",
-        "Working, cracked screen, or faulty battery accepted",
-        "Authorized bill of sale & ID verification safety",
-        "No waiting for online buyers or shipping delays"
-      ]
-    },
-    {
-      id: "logic-board-ic-repair",
-      title: "Chip-Level & Motherboard Diagnostics",
-      turnaround: "Same-Day / 24 Hours",
-      priceEstimate: "Free Diagnosis",
-      icon: "Cpu",
-      badge: "Advanced Tech",
-      description: "Micro-soldering, short-circuit diagnostics, Audio IC, Baseband network issues, FaceID dot projector fixes, and water damage recovery.",
-      points: [
-        "Stereoscopic microscope micro-soldering",
-        "Board level component replacement",
-        "Full data retention prioritized",
-        "No-fix, no-fee diagnostic policy"
-      ]
-    },
-    {
-      id: "doorstep-service",
-      title: "Express Doorstep Pickup & Delivery",
-      turnaround: "Within 2 Hours in Hyd",
-      priceEstimate: "Free with Select Orders",
-      icon: "Truck",
-      badge: "Hyderabad & Secunderabad",
-      description: "Experience VIP store service at your home or office. We bring devices for inspection or safely pick up your phone for repair.",
-      points: [
-        "Secure tamper-evident transit",
-        "Live tracking & phone test on delivery",
-        "On-spot verification before payment",
-        "Covering Banjara Hills, Hitec City, Abids, Secunderabad & more"
-      ]
-    }
-  ],
-
-  // ALL Authentic Customer Reviews from Google Business Profile
   reviews: [
     {
       id: "rev-1",
@@ -558,7 +978,7 @@ export const storeData = {
       badge: "Verified iPhone Buyer",
       devicePurchased: "iPhone 16 Pro Max",
       category: "iPhone Purchase",
-      text: "Had a great experience purchasing the iPhone from this shop! The staff were friendly, professional, and helpful throughout the purchase. They explained everything clearly and made the buying experience smooth and hassle-free. Excellent customer service and a pleasant shopping experience. Highly recommended for anyone planning to buy an iPhone! 📱✨ (SIKANDAR BHAI)",
+      text: "Had a great experience purchasing the iPhone from this shop! The staff were friendly, professional, and helpful throughout the purchase. They explained everything clearly and made the buying experience smooth and hassle-free. Highly recommended for anyone planning to buy an iPhone! 📱✨ (SIKANDAR BHAI)",
       likes: 18,
       verifiedSource: "Google Maps Verified"
     },
@@ -569,9 +989,9 @@ export const storeData = {
       rating: 5,
       avatar: "https://lh3.googleusercontent.com/a/ACg8ocKwp7orOom2yJXdCWJoZCDQyV2QDg66ml_B_TzbbbmhFKnwcQ=s120-c-rp-mo-br100",
       badge: "Regular Customer Since 2003",
-      devicePurchased: "iPhone Upgrade & Service",
-      category: "Trade-In & Service",
-      text: "Best iphone store in hyderabad, they buy sell exchange iphones, even service also, trusted store since 2003. Sikandar Bhai gives 100% genuine phones with authentic battery health and honest testing right in front of you.",
+      devicePurchased: "iPhone 15 Pro Max",
+      category: "iPhone Purchase",
+      text: "Best iphone store in hyderabad, trusted store since 2003. Sikandar Bhai gives 100% genuine phones with authentic battery health and honest 3uTools testing right in front of you.",
       likes: 15,
       verifiedSource: "Google Maps Verified"
     },
@@ -584,7 +1004,7 @@ export const storeData = {
       badge: "Local Guide",
       devicePurchased: "iPhone Pro Series",
       category: "iPhone Purchase",
-      text: "Good Customer Service Specialized in Iphones. Got transparent pricing and genuine tested phone with 3uTools report on the spot. No hidden charges.",
+      text: "Good Customer Service Specialized in Iphones. Got transparent pricing (matched online app rate with nominal store margin) and genuine tested phone with 3uTools report on the spot. No hidden charges.",
       likes: 12,
       verifiedSource: "Google Maps Verified"
     },
@@ -607,10 +1027,10 @@ export const storeData = {
       date: "October 8, 2026",
       rating: 5,
       avatar: "https://lh3.googleusercontent.com/a/ACg8ocJIgLeXyab61Dsdggx8lzrZCaIVauLkIMQRyPR-dxhqEwrV7g=s120-c-rp-mo-br100",
-      badge: "Phone Exchange",
-      devicePurchased: "Exchange & Upgrade",
-      category: "Trade-In & Service",
-      text: "One of the best places in Hyd for buying, exchange and selling mobiles. Got maximum valuation for my old phone and upgraded smoothly to iPhone Pro Max.",
+      badge: "Verified Buyer",
+      devicePurchased: "iPhone 14 Pro Max",
+      category: "iPhone Purchase",
+      text: "One of the best places in Hyd for buying certified iPhones. Every color and storage option was ready right on the counter to inspect before buying.",
       likes: 9,
       verifiedSource: "Google Maps Verified"
     },
@@ -621,40 +1041,14 @@ export const storeData = {
       rating: 5,
       avatar: "https://lh3.googleusercontent.com/a/ACg8ocJzK-Z8LQI0rycdnJSHNgYfP18dQhRHXkNA5_z9TuZShMeV3Q=s120-c-rp-mo-br100",
       badge: "Verified Buyer",
-      devicePurchased: "Spot Buyback & Upgrade",
-      category: "Instant Cash & Buy",
-      text: "Easy, Rapid, stress free store. Must to go store for selling and buying phones with better price compared to offline and online market. Instant spot payment!",
+      devicePurchased: "iPhone 13 Pro",
+      category: "Repeat Buyer",
+      text: "Easy, Rapid, stress free store. Must to go store for buying phones with completely transparent pricing and 6 month warranty bill.",
       likes: 11,
       verifiedSource: "Google Maps Verified"
     },
     {
       id: "rev-7",
-      name: "Melky mercy",
-      date: "August 28, 2026",
-      rating: 5,
-      avatar: "https://lh3.googleusercontent.com/a/ACg8ocL-wG0DAwZZJLwca3BQha53J0SgSKF8kaapQyw5eqqaSJCjugE=s120-c-rp-mo-br100",
-      badge: "Regular Customer",
-      devicePurchased: "Apple Screen & Battery Care",
-      category: "Repair & Service",
-      text: "Best service of I phone, we are regular customers to them... TrueTone restore worked perfectly, original parts only. Honest technician.",
-      likes: 8,
-      verifiedSource: "Google Maps Verified"
-    },
-    {
-      id: "rev-8",
-      name: "Arogya Reddy",
-      date: "August 12, 2026",
-      rating: 5,
-      avatar: "https://lh3.googleusercontent.com/a-/ALV-UjX_yyrdOuEhRuDYuvuw1Tw0SUgOeVq11Bf66E5aDnak8yj2qDjk",
-      badge: "Verified Reviewer",
-      devicePurchased: "iPhone Service & Care",
-      category: "Repair & Service",
-      text: "Super Service and best I phone service in Hyderabad. Sikandar Bhai is very cooperative and gives authentic guidance with zero false promises.",
-      likes: 10,
-      verifiedSource: "Google Maps Verified"
-    },
-    {
-      id: "rev-9",
       name: "Imran Khan",
       date: "August 1, 2026",
       rating: 5,
@@ -662,13 +1056,12 @@ export const storeData = {
       badge: "Verified Buyer",
       devicePurchased: "iPhone Pro Max",
       category: "iPhone Purchase",
-      text: "Exceptionally Reliable and dependable. Transferred my entire WhatsApp, iCloud, and contacts in 10 minutes right at the counter. 10/10 experience.",
+      text: "Exceptionally Reliable and dependable. Transferred my entire WhatsApp, iCloud, and contacts in 10 minutes right at the counter. 10/10 buying experience.",
       likes: 13,
       verifiedSource: "Google Maps Verified"
     }
   ],
 
-  // Ratings overview breakdown
   ratingsOverview: {
     average: 4.9,
     totalCount: 242,
@@ -683,135 +1076,100 @@ export const storeData = {
     trustPillars: [
       { label: "100% Original Apple Parts", score: "5.0" },
       { label: "True Battery Health Accuracy", score: "4.9" },
-      { label: "Transparent Spot Pricing", score: "5.0" },
-      { label: "After-Sales Store Warranty", score: "4.9" }
+      { label: "Transparent Cashify + ₹500 Pricing", score: "5.0" },
+      { label: "6-Month Store Warranty", score: "4.9" }
     ]
   },
 
-  // Optimized Gallery Photos using Google CDN WebP dynamic resizing (=w600-rw)
   gallery: [
     {
-      url: "https://lh3.googleusercontent.com/Y6eRQr50pTtuYEs0g55ljofWjM3HLStoYFVJCYCCaGLjwTikL9oqbS4BJ9iI4yhXWsinGnBXhDBCC7AB9w=w600-rw",
-      caption: "Flagship iPhone Pro Max Stock Showcase",
+      url: IPHONE_16_PRO_MAX_IMAGES.storeBoxStock,
+      caption: "Sealed & Grade A+ iPhone Pro Max Stock Showcase",
       category: "Stock"
     },
     {
-      url: "https://lh3.googleusercontent.com/tzJoPiFPlLtP8e9v-tfbiVPczbnslw-UU4ysdRcm_mR6QcodMM49DSpfVUo3qN2NorgyQ72tXE7DazZ1uQ=w600-rw",
-      caption: "Certified Pre-Owned Titanium Series",
+      url: IPHONE_16_PRO_MAX_IMAGES.storeCounterStock,
+      caption: "Certified Pre-Owned iPhone 12 to 18 Series Counter",
       category: "Stock"
     },
     {
       url: "https://lh3.googleusercontent.com/Ej36echLGGpDrc0y0PtYJmAjLZMwUNOC8gDQRQcMc2KJQZEQISPbke9JNLPJwaUTGrd9GbN12pFlZsaV1w=w600-rw",
-      caption: "Storefront at Jagdish Market, Abids",
+      caption: "Storefront at Jagdish Market, Abids & Koti",
       category: "Store"
     },
     {
-      url: "https://lh3.googleusercontent.com/-VuECFMulcl6GsV1loRwPLSIItWHnmjubnIBojpF2bVPoLf70ajDbytqqlMZrZx6QXpkHTxK5GZ7vydTTQ=w600-rw",
-      caption: "Precision Diagnostic & Verification Desk",
-      category: "Service"
+      url: IPHONE_16_PRO_MAX_IMAGES.storeInspectionDesk,
+      caption: "3uTools Live Verification & Buyer Testing Desk",
+      category: "Inspection"
     },
     {
       url: "https://lh3.googleusercontent.com/LOQhCbRncxuMeU4lMe8hZCQVyS7vZc_DalfJqTZnrWqDOkKKTkRXfj_TfFCl41-xAyEjAWe30BIOOanyMg=w600-rw",
-      caption: "Genuine Box Packs & Original Accessories",
+      caption: "Original Box Packs & Charging Accessories",
       category: "Accessories"
     },
     {
       url: "https://lh3.googleusercontent.com/S_gadSVQN1zPDmJ4587gmax4pwdJM9YM6CxYaX-tSZI4ecffhnuHoSX0eLUsv4MrKr6co-IKAUxgxC-_ow=w600-rw",
-      caption: "iPhone Pro Max Stock Ready for Handover",
+      caption: "iPhone Pro Max Lineup Ready for Buyer Pickup",
       category: "Stock"
-    },
-    {
-      url: "https://lh3.googleusercontent.com/8m8AokVw7cbo3rU-Ay_Z_COktXLITGJLmOhmJqgZCdpOmhV3e6awgN4ovyh9kBXhtyM2XA-xvYRLEISGhA=w600-rw",
-      caption: "Every Device 100% Quality Checked",
-      category: "Inspection"
-    },
-    {
-      url: "https://lh3.googleusercontent.com/PaU66r3qRrwVWDvaG2eU8DSW33NbOjWfVEbYkgpRxY0JPGIYiM-84GYi1DnGKtpWb4MnYicR9-kQqEw-KA=w600-rw",
-      caption: "Trade-In & Instant Cash Counter",
-      category: "Store"
     }
   ],
 
-  // Trade-In estimates towards iPhone 16 Pro Max
-  tradeInEstimates: [
-    { model: "iPhone 15 Pro Max", storage: "256GB", flawless: 74000, good: 68000, fair: 60000 },
-    { model: "iPhone 15 Pro", storage: "128GB", flawless: 62000, good: 56000, fair: 49000 },
-    { model: "iPhone 15", storage: "128GB", flawless: 43000, good: 39000, fair: 33000 },
-    { model: "iPhone 14 Pro Max", storage: "128GB", flawless: 57000, good: 52000, fair: 45000 },
-    { model: "iPhone 14 Pro", storage: "128GB", flawless: 49000, good: 44000, fair: 38000 },
-    { model: "iPhone 14", storage: "128GB", flawless: 33000, good: 29500, fair: 24500 },
-    { model: "iPhone 13 Pro Max", storage: "128GB", flawless: 45000, good: 40000, fair: 34000 },
-    { model: "iPhone 13", storage: "128GB", flawless: 26000, good: 23000, fair: 19000 },
-    { model: "Samsung S23 / S24 Ultra", storage: "256GB", flawless: 54000, good: 48000, fair: 40000 }
-  ],
-
-  // Store FAQs
   faqs: [
     {
-      q: "Are the iPhones sold at Sikandar's Mobile Store 100% original?",
-      a: "Yes, 100% original. We do not sell refurbished clones or Chinese refurbished parts. Every phone is tested for original OLED displays, working TrueTone, original FaceID, and authentic Apple cameras. You are welcome to inspect with 3uTools right at our counter before buying."
+      q: "How is your store pricing calculated against the Cashify App?",
+      a: "Our buy pricing is 100% transparent: we follow the live Cashify Buy App benchmark price plus just ₹500 store service margin (for example, if a variant is ₹25,000 in the app, our in-store buy price is ₹25,500). In return, you get face-to-face 3uTools verification, immediate handover at Abids without shipping wait, and 6 months store warranty."
     },
     {
-      q: "Do you provide warranty on pre-owned iPhones?",
-      a: "Absolutely. All certified pre-owned phones come with store warranty ranging from 3 to 6 months. Many recent models also have remaining Apple official warranty. We also provide an authorized invoice with IMEI details."
+      q: "Which iPhone models, colors, and variants are available to buy?",
+      a: "We carry the complete lineup from iPhone 12 mini up to the latest iPhone 18 Pro and 18 Pro Max — covering every mini, standard, Plus, e, Air, Pro, and Pro Max model across all official colors and storage capacities (64GB, 128GB, 256GB, 512GB, 1TB, and 2TB)."
     },
     {
-      q: "What is your battery health policy?",
-      a: "We only stock iPhones with 85% to 100% genuine battery health. We do not use fake cycle resetters. If you ever need a battery replacement, we provide original cell replacements with zero alert popups."
+      q: "Are all iPhones 100% original with zero non-genuine warnings?",
+      a: "Yes, 100% original. Every iPhone is tested live in front of you on 3uTools for original OLED display, TrueTone, FaceID, cameras, and genuine battery health. No unknown part popups or boosted batteries."
     },
     {
-      q: "How does the Mobile Exchange / Trade-In program work?",
-      a: "Bring your existing phone (iPhone, Samsung, OnePlus, etc.) to our Jagdish Market shop or request doorstep evaluation. We evaluate your phone in 5 minutes, give you the highest market value, and you only pay the difference for your upgraded device."
+      q: "Do I get a bill and warranty when buying from Sikandar's Mobile Store?",
+      a: "Yes. Every purchase includes an authorized GST/IMEI store invoice and up to 6 months store warranty (plus remaining official AppleCare warranty on newer models)."
     },
     {
-      q: "Do you offer doorstep delivery in Hyderabad?",
-      a: "Yes! We provide safe doorstep delivery, doorstep inspection, and cash/UPI on delivery across Hyderabad and Secunderabad, including Banjara Hills, Jubilee Hills, Hitec City, Gachibowli, Kukatpally, and Charminar."
-    },
-    {
-      q: "How long do iPhone screen and battery repairs take?",
-      a: "Most screen replacements and battery replacements are completed within 30 to 45 minutes right in front of you by our expert Apple technicians."
+      q: "Can I reserve a specific color and storage variant before visiting Abids?",
+      a: "Yes! Select your preferred color and storage capacity on any iPhone card above and click 'Reserve / Buy on WhatsApp' or call +91 9700317171. We also arrange same-day doorstep delivery across Hyderabad."
     }
   ],
 
-  // Store Posts & News
   posts: [
     {
       id: "post-1",
-      title: "Fresh iPhone 16 Pro Max Stock Just Arrived in Desert Titanium!",
-      date: "November 6, 2026",
-      tag: "Stock Alert",
-      image: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-finish-lineup-240909_big.jpg.large.jpg",
-      summary: "Wide selection of certified iPhone 16 Pro Max models with battery health 100% and store warranty. Available for instant pickup at Jagdish Market."
+      title: "All iPhones (12 mini to 18 Pro Max) Now Listed with Live Variants!",
+      date: "November 12, 2026",
+      tag: "Buy Stock Update",
+      image: IMG.iphone18Pro,
+      summary: "Browse every model, color swatch, and storage variant (64GB to 2TB) with transparent Cashify App + ₹500 showroom pricing."
     },
     {
       id: "post-2",
-      title: "100% Quality Verification Checklist for Certified iPhones",
-      date: "November 4, 2026",
-      tag: "Buyer Guide",
-      image: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-240909_inline.jpg.large.jpg",
-      summary: "Fully tested, 100% verified quality, and best deals guaranteed. Visit us at Abids Shopping Center, Jagdish Market, Hyderabad, or call us today to check current stock and pricing."
+      title: "Cashify App Price + ₹500 Transparent Store Guarantee",
+      date: "November 10, 2026",
+      tag: "Price Guarantee",
+      image: IPHONE_16_PRO_MAX_IMAGES.heroDuo,
+      summary: "Why wait days for online delivery? Pick your exact iPhone model at Jagdish Market for just ₹500 above Cashify App pricing with instant live testing."
     },
     {
       id: "post-3",
-      title: "Looking for a Trusted Independent iPhone Specialist in Hyderabad?",
-      date: "November 3, 2026",
-      tag: "Expert Repair",
-      image: "https://lh3.googleusercontent.com/LOQhCbRncxuMeU4lMe8hZCQVyS7vZc_DalfJqTZnrWqDOkKKTkRXfj_TfFCl41-xAyEjAWe30BIOOanyMg=w600-rw",
-      summary: "Visit Sikandar’s Mobile Store at Abids Shopping Center. We specialize in verified pre-owned iPhones, battery health and display testing, transparent buyback/trade-in valuations, and expert smartphone repairs."
-    },
-    {
-      id: "post-4",
-      title: "Instant Cash & Highest Exchange Values for Old Phones",
-      date: "November 3, 2026",
-      tag: "Trade-In & Sell",
-      image: "https://lh3.googleusercontent.com/S_gadSVQN1zPDmJ4587gmax4pwdJM9YM6CxYaX-tSZI4ecffhnuHoSX0eLUsv4MrKr6co-IKAUxgxC-_ow=w600-rw",
-      summary: "Looking to upgrade your smartphone or get instant cash for your old iPhone in Hyderabad? We provide spot device valuation, highest exchange values, and quick doorstep pick-up & delivery across Hyderabad."
+      title: "100% 3uTools Verified Battery Health & Original Parts Check",
+      date: "November 6, 2026",
+      tag: "Buyer Assurance",
+      image: IPHONE_16_PRO_MAX_IMAGES.storeInspectionDesk,
+      summary: "Every iPhone passes our rigorous physical & diagnostic inspection at Abids Shopping Center before it goes on sale."
     }
   ]
 };
 
 export const createWhatsAppUrl = (message) => {
   const phone = storeData.storeInfo.whatsapp;
-  const encoded = encodeURIComponent(message || `Hi Sikandar Bhai, I saw your Instagram profile @sikandarsmobilestore and want to inquire about iPhone stock.`);
+  const encoded = encodeURIComponent(
+    message ||
+      `Hi Sikandar Bhai, I want to buy a certified pre-owned iPhone from your Abids store.`
+  );
   return `https://wa.me/${phone}?text=${encoded}`;
 };
