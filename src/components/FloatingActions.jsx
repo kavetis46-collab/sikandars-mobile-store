@@ -3,11 +3,12 @@ import {
   MessageCircle, 
   Phone, 
   ArrowUp, 
-  ShoppingBag 
+  ShoppingCart,
+  Heart
 } from 'lucide-react';
 import { storeData, createWhatsAppUrl } from '../data/storeData';
 
-export default function FloatingActions({ onOpenBag, bagCount }) {
+export default function FloatingActions({ onOpenBag, bagCount = 0, onOpenFavorites, favoritesCount = 0 }) {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -100,18 +101,33 @@ export default function FloatingActions({ onOpenBag, bagCount }) {
       <nav 
         aria-label="Mobile Direct Quick Actions" 
         style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom, 0.75rem))' }}
-        className="fixed bottom-0 left-0 right-0 z-50 sm:hidden bg-[#0A0D14]/95 border-t border-[#262F40] backdrop-blur-2xl px-4 pt-3 shadow-[0_-10px_35px_rgba(0,0,0,0.9)]"
+        className="fixed bottom-0 left-0 right-0 z-50 sm:hidden bg-[#0A0D14]/95 border-t border-[#262F40] backdrop-blur-2xl px-3 pt-2.5 shadow-[0_-10px_35px_rgba(0,0,0,0.9)]"
       >
-        <div className="max-w-md mx-auto grid grid-cols-12 gap-2.5 items-center">
+        <div className="max-w-md mx-auto grid grid-cols-12 gap-2 items-center">
           
-          {/* Quick Inquiry Bag icon (2 cols) */}
+          {/* Saved Favorites icon (2 cols) */}
           <button
-            onClick={onOpenBag}
-            aria-label="Open Inquiry Bag"
+            onClick={onOpenFavorites}
+            aria-label="Open Saved Favorites"
             className="col-span-2 relative flex flex-col items-center justify-center py-2 rounded-xl bg-[#141923] border border-[#262F40] text-[#94A3B8] active:scale-95"
           >
-            <ShoppingBag className="w-4 h-4 text-[#00F0FF]" />
-            <span className="text-[9px] font-bold mt-0.5">Bag</span>
+            <Heart className={`w-4 h-4 ${favoritesCount > 0 ? 'text-rose-400 fill-rose-400' : 'text-[#94A3B8]'}`} />
+            <span className="text-[9px] font-bold mt-0.5">Saved</span>
+            {favoritesCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-[#F8FAFC] text-[10px] font-extrabold flex items-center justify-center shadow-[0_0_8px_rgba(244,63,94,0.6)]">
+                {favoritesCount}
+              </span>
+            )}
+          </button>
+
+          {/* Quick Buy Cart icon (2 cols) */}
+          <button
+            onClick={onOpenBag}
+            aria-label="Open Buy Cart"
+            className="col-span-2 relative flex flex-col items-center justify-center py-2 rounded-xl bg-[#141923] border border-[#262F40] text-[#94A3B8] active:scale-95"
+          >
+            <ShoppingCart className="w-4 h-4 text-[#00F0FF]" />
+            <span className="text-[9px] font-bold mt-0.5">Cart</span>
             {bagCount > 0 && (
               <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#0066FF] text-[#F8FAFC] text-[10px] font-extrabold flex items-center justify-center shadow-[0_0_8px_#0066FF]">
                 {bagCount}
@@ -119,26 +135,26 @@ export default function FloatingActions({ onOpenBag, bagCount }) {
             )}
           </button>
 
-          {/* 1. DIRECT DIALER BUTTON (5 cols) */}
+          {/* 1. DIRECT DIALER BUTTON (4 cols) */}
           <a
             href={`tel:${storeData.storeInfo.phoneRaw}`}
             aria-label="Direct Phone Call"
-            className="col-span-5 btn-secondary-titanium py-2.5 px-2 text-xs font-bold flex items-center justify-center gap-1.5 active:scale-95"
+            className="col-span-4 btn-secondary-titanium py-2.5 px-2 text-[11px] font-bold flex items-center justify-center gap-1 active:scale-95"
           >
-            <Phone className="w-4 h-4 text-[#00F0FF] shrink-0" />
-            <span className="truncate font-mono">Call Showroom</span>
+            <Phone className="w-3.5 h-3.5 text-[#00F0FF] shrink-0" />
+            <span className="truncate font-mono">Call</span>
           </a>
 
-          {/* 2. DIRECT WHATSAPP BUTTON (5 cols) */}
+          {/* 2. DIRECT WHATSAPP BUTTON (4 cols) */}
           <a
             href={createWhatsAppUrl("Hi Sikandar Bhai! I want to buy a certified pre-owned iPhone (12 to 18 Pro Max) at your Abids showroom.")}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Direct WhatsApp Message"
-            className="col-span-5 btn-primary-cobalt py-2.5 px-2 text-xs font-bold flex items-center justify-center gap-1.5 active:scale-95"
+            className="col-span-4 btn-primary-cobalt py-2.5 px-2 text-[11px] font-bold flex items-center justify-center gap-1 active:scale-95"
           >
-            <MessageCircle className="w-4 h-4 fill-current shrink-0" />
-            <span className="truncate">Reserve WhatsApp</span>
+            <MessageCircle className="w-3.5 h-3.5 fill-current shrink-0" />
+            <span className="truncate">WhatsApp</span>
           </a>
 
         </div>

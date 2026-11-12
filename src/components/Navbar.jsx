@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { 
   Phone, 
   MessageCircle, 
-  ShoppingBag, 
+  ShoppingCart,
+  Heart,
   Menu, 
   X, 
   ChevronRight, 
@@ -13,7 +14,7 @@ import {
 } from 'lucide-react';
 import { storeData, createWhatsAppUrl, CASHIFY_APP_URL } from '../data/storeData';
 
-export default function Navbar({ inquiryBag, onOpenBag }) {
+export default function Navbar({ inquiryBag = [], onOpenBag, favoritesCount = 0, onOpenFavorites }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -141,17 +142,32 @@ export default function Navbar({ inquiryBag, onOpenBag }) {
               <span className="font-mono tabular-nums">Call Showroom</span>
             </a>
 
-            {/* Inquiry Bag Cart Trigger */}
+            {/* Favorites Wishlist Trigger */}
+            <button
+              onClick={onOpenFavorites}
+              aria-label="View Saved Favorites"
+              className="relative p-2.5 rounded-xl bg-[#141923] hover:bg-[#1c2233] border border-[#262F40] hover:border-rose-400/60 text-[#F8FAFC] transition-all flex items-center gap-1.5"
+            >
+              <Heart className={`w-4 h-4 ${favoritesCount > 0 ? 'text-rose-400 fill-rose-400' : 'text-[#94A3B8]'}`} />
+              <span className="hidden xl:inline text-xs font-bold">Saved</span>
+              {favoritesCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-rose-500 text-[#F8FAFC] text-[10px] font-extrabold rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(244,63,94,0.6)]">
+                  {favoritesCount}
+                </span>
+              )}
+            </button>
+
+            {/* Buy Cart Trigger */}
             <button
               onClick={onOpenBag}
-              aria-label="View Inquiry Bag"
+              aria-label="View Buy Cart"
               className="relative p-2.5 rounded-xl bg-[#141923] hover:bg-[#1c2233] border border-[#262F40] hover:border-[#0066FF] text-[#F8FAFC] transition-all flex items-center gap-2"
             >
-              <ShoppingBag className="w-4 h-4 text-[#00F0FF]" />
-              <span className="hidden md:inline text-xs font-bold">Inquiry Bag</span>
-              {inquiryBag.length > 0 && (
+              <ShoppingCart className="w-4 h-4 text-[#00F0FF]" />
+              <span className="hidden md:inline text-xs font-bold">Cart</span>
+              {inquiryBag.reduce((sum, item) => sum + (item.qty || 1), 0) > 0 && (
                 <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#0066FF] text-[#F8FAFC] text-[10px] font-extrabold rounded-full flex items-center justify-center shadow-[0_0_10px_#0066FF]">
-                  {inquiryBag.length}
+                  {inquiryBag.reduce((sum, item) => sum + (item.qty || 1), 0)}
                 </span>
               )}
             </button>

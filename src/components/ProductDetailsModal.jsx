@@ -1,301 +1,351 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  X, 
-  BatteryCharging, 
-  CheckCircle2, 
-  MessageCircle, 
-  ShoppingBag, 
-  Check, 
-  Phone, 
-  Flame,
-  ExternalLink
-} from 'lucide-react';
-import { createWhatsAppUrl, storeData, CASHIFY_APP_URL } from '../data/storeData';
+import React, { useState, useEffect } from "react";
+import {
+  X,
+  MessageCircle,
+  CheckCircle2,
+  ShieldCheck,
+  Battery,
+  HardDrive,
+  Cpu,
+  Smartphone,
+  Camera,
+  PackageCheck,
+  ExternalLink,
+  Heart,
+  ShoppingCart,
+} from "lucide-react";
+import {
+  createWhatsAppUrl,
+  CASHIFY_APP_URL,
+  CONDITION_GRADES,
+  getVariantConditionPricing,
+} from "../data/storeData";
 
 export default function ProductDetailsModal({
   product,
-  initialVariantIdx = 0,
-  initialColorIdx = 0,
+  initialStorage,
+  initialColor,
+  initialCondition = "good",
+  isFavorite = false,
+  onToggleFavorite,
   onClose,
   onAddToBag,
-  isInBag
 }) {
-  const [selectedVariantIdx, setSelectedVariantIdx] = useState(initialVariantIdx);
-  const [selectedColorIdx, setSelectedColorIdx] = useState(initialColorIdx);
+  const [selectedStorage, setSelectedStorage] = useState(
+    initialStorage || product?.variants?.[0]?.storage || "256GB"
+  );
+  const [selectedColor, setSelectedColor] = useState(
+    initialColor || product?.colors?.[0]?.name || "Default"
+  );
+  const [selectedCondition, setSelectedCondition] = useState(initialCondition || "good");
 
   useEffect(() => {
-    setSelectedVariantIdx(initialVariantIdx);
-    setSelectedColorIdx(initialColorIdx);
-  }, [product?.id, initialVariantIdx, initialColorIdx]);
+    if (product) {
+      setSelectedStorage(initialStorage || product.variants?.[0]?.storage || "256GB");
+      setSelectedColor(initialColor || product.colors?.[0]?.name || "Default");
+      setSelectedCondition(initialCondition || "good");
+    }
+  }, [product, initialStorage, initialColor, initialCondition]);
 
   if (!product) return null;
 
-  const variants = product.variants || [];
-  const colors = product.colors || [];
+  const activeVariant =
+    product.variants?.find((v) => v.storage === selectedStorage) || product.variants?.[0];
 
-  const activeVariant = variants[selectedVariantIdx] || variants[0];
-  const activeColor = colors[selectedColorIdx] || colors[0] || { name: 'Standard', hex: '#94A3B8' };
+  const pricing = getVariantConditionPricing(activeVariant, selectedCondition);
 
-  const storePriceDisplay = activeVariant ? activeVariant.storePriceFormatted : product.price;
-  const cashifyPriceDisplay = activeVariant ? activeVariant.cashifyPriceFormatted : product.cashifyPrice;
-  const originalPriceDisplay = activeVariant ? activeVariant.originalPriceFormatted : product.originalPrice;
-  const savingsDisplay = activeVariant ? activeVariant.savingsFormatted : product.savings;
-  const storageDisplay = activeVariant ? activeVariant.storage : (product.storageOptions?.[0] || '128GB');
+  const handleReserve = () => {
+    const msg = `Hi Sikandar Bhai! I want to buy the certified ${product.name} [${product.ram} | ${selectedStorage} | ${pricing.condition.label} Condition | ${selectedColor}].\n\nCashify App Ref: ${pricing.cashifyPriceFormatted} → Store Price: ${pricing.storePriceFormatted} (+₹500).\nPlease share 3uTools verification & availability at Abids showroom.`;
+    window.open(createWhatsAppUrl(msg), "_blank", "noopener,noreferrer");
+  };
 
-  const conditionTags = [
-    product.condition || "Grade A+ Flawless",
-    "Cashify App + ₹500",
-    "Store Verified",
-    "Clean IMEI"
-  ];
-
-  const handleBagToggle = () => {
+  const handleAddToCart = () => {
     onAddToBag({
       ...product,
-      selectedStorage: storageDisplay,
-      selectedColor: activeColor.name,
-      price: storePriceDisplay,
-      cashifyPrice: cashifyPriceDisplay,
-      originalPrice: originalPriceDisplay,
-      bagItemKey: `${product.id}-${storageDisplay}-${activeColor.name}`
+      selectedStorage,
+      selectedColor,
+      selectedCondition,
+      cashifyPrice: pricing.cashifyPrice,
+      storePrice: pricing.storePrice,
+      price: pricing.storePriceFormatted,
+      originalPrice: pricing.originalPriceFormatted,
     });
   };
 
   return (
     <div
-      onClick={onClose}
-      className="fixed inset-0 z-50 bg-[#0A0D14]/90 backdrop-blur-2xl flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#0A0D14]/85 backdrop-blur-md animate-fade-in"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-product-title"
     >
-      
-      <div 
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-2xl surface-card p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(0,102,255,0.25)] my-8 overflow-hidden text-[#F8FAFC]"
-      >
-        
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-xl bg-[#0E121B] hover:bg-[#262F40] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#262F40] transition-colors"
-          aria-label="Close modal"
-        >
-          <X className="w-5 h-5" />
-        </button>
+      <div className="absolute inset-0" onClick={onClose} aria-hidden="true" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-start">
-          
-          {/* Left Column: Image with Radial Lighting Gradient (5 cols) */}
-          <div className="sm:col-span-5 space-y-4">
-            <div className="h-60 sm:h-64 rounded-xl bg-[#0E121B] border border-[#262F40] flex items-center justify-center p-4 device-glow-backdrop">
-              <img
-                src={product.image}
-                alt={`${product.name} - ${activeColor.name}`}
-                className="max-h-full max-w-full object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]"
-              />
-            </div>
-
-            {/* Badges under photo */}
-            <div className="space-y-2 font-mono">
-              <div className="p-3 rounded-xl bg-[#0E121B] border border-[#262F40] flex items-center justify-between text-xs">
-                <span className="text-[#94A3B8]">Battery Health</span>
-                <span className="font-bold text-[#00F0FF] flex items-center gap-1">
-                  <BatteryCharging className="w-3.5 h-3.5" />
-                  {product.batteryHealth}
-                </span>
-              </div>
-
-              <div className="p-3 rounded-xl bg-[#0E121B] border border-[#262F40] flex items-center justify-between text-xs">
-                <span className="text-[#94A3B8]">Warranty</span>
-                <span className="font-bold text-[#F8FAFC] text-right">{product.warranty}</span>
-              </div>
-
-              <a
-                href={CASHIFY_APP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-xl bg-[#0E121B] border border-[#262F40] hover:border-[#0066FF] flex items-center justify-between text-xs transition-colors"
-              >
-                <span className="text-[#94A3B8]">Cashify App Benchmark</span>
-                <span className="font-bold text-[#00F0FF] flex items-center gap-1">
-                  <span>Verify App</span>
-                  <ExternalLink className="w-3 h-3" />
-                </span>
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column: Specs & Verification (7 cols) */}
-          <div className="sm:col-span-7 space-y-4">
-            
-            <div>
-              <div className="inline-flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#0066FF] text-[#F8FAFC] mb-1.5">
-                <Flame className="w-3 h-3 fill-current" />
-                <span>{product.badge || 'Certified iPhone'}</span>
-              </div>
-              <h3 className="text-2xl font-extrabold text-[#F8FAFC]">{product.name}</h3>
-              <p className="text-xs text-[#94A3B8] mt-0.5">
-                Selected: <strong className="text-[#00F0FF]">{storageDisplay} • {activeColor.name}</strong>
-              </p>
-            </div>
-
-            {/* Interactive Color Picker */}
-            {colors.length > 0 && (
-              <div className="space-y-1.5">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#94A3B8]">
-                  Choose Color Finish: <strong className="text-[#F8FAFC]">{activeColor.name}</strong>
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {colors.map((c, idx) => (
-                    <button
-                      key={c.name}
-                      type="button"
-                      onClick={() => setSelectedColorIdx(idx)}
-                      className={`px-2.5 py-1.5 rounded-lg border text-xs flex items-center gap-1.5 transition-all ${
-                        selectedColorIdx === idx
-                          ? 'bg-[#0066FF]/20 border-[#00F0FF] text-[#F8FAFC] font-bold'
-                          : 'bg-[#0E121B] border-[#262F40] text-[#94A3B8] hover:border-[#94A3B8]'
-                      }`}
-                    >
-                      <span
-                        className="w-3.5 h-3.5 rounded-full border border-white/20 shrink-0"
-                        style={{ backgroundColor: c.hex }}
-                      />
-                      <span>{c.name}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Interactive Storage Picker */}
-            {variants.length > 0 && (
-              <div className="space-y-1.5">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#94A3B8]">
-                  Choose Storage Variant:
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {variants.map((v, idx) => (
-                    <button
-                      key={v.storage}
-                      type="button"
-                      onClick={() => setSelectedVariantIdx(idx)}
-                      className={`px-3 py-1.5 rounded-lg border text-xs font-bold font-mono transition-all ${
-                        selectedVariantIdx === idx
-                          ? 'bg-[#0066FF] border-[#0066FF] text-[#F8FAFC] shadow-[0_4px_12px_rgba(0,102,255,0.4)]'
-                          : 'bg-[#0E121B] border-[#262F40] text-[#94A3B8] hover:border-[#0066FF] hover:text-[#F8FAFC]'
-                      }`}
-                    >
-                      {v.storage}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Price Box (App Price + ₹500 Transparent Formula) */}
-            <div className="p-4 rounded-xl bg-[#0E121B] border border-[#262F40] flex items-baseline justify-between gap-2">
-              <div>
-                <span className="text-[10px] uppercase font-bold text-[#00F0FF] block">
-                  Cashify App {cashifyPriceDisplay} + ₹500 Store Price
-                </span>
-                <div className="text-2xl font-extrabold text-[#F8FAFC] font-mono tabular-nums mt-0.5">
-                  {storePriceDisplay}
-                </div>
-              </div>
-              {originalPriceDisplay && (
-                <div className="text-right text-xs shrink-0">
-                  <span className="line-through text-[#94A3B8] font-mono">{originalPriceDisplay}</span>
-                  <div className="text-[#00F0FF] font-bold font-mono">{savingsDisplay}</div>
-                </div>
-              )}
-            </div>
-
-            {/* Condition Grade Badges */}
-            <div className="flex flex-wrap gap-1.5">
-              {conditionTags.map((badge, bIdx) => (
-                <span key={bIdx} className="badge-condition px-2.5 py-0.5 text-[10px]">
-                  {badge}
-                </span>
-              ))}
-            </div>
-
-            {/* 60-Point Checklist */}
-            <div className="space-y-2 pt-1">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#94A3B8]">
-                Diagnostics Checklist:
-              </span>
-              <div className="grid grid-cols-2 gap-2 text-xs text-[#F8FAFC]">
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0066FF] shrink-0" />
-                  <span>TrueTone &amp; Display Original</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0066FF] shrink-0" />
-                  <span>FaceID &amp; Cameras Tested</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0066FF] shrink-0" />
-                  <span>Clean IMEI &amp; Factory Unlocked</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0066FF] shrink-0" />
-                  <span>3uTools Live Inspection Report</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Actions: Direct WhatsApp, Direct Call, Bag */}
-            <div className="pt-3 grid grid-cols-3 gap-2">
-              
-              {/* WhatsApp */}
-              <a
-                href={createWhatsAppUrl(`Hi Sikandar Bhai, I want to BUY the *${product.name}* (${storageDisplay} • ${activeColor.name}) at *${storePriceDisplay}* (Cashify App ${cashifyPriceDisplay} + ₹500). Is it available for pickup?`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary-cobalt py-3 px-2 text-xs font-bold gap-1"
-              >
-                <MessageCircle className="w-3.5 h-3.5 fill-current" />
-                <span>Buy WhatsApp</span>
-              </a>
-
-              {/* Call */}
-              <a
-                href={`tel:${storeData.storeInfo.phoneRaw}`}
-                className="btn-secondary-titanium py-3 px-2 text-xs font-bold gap-1"
-              >
-                <Phone className="w-3.5 h-3.5 text-[#00F0FF]" />
-                <span className="font-mono">Call</span>
-              </a>
-
-              {/* Add to Bag */}
-              <button
-                onClick={handleBagToggle}
-                className={`py-3 px-2 text-xs font-bold rounded-[10px] border transition-all flex items-center justify-center gap-1 ${
-                  isInBag 
-                    ? 'bg-[#0066FF]/20 border-[#0066FF] text-[#00F0FF]' 
-                    : 'btn-secondary-titanium'
-                }`}
-              >
-                {isInBag ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
-                    <span>In Bag</span>
-                  </>
-                ) : (
-                  <>
-                    <ShoppingBag className="w-3.5 h-3.5" />
-                    <span>Add</span>
-                  </>
-                )}
-              </button>
-
-            </div>
-
-          </div>
-
+      <div className="relative z-10 w-full max-w-4xl bg-[#141923] border border-[#262F40] rounded-3xl overflow-hidden shadow-[0_25px_80px_rgba(0,0,0,0.85)] grid grid-cols-1 md:grid-cols-12 max-h-[92vh] overflow-y-auto">
+        {/* Top Right Controls */}
+        <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => onToggleFavorite?.(product.id)}
+            aria-label={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+            className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all ${
+              isFavorite
+                ? "bg-rose-500/15 border-rose-500/40 text-rose-400"
+                : "bg-[#0A0D14]/90 border-[#262F40] text-[#94A3B8] hover:text-rose-400 hover:border-rose-500/40"
+            }`}
+          >
+            <Heart className={`w-4 h-4 ${isFavorite ? "fill-rose-400" : ""}`} />
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close Product Inspection"
+            className="w-10 h-10 rounded-xl bg-[#0A0D14]/90 hover:bg-[#1e2636] border border-[#262F40] flex items-center justify-center text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
-      </div>
+        {/* Left Side: Device Showcase & Transparent Pricing Box */}
+        <div className="md:col-span-5 bg-[#0A0D14] p-7 sm:p-8 flex flex-col items-center justify-between relative border-b md:border-b-0 md:border-r border-[#262F40]">
+          <div className="ambient-phone-glow" aria-hidden="true" />
 
+          <div className="relative z-10 w-full flex flex-wrap items-center gap-2">
+            <span className="pill-grade-cyan">{product.badge}</span>
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#0066FF]/15 border border-[#0066FF]/35 text-[#F8FAFC]">
+              <Cpu className="w-3 h-3 text-[#00F0FF]" />
+              {product.ram}
+            </span>
+          </div>
+
+          <div className="relative z-10 my-5 w-52 h-60 flex items-center justify-center">
+            <img
+              src={product.image}
+              alt={`${product.name} - ${selectedColor}`}
+              className="w-full h-full object-contain drop-shadow-[0_20px_35px_rgba(0,102,255,0.28)] rounded-xl"
+            />
+          </div>
+
+          {/* Transparent Cashify App + ₹500 Card */}
+          <div className="relative z-10 w-full rounded-xl bg-[#141923] border border-[#262F40] p-3.5 space-y-2 mb-3">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-[#94A3B8]">
+                Cashify App ({pricing.condition.label} • {selectedStorage})
+              </span>
+              <span className="font-mono font-bold text-[#F8FAFC] tabular-nums">
+                {pricing.cashifyPriceFormatted}
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-[#00F0FF]">Abids Store Verification &amp; Warranty</span>
+              <span className="font-mono font-bold text-[#00F0FF] tabular-nums">+ ₹500</span>
+            </div>
+            <div className="pt-2 border-t border-[#262F40] flex items-center justify-between text-sm">
+              <span className="font-bold text-[#F8FAFC]">Direct Buy Price</span>
+              <span className="font-extrabold text-[#F8FAFC] tabular-nums">
+                {pricing.storePriceFormatted}
+              </span>
+            </div>
+          </div>
+
+          <a
+            href={CASHIFY_APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative z-10 w-full inline-flex items-center justify-center gap-1.5 text-[11px] font-semibold text-[#00F0FF] hover:underline"
+          >
+            <span>Verify Cashify Android App Base Price</span>
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        </div>
+
+        {/* Right Side: Interactive Variants (Condition + Storage + Color) & Specs */}
+        <div className="md:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-5">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider text-[#00F0FF] mb-1">
+              {product.series} • {product.formFactor} • {product.ram}
+            </div>
+            <h2
+              id="modal-product-title"
+              className="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] tracking-tight pr-16"
+            >
+              {product.name}
+            </h2>
+
+            {/* Live Pricing */}
+            <div className="flex flex-wrap items-baseline gap-3 mt-3 pb-4 border-b border-[#262F40]">
+              <span className="text-3xl font-extrabold text-[#F8FAFC] tabular-nums">
+                {pricing.storePriceFormatted}
+              </span>
+              <span className="text-base text-[#94A3B8] line-through tabular-nums">
+                {pricing.originalPriceFormatted}
+              </span>
+              <span className="text-xs font-bold text-[#00F0FF] bg-[#00F0FF]/10 border border-[#00F0FF]/25 px-2.5 py-0.5 rounded-md">
+                {pricing.savingsFormatted} ({pricing.discountPercent}% OFF)
+              </span>
+            </div>
+
+            {/* 1. Condition Selector (Fair / Good / Superb) */}
+            <div className="mt-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+                  Condition Grade:{" "}
+                  <span className="text-[#00F0FF]">{pricing.condition.badge}</span>
+                </span>
+                <span className="text-[11px] text-[#94A3B8]">{pricing.condition.batteryRange}</span>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {CONDITION_GRADES.map((grade) => {
+                  const isActive = grade.id === selectedCondition;
+                  return (
+                    <button
+                      type="button"
+                      key={grade.id}
+                      onClick={() => setSelectedCondition(grade.id)}
+                      className={`p-2.5 rounded-xl border text-left transition-all ${
+                        isActive
+                          ? "bg-[#0066FF]/15 border-[#0066FF] text-[#F8FAFC] shadow-[0_0_16px_rgba(0,102,255,0.3)]"
+                          : "bg-[#0A0D14] border-[#262F40] text-[#94A3B8] hover:border-[#0066FF]/50 hover:text-[#F8FAFC]"
+                      }`}
+                    >
+                      <div className="text-xs font-bold">{grade.label}</div>
+                      <div className="text-[10px] text-[#00F0FF] mt-0.5">{grade.batteryRange}</div>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-[11px] text-[#94A3B8] mt-1.5">{pricing.condition.summary}</p>
+            </div>
+
+            {/* 2. Storage Variant Picker */}
+            <div className="mt-4">
+              <span className="block text-xs font-bold uppercase tracking-wider text-[#94A3B8] mb-2">
+                Select Storage Capacity ({product.ram}):{" "}
+                <span className="text-[#F8FAFC]">{selectedStorage}</span>
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {product.variants?.map((variant) => {
+                  const isActive = variant.storage === selectedStorage;
+                  return (
+                    <button
+                      type="button"
+                      key={variant.storage}
+                      onClick={() => setSelectedStorage(variant.storage)}
+                      className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${
+                        isActive
+                          ? "bg-[#0066FF] border-[#0066FF] text-[#F8FAFC] shadow-[0_4px_14px_rgba(0,102,255,0.4)]"
+                          : "bg-[#0A0D14] border-[#262F40] text-[#94A3B8] hover:border-[#0066FF]/50 hover:text-[#F8FAFC]"
+                      }`}
+                    >
+                      {variant.storage}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 3. Color Variant Picker */}
+            {product.colors && product.colors.length > 0 && (
+              <div className="mt-4">
+                <span className="block text-xs font-bold uppercase tracking-wider text-[#94A3B8] mb-2">
+                  Select Color Finish:{" "}
+                  <span className="text-[#00F0FF]">{selectedColor}</span>
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {product.colors.map((col) => {
+                    const isActive = col.name === selectedColor;
+                    return (
+                      <button
+                        type="button"
+                        key={col.name}
+                        onClick={() => setSelectedColor(col.name)}
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                          isActive
+                            ? "bg-[#1e2636] border-[#00F0FF] text-[#F8FAFC] shadow-[0_0_12px_rgba(0,240,255,0.2)]"
+                            : "bg-[#0A0D14] border-[#262F40] text-[#94A3B8] hover:text-[#F8FAFC]"
+                        }`}
+                      >
+                        <span
+                          className="w-3.5 h-3.5 rounded-full border border-white/25 shrink-0"
+                          style={{ backgroundColor: col.hex }}
+                        />
+                        <span>{col.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Hardware Spec Grid */}
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <div className="p-3 rounded-xl bg-[#0A0D14] border border-[#262F40] flex items-start gap-2.5">
+                <Cpu className="w-4 h-4 text-[#00F0FF] shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-[#94A3B8] block">Processor &amp; RAM</span>
+                  <span className="font-semibold text-[#F8FAFC]">{product.specs.chip}</span>
+                </div>
+              </div>
+              <div className="p-3 rounded-xl bg-[#0A0D14] border border-[#262F40] flex items-start gap-2.5">
+                <Smartphone className="w-4 h-4 text-[#00F0FF] shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-[#94A3B8] block">Display Panel</span>
+                  <span className="font-semibold text-[#F8FAFC]">{product.specs.display}</span>
+                </div>
+              </div>
+              <div className="p-3 rounded-xl bg-[#0A0D14] border border-[#262F40] flex items-start gap-2.5">
+                <Camera className="w-4 h-4 text-[#00F0FF] shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-[#94A3B8] block">Camera System</span>
+                  <span className="font-semibold text-[#F8FAFC]">{product.specs.camera}</span>
+                </div>
+              </div>
+              <div className="p-3 rounded-xl bg-[#0A0D14] border border-[#262F40] flex items-start gap-2.5">
+                <PackageCheck className="w-4 h-4 text-[#00F0FF] shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-[#94A3B8] block">Included Kit</span>
+                  <span className="font-semibold text-[#F8FAFC]">{product.specs.box}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 pt-3 border-t border-[#262F40] flex flex-wrap gap-4 text-xs text-[#94A3B8]">
+              <span className="flex items-center gap-1.5 text-[#F8FAFC]">
+                <Battery className="w-4 h-4 text-[#00F0FF]" />
+                {pricing.condition.batteryRange}
+              </span>
+              <span className="flex items-center gap-1.5 text-[#F8FAFC]">
+                <HardDrive className="w-4 h-4 text-[#00F0FF]" />
+                {selectedStorage} ({product.ram})
+              </span>
+              <span className="flex items-center gap-1.5 text-[#F8FAFC]">
+                <ShieldCheck className="w-4 h-4 text-[#0066FF]" />
+                {product.warranty}
+              </span>
+            </div>
+          </div>
+
+          {/* Modal CTAs */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className="flex-1 btn-secondary-titanium py-3.5 px-5 text-sm font-bold flex items-center justify-center gap-2"
+            >
+              <ShoppingCart className="w-4 h-4 text-[#00F0FF]" />
+              Add to Cart
+            </button>
+            <button
+              type="button"
+              onClick={handleReserve}
+              className="flex-1 btn-primary-cobalt py-3.5 px-5 text-sm font-bold flex items-center justify-center gap-2"
+            >
+              <MessageCircle className="w-4 h-4 fill-current" />
+              Buy via WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
