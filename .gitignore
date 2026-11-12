@@ -5,3 +5,5 @@ dist
 .DS_Store
 *.log
 _scraped_data
+server/data/
+public/uploads/

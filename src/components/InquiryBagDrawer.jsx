@@ -1,185 +1,152 @@
 import React from "react";
-import { X, ShoppingCart, Trash2, MessageCircle, Sparkles, Plus, Minus, Cpu, HardDrive, ShieldCheck } from "lucide-react";
-import { createWhatsAppUrl, formatINR, CONDITION_GRADES } from "../data/storeData";
+import { X, ShoppingCart, Trash2, MessageCircle, Plus, Minus, Cpu, HardDrive, ShieldCheck } from "lucide-react";
+import { useStore } from "../context/StoreContext";
+import { formatINR } from "../data/storeData";
+import { buildWhatsAppEnquiryUrl } from "../lib/api";
 
-export default function InquiryBagDrawer({
-  isOpen,
-  onClose,
-  items = [],
-  onUpdateQty,
-  onRemoveItem,
-  onClearBag,
-}) {
-  if (!isOpen) return null;
+export default function InquiryBagDrawer() {
+  const {
+    isBagOpen,
+    setIsBagOpen,
+    cartItems,
+    updateCartQty,
+    removeFromCart,
+    clearCart,
+    shopSettings,
+  } = useStore();
 
-  const totalUnits = items.reduce((sum, item) => sum + (item.qty || 1), 0);
-  const totalAmount = items.reduce(
+  if (!isBagOpen) return null;
+
+  const totalUnits = cartItems.reduce((sum, item) => sum + (item.qty || 1), 0);
+  const totalAmount = cartItems.reduce(
     (sum, item) => sum + (Number(item.storePrice) || 0) * (item.qty || 1),
     0
   );
-  const totalCashifyAmount = items.reduce(
-    (sum, item) => sum + (Number(item.cashifyPrice) || 0) * (item.qty || 1),
-    0
-  );
 
-  const handleBulkWhatsApp = () => {
-    const listText = items
-      .map((item, idx) => {
-        const condObj = CONDITION_GRADES.find((g) => g.id === item.selectedCondition) || CONDITION_GRADES[1];
-        const qty = item.qty || 1;
-        return `${idx + 1}. ${item.name} × ${qty} [${item.ram || ""} | ${
-          item.selectedStorage || ""
-        } | ${condObj.label} Condition | ${item.selectedColor || "Default"}] (${item.price} each, Cashify ${formatINR(
-          item.cashifyPrice || 0
-        )} + ₹500)`;
-      })
+  const handleWhatsAppCheckout = () => {
+    const lines = cartItems
+      .map(
+        (item, i) =>
+          `${i + 1}. ${item.name} x${item.qty || 1} — ${item.selectedStorage}, ${item.selectedColor} (${item.selectedCondition}) @ ${formatINR(item.storePrice)}`
+      )
       .join("\n");
-
-    const message = `Hi Sikandar Bhai! I want to buy these certified iPhones from your cart (Total ${formatINR(
-      totalAmount
-    )}):\n${listText}\n\nPlease confirm availability & 3uTools report at Jagdish Market, Abids!`;
-    window.open(createWhatsAppUrl(message), "_blank", "noopener,noreferrer");
+    const msg = `Hello Sikandar Mobile Store! I am interested in purchasing:\n${lines}\nTotal: ${formatINR(totalAmount)}.\nAre these devices available?`;
+    window.open(
+      buildWhatsAppEnquiryUrl(shopSettings.whatsapp, { customMessage: msg }),
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex justify-end bg-[#0A0D14]/85 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-50 flex justify-end bg-[#08090C]/85 backdrop-blur-md"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="cart-drawer-title"
+      aria-labelledby="drawer-cart-title"
     >
-      <div className="absolute inset-0" onClick={onClose} aria-hidden="true" />
+      <div className="absolute inset-0" onClick={() => setIsBagOpen(false)} />
 
-      <div className="relative z-10 w-full max-w-md bg-[#141923] border-l border-[#262F40] h-full flex flex-col shadow-2xl">
-        {/* Header */}
-        <div className="p-5 sm:p-6 border-b border-[#262F40] flex items-center justify-between bg-[#0A0D14]/60">
+      <div className="relative z-10 w-full max-w-md bg-[#111318] border-l border-[#C5C7CC]/15 h-full flex flex-col shadow-2xl">
+        <div className="p-5 sm:p-6 border-b border-[#C5C7CC]/15 flex items-center justify-between bg-[#08090C]/70">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#0066FF]/15 border border-[#0066FF]/35 flex items-center justify-center">
-              <ShoppingCart className="w-5 h-5 text-[#00F0FF]" />
+            <div className="w-10 h-10 rounded-xl bg-[#3478F6]/15 border border-[#3478F6]/35 flex items-center justify-center">
+              <ShoppingCart className="w-5 h-5 text-[#3478F6]" />
             </div>
             <div>
-              <h2 id="cart-drawer-title" className="text-lg font-bold text-[#F8FAFC]">
+              <h2 id="drawer-cart-title" className="text-lg font-extrabold text-white">
                 Buy Cart ({totalUnits})
               </h2>
-              <p className="text-xs text-[#94A3B8]">
-                Every item priced at Cashify App + ₹500
-              </p>
+              <p className="text-xs text-[#858A94]">Ready for Showroom Reservation</p>
             </div>
           </div>
           <button
-            onClick={onClose}
-            aria-label="Close Cart Drawer"
-            className="w-9 h-9 rounded-lg bg-[#141923] hover:bg-[#1e2636] border border-[#262F40] flex items-center justify-center text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
+            type="button"
+            onClick={() => setIsBagOpen(false)}
+            aria-label="Close Cart"
+            className="w-9 h-9 rounded-lg bg-[#08090C] border border-[#C5C7CC]/15 flex items-center justify-center text-[#858A94] hover:text-white cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Cart Items */}
-        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4">
-          {items.length === 0 ? (
+        <div className="flex-1 overflow-y-auto p-5 space-y-3.5">
+          {cartItems.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center py-12">
-              <div className="w-16 h-16 rounded-2xl bg-[#0A0D14] border border-[#262F40] flex items-center justify-center mb-4">
-                <ShoppingCart className="w-8 h-8 text-[#94A3B8]" />
-              </div>
-              <p className="text-[#F8FAFC] font-semibold mb-1">Your buy cart is empty</p>
-              <p className="text-xs text-[#94A3B8] max-w-xs leading-relaxed">
-                Select any iPhone (12 mini to 18 Pro Max), pick Condition (Fair / Good / Superb), Storage, and Color, then tap Add to Cart.
+              <ShoppingCart className="w-10 h-10 text-[#858A94] mb-3" />
+              <p className="text-sm font-bold text-white">Your cart is empty</p>
+              <p className="text-xs text-[#858A94] mt-1 max-w-xs">
+                Pick storage and finish on any iPhone card to add it to your enquiry cart.
               </p>
             </div>
           ) : (
-            items.map((item) => {
-              const condObj = CONDITION_GRADES.find((g) => g.id === item.selectedCondition) || CONDITION_GRADES[1];
+            cartItems.map((item) => {
               const qty = item.qty || 1;
-              const lineTotal = (Number(item.storePrice) || 0) * qty;
-
               return (
                 <div
                   key={item.cartKey}
-                  className="p-4 rounded-xl bg-[#0A0D14] border border-[#262F40] flex gap-3.5 group"
+                  className="p-4 rounded-2xl bg-[#08090C] border border-[#C5C7CC]/15 flex gap-3.5"
                 >
-                  <div className="w-16 h-20 rounded-xl bg-[#141923] border border-[#262F40] flex items-center justify-center p-1.5 shrink-0">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      loading="lazy"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-16 h-20 object-contain rounded-xl bg-[#111318] p-1 border border-[#C5C7CC]/10 shrink-0"
+                  />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className="text-sm font-bold text-[#F8FAFC] truncate">
-                        {item.name}
-                      </h3>
+                      <h3 className="text-sm font-bold text-white truncate">{item.name}</h3>
                       <button
                         type="button"
-                        onClick={() => onRemoveItem(item.cartKey)}
+                        onClick={() => removeFromCart(item.cartKey)}
                         aria-label={`Remove ${item.name}`}
-                        className="text-[#94A3B8] hover:text-rose-400 p-1 shrink-0 transition-colors"
+                        className="text-[#858A94] hover:text-rose-400 cursor-pointer"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
 
-                    {/* Variant Meta Tags: RAM, Storage, Condition, Color */}
-                    <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                    <div className="flex flex-wrap gap-1.5 mt-1.5 text-[10px]">
                       {item.ram && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#00F0FF] bg-[#00F0FF]/10 border border-[#00F0FF]/25 px-1.5 py-0.5 rounded">
-                          <Cpu className="w-2.5 h-2.5" />
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#111318] border border-[#C5C7CC]/15 text-[#C5C7CC]">
+                          <Cpu className="w-2.5 h-2.5 text-[#3478F6]" />
                           {item.ram}
                         </span>
                       )}
-                      {item.selectedStorage && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#F8FAFC] bg-[#141923] border border-[#262F40] px-1.5 py-0.5 rounded">
-                          <HardDrive className="w-2.5 h-2.5 text-[#94A3B8]" />
-                          {item.selectedStorage}
-                        </span>
-                      )}
-                      <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#00F0FF] bg-[#0066FF]/15 border border-[#0066FF]/35 px-1.5 py-0.5 rounded">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#111318] border border-[#C5C7CC]/15 text-white font-semibold">
+                        <HardDrive className="w-2.5 h-2.5 text-[#858A94]" />
+                        {item.selectedStorage}
+                      </span>
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#3478F6]/15 border border-[#3478F6]/30 text-[#93C5FD]">
                         <ShieldCheck className="w-2.5 h-2.5" />
-                        {condObj.label}
+                        {item.selectedCondition}
                       </span>
                     </div>
 
-                    {item.selectedColor && (
-                      <div className="text-[11px] text-[#94A3B8] mt-1">
-                        Color: <span className="text-[#F8FAFC] font-medium">{item.selectedColor}</span>
-                      </div>
-                    )}
+                    <div className="text-[11px] text-[#858A94] mt-1">
+                      Colour: <span className="text-white">{item.selectedColor}</span>
+                    </div>
 
-                    {/* Price & Quantity Stepper */}
-                    <div className="flex items-center justify-between gap-2 mt-3 pt-2.5 border-t border-[#262F40]/70">
-                      <div>
-                        <div className="text-sm font-extrabold text-[#F8FAFC] tabular-nums">
-                          {formatINR(lineTotal)}
-                        </div>
-                        {item.cashifyPrice && (
-                          <div className="text-[10px] text-[#00F0FF] font-semibold tabular-nums">
-                            {formatINR(item.cashifyPrice)} + ₹500 / unit
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="inline-flex items-center rounded-lg bg-[#141923] border border-[#262F40]">
+                    <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-[#C5C7CC]/10">
+                      <span className="text-sm font-extrabold text-white tabular-nums">
+                        {formatINR((item.storePrice || 0) * qty)}
+                      </span>
+                      <div className="inline-flex items-center rounded-lg bg-[#111318] border border-[#C5C7CC]/15">
                         <button
                           type="button"
-                          onClick={() => onUpdateQty(item.cartKey, qty - 1)}
-                          aria-label="Decrease quantity"
-                          className="w-7 h-7 flex items-center justify-center text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1e2636] rounded-l-lg transition-colors"
+                          onClick={() => updateCartQty(item.cartKey, qty - 1)}
+                          className="w-7 h-7 flex items-center justify-center text-[#C5C7CC] hover:text-white cursor-pointer"
                         >
-                          <Minus className="w-3.5 h-3.5" />
+                          <Minus className="w-3 h-3" />
                         </button>
-                        <span className="w-7 text-center text-xs font-bold text-[#F8FAFC] tabular-nums">
+                        <span className="w-7 text-center text-xs font-bold text-white tabular-nums">
                           {qty}
                         </span>
                         <button
                           type="button"
-                          onClick={() => onUpdateQty(item.cartKey, qty + 1)}
-                          aria-label="Increase quantity"
-                          className="w-7 h-7 flex items-center justify-center text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1e2636] rounded-r-lg transition-colors"
+                          onClick={() => updateCartQty(item.cartKey, qty + 1)}
+                          className="w-7 h-7 flex items-center justify-center text-[#C5C7CC] hover:text-white cursor-pointer"
                         >
-                          <Plus className="w-3.5 h-3.5" />
+                          <Plus className="w-3 h-3" />
                         </button>
                       </div>
                     </div>
@@ -190,45 +157,32 @@ export default function InquiryBagDrawer({
           )}
         </div>
 
-        {/* Footer Totals & Checkout */}
-        {items.length > 0 && (
-          <div className="p-5 sm:p-6 border-t border-[#262F40] bg-[#0A0D14]/90 space-y-3">
-            <div className="rounded-xl bg-[#141923] border border-[#262F40] p-3.5 space-y-1.5">
-              <div className="flex items-center justify-between text-xs text-[#94A3B8]">
-                <span>Cashify App Base ({totalUnits} {totalUnits === 1 ? "unit" : "units"})</span>
-                <span className="font-mono tabular-nums text-[#F8FAFC]">{formatINR(totalCashifyAmount)}</span>
-              </div>
-              <div className="flex items-center justify-between text-xs text-[#00F0FF]">
-                <span>Store Inspection &amp; Warranty Fee (₹500/unit)</span>
-                <span className="font-mono tabular-nums">+{formatINR(totalUnits * 500)}</span>
-              </div>
-              <div className="pt-2 border-t border-[#262F40] flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#F8FAFC]">Total Payable</span>
-                <span className="text-xl font-extrabold text-[#F8FAFC] tabular-nums">{formatINR(totalAmount)}</span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-xs text-[#94A3B8]">
-              <span className="inline-flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#00F0FF]" />
-                Abids Showroom Pickup • Cash/UPI
+        {cartItems.length > 0 && (
+          <div className="p-5 border-t border-[#C5C7CC]/15 bg-[#08090C]/90 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#858A94]">
+                Total ({totalUnits} items)
               </span>
-              <button
-                type="button"
-                onClick={onClearBag}
-                className="text-rose-400 hover:text-rose-300 font-semibold transition-colors"
-              >
-                Clear Cart
-              </button>
+              <span className="text-xl font-extrabold text-white tabular-nums">
+                {formatINR(totalAmount)}
+              </span>
             </div>
 
             <button
               type="button"
-              onClick={handleBulkWhatsApp}
-              className="w-full btn-primary-cobalt py-3.5 text-sm font-bold flex items-center justify-center gap-2"
+              onClick={clearCart}
+              className="text-xs text-rose-400 hover:underline cursor-pointer"
+            >
+              Clear All Cart Items
+            </button>
+
+            <button
+              type="button"
+              onClick={handleWhatsAppCheckout}
+              className="w-full btn-electric py-3.5 text-sm gap-2"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
-              Checkout &amp; Reserve via WhatsApp ({formatINR(totalAmount)})
+              <span>Reserve Order on WhatsApp ({formatINR(totalAmount)})</span>
             </button>
           </div>
         )}

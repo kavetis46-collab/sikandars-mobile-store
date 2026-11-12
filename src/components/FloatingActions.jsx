@@ -1,162 +1,121 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  MessageCircle, 
-  Phone, 
-  ArrowUp, 
-  ShoppingCart,
-  Heart
-} from 'lucide-react';
-import { storeData, createWhatsAppUrl } from '../data/storeData';
+import React, { useState, useEffect } from "react";
+import { MessageCircle, Phone, ArrowUp, ShoppingCart, Heart } from "lucide-react";
+import { useStore } from "../context/StoreContext";
+import { buildWhatsAppEnquiryUrl } from "../lib/api";
 
-export default function FloatingActions({ onOpenBag, bagCount = 0, onOpenFavorites, favoritesCount = 0 }) {
-  const [showScrollTop, setShowScrollTop] = useState(false);
+export default function FloatingActions() {
+  const {
+    shopSettings,
+    cartItems,
+    setIsBagOpen,
+    favorites,
+    setIsFavoritesOpen,
+  } = useStore();
+
+  const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setShowTop(window.scrollY > 420);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleDialerClick = () => {
-    window.location.href = `tel:${storeData.storeInfo.phoneRaw}`;
-  };
-
-  const handleWhatsAppClick = () => {
-    window.open(
-      createWhatsAppUrl("Hi Sikandar Bhai! I want to buy a certified pre-owned iPhone (12 mini to 18 Pro Max). Please share available colors and variants at your Abids showroom."),
-      '_blank'
-    );
-  };
+  const totalUnits = cartItems.reduce((sum, i) => sum + (i.qty || 1), 0);
+  const waHref = buildWhatsAppEnquiryUrl(shopSettings.whatsapp);
 
   return (
     <>
-      {/* ========================================================
-          DESKTOP & TABLET FLOATING DOCK (RIGHT SIDE)
-          ======================================================== */}
-      <aside 
-        aria-label="Direct Quick Contact Actions" 
-        className="fixed bottom-8 right-6 z-50 hidden sm:flex flex-col items-end gap-3 pointer-events-auto"
+      {/* Desktop Floating Action Stack */}
+      <aside
+        aria-label="Quick Contact Actions"
+        className="fixed bottom-7 right-6 z-40 hidden sm:flex flex-col items-end gap-2.5"
       >
-        
-        {/* Scroll To Top Button */}
-        {showScrollTop && (
+        {showTop && (
           <button
-            onClick={scrollToTop}
-            className="p-3 rounded-xl bg-[#141923] text-[#94A3B8] hover:text-[#00F0FF] border border-[#262F40] hover:border-[#0066FF] shadow-xl backdrop-blur-md transition-all hover:scale-105 group"
-            aria-label="Scroll to top of page"
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="Scroll to top"
+            className="p-3 rounded-xl bg-[#111318] border border-[#C5C7CC]/20 text-[#C5C7CC] hover:text-white hover:border-[#3478F6] transition-all cursor-pointer shadow-xl"
           >
-            <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUp className="w-4 h-4" />
           </button>
         )}
 
-        {/* 1. FLOATING DIRECT DIALER BUTTON */}
-        <button
-          onClick={handleDialerClick}
-          aria-label={`Call Sikandar Bhai directly at ${storeData.storeInfo.phone}`}
-          className="relative flex items-center gap-3 pl-3.5 pr-4 py-3 rounded-xl bg-[#141923] border border-[#262F40] hover:border-[#00F0FF] text-[#F8FAFC] font-bold text-xs shadow-[0_10px_25px_-5px_rgba(0,0,0,0.8)] hover:shadow-[0_10px_30px_-5px_rgba(0,240,255,0.3)] transition-all duration-300 hover:scale-105 active:scale-95 group"
+        <a
+          href={`tel:${shopSettings.phoneRaw}`}
+          aria-label={`Call ${shopSettings.phone}`}
+          className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#111318]/95 border border-[#C5C7CC]/20 hover:border-[#3478F6] text-xs font-bold text-white shadow-xl backdrop-blur-md transition-all"
         >
-          {/* Subtle Cyber Cyan Glow Indicator */}
-          <span className="w-2 h-2 rounded-full bg-[#00F0FF] animate-ping shrink-0" />
+          <Phone className="w-4 h-4 text-[#3478F6]" />
+          <span className="font-mono">{shopSettings.phone}</span>
+        </a>
 
-          <div className="w-7 h-7 rounded-lg bg-[#262F40] flex items-center justify-center shrink-0 text-[#00F0FF]">
-            <Phone className="w-3.5 h-3.5" />
-          </div>
-
-          <div className="flex flex-col text-left leading-tight">
-            <span className="text-[10px] uppercase font-bold tracking-wider text-[#94A3B8]">Showroom Call</span>
-            <span className="text-xs font-mono font-bold tracking-tight text-[#F8FAFC]">{storeData.storeInfo.phone}</span>
-          </div>
-        </button>
-
-        {/* 2. FLOATING DIRECT WHATSAPP BUTTON (Electric Cobalt with Cyan Glow) */}
-        <button
-          onClick={handleWhatsAppClick}
-          aria-label="Chat directly on WhatsApp with Sikandar Bhai"
-          className="relative flex items-center gap-3 pl-3.5 pr-4 py-3 rounded-xl btn-primary-cobalt text-xs font-bold shadow-[0_4px_20px_rgba(0,102,255,0.5)] transition-all duration-300 hover:scale-105 active:scale-95 group"
+        <a
+          href={waHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp Enquiry"
+          className="btn-electric px-4 py-3 text-xs gap-2 shadow-[0_8px_28px_rgba(52,120,246,0.45)]"
         >
-          {/* Pulsing Aura */}
-          <span className="absolute -inset-1 rounded-xl bg-[#00F0FF] opacity-20 animate-pulse pointer-events-none" />
-
-          <div className="w-7 h-7 rounded-lg bg-black/20 flex items-center justify-center shrink-0 text-white">
-            <MessageCircle className="w-4 h-4 fill-current" />
-          </div>
-
-          <div className="flex flex-col text-left leading-tight">
-            <span className="text-[10px] uppercase font-bold tracking-wider text-blue-200">Instant Reserve</span>
-            <span className="text-xs font-extrabold tracking-tight text-[#F8FAFC]">Chat WhatsApp</span>
-          </div>
-        </button>
-
+          <MessageCircle className="w-4 h-4 fill-current" />
+          <span>WhatsApp Store</span>
+        </a>
       </aside>
 
-      {/* ========================================================
-          MOBILE FLOATING DIRECT BAR (THUMB FRIENDLY STICKY DOCK)
-          ======================================================== */}
-      <nav 
-        aria-label="Mobile Direct Quick Actions" 
-        style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom, 0.75rem))' }}
-        className="fixed bottom-0 left-0 right-0 z-50 sm:hidden bg-[#0A0D14]/95 border-t border-[#262F40] backdrop-blur-2xl px-3 pt-2.5 shadow-[0_-10px_35px_rgba(0,0,0,0.9)]"
+      {/* Mobile Bottom Dock */}
+      <nav
+        aria-label="Mobile Quick Bar"
+        style={{ paddingBottom: "max(0.65rem, env(safe-area-inset-bottom, 0.65rem))" }}
+        className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-[#08090C]/95 border-t border-[#C5C7CC]/15 backdrop-blur-2xl px-3 pt-2"
       >
-        <div className="max-w-md mx-auto grid grid-cols-12 gap-2 items-center">
-          
-          {/* Saved Favorites icon (2 cols) */}
+        <div className="grid grid-cols-12 gap-2 items-center max-w-md mx-auto">
           <button
-            onClick={onOpenFavorites}
-            aria-label="Open Saved Favorites"
-            className="col-span-2 relative flex flex-col items-center justify-center py-2 rounded-xl bg-[#141923] border border-[#262F40] text-[#94A3B8] active:scale-95"
+            type="button"
+            onClick={() => setIsFavoritesOpen(true)}
+            aria-label="Open Favorites"
+            className="col-span-2 relative flex flex-col items-center justify-center py-1.5 rounded-xl bg-[#111318] border border-[#C5C7CC]/15 text-[#C5C7CC]"
           >
-            <Heart className={`w-4 h-4 ${favoritesCount > 0 ? 'text-rose-400 fill-rose-400' : 'text-[#94A3B8]'}`} />
-            <span className="text-[9px] font-bold mt-0.5">Saved</span>
-            {favoritesCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-[#F8FAFC] text-[10px] font-extrabold flex items-center justify-center shadow-[0_0_8px_rgba(244,63,94,0.6)]">
-                {favoritesCount}
+            <Heart className={`w-4 h-4 ${favorites.length > 0 ? "fill-rose-400 text-rose-400" : ""}`} />
+            <span className="text-[9px] font-semibold mt-0.5">Saved</span>
+            {favorites.length > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center">
+                {favorites.length}
               </span>
             )}
           </button>
 
-          {/* Quick Buy Cart icon (2 cols) */}
           <button
-            onClick={onOpenBag}
-            aria-label="Open Buy Cart"
-            className="col-span-2 relative flex flex-col items-center justify-center py-2 rounded-xl bg-[#141923] border border-[#262F40] text-[#94A3B8] active:scale-95"
+            type="button"
+            onClick={() => setIsBagOpen(true)}
+            aria-label="Open Cart"
+            className="col-span-2 relative flex flex-col items-center justify-center py-1.5 rounded-xl bg-[#111318] border border-[#C5C7CC]/15 text-[#C5C7CC]"
           >
-            <ShoppingCart className="w-4 h-4 text-[#00F0FF]" />
-            <span className="text-[9px] font-bold mt-0.5">Cart</span>
-            {bagCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#0066FF] text-[#F8FAFC] text-[10px] font-extrabold flex items-center justify-center shadow-[0_0_8px_#0066FF]">
-                {bagCount}
+            <ShoppingCart className="w-4 h-4 text-[#3478F6]" />
+            <span className="text-[9px] font-semibold mt-0.5">Cart</span>
+            {totalUnits > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#3478F6] text-white text-[9px] font-bold flex items-center justify-center">
+                {totalUnits}
               </span>
             )}
           </button>
 
-          {/* 1. DIRECT DIALER BUTTON (4 cols) */}
           <a
-            href={`tel:${storeData.storeInfo.phoneRaw}`}
-            aria-label="Direct Phone Call"
-            className="col-span-4 btn-secondary-titanium py-2.5 px-2 text-[11px] font-bold flex items-center justify-center gap-1 active:scale-95"
+            href={`tel:${shopSettings.phoneRaw}`}
+            className="col-span-4 btn-titanium py-2.5 text-[11px] gap-1"
           >
-            <Phone className="w-3.5 h-3.5 text-[#00F0FF] shrink-0" />
-            <span className="truncate font-mono">Call</span>
+            <Phone className="w-3.5 h-3.5 text-[#3478F6]" />
+            <span>Call</span>
           </a>
 
-          {/* 2. DIRECT WHATSAPP BUTTON (4 cols) */}
           <a
-            href={createWhatsAppUrl("Hi Sikandar Bhai! I want to buy a certified pre-owned iPhone (12 to 18 Pro Max) at your Abids showroom.")}
+            href={waHref}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Direct WhatsApp Message"
-            className="col-span-4 btn-primary-cobalt py-2.5 px-2 text-[11px] font-bold flex items-center justify-center gap-1 active:scale-95"
+            className="col-span-4 btn-electric py-2.5 text-[11px] gap-1"
           >
-            <MessageCircle className="w-3.5 h-3.5 fill-current shrink-0" />
-            <span className="truncate">WhatsApp</span>
+            <MessageCircle className="w-3.5 h-3.5 fill-current" />
+            <span>WhatsApp</span>
           </a>
-
         </div>
       </nav>
     </>

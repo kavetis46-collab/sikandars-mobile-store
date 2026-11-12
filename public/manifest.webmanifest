@@ -1,13 +1,13 @@
 {
-  "name": "Sikandar's iStore | Certified Pre-Owned iPhones",
-  "short_name": "Sikandar iStore",
-  "description": "Buy certified pre-owned iPhones from iPhone 12 mini to iPhone 18 Pro Max in all RAM, storage, color, and condition variants at Cashify App Price + ₹500.",
+  "name": "SIKANDAR MOBILE STORE",
+  "short_name": "Sikandar Mobile",
+  "description": "PREMIUM PHONES. SMARTER PRICES. Certified pre-owned iPhone marketplace with interactive 3D showcase.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "theme_color": "#0A0D14",
-  "background_color": "#0A0D14",
+  "theme_color": "#08090C",
+  "background_color": "#08090C",
   "categories": ["shopping", "lifestyle", "utilities"],
   "icons": [
     {
