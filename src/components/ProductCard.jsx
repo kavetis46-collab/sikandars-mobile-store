@@ -41,8 +41,16 @@ export default function ProductCard({ product }) {
     variants.find((v) => v.storage === selectedStorage) || variants[0];
 
   const sellingPriceNumber = Number(activeVariant.storePrice || product.displayPrice || 0);
+  const cashifyPriceNumber = Number(
+    activeVariant.cashifyPrice || product.cashifyPrice || Math.max(0, sellingPriceNumber - 500)
+  );
   const sellingPriceFormatted = formatINR(sellingPriceNumber);
+  const cashifyPriceFormatted = formatINR(cashifyPriceNumber);
   const mrpFormatted = activeVariant.originalMrp ? formatINR(activeVariant.originalMrp) : null;
+  const savingsNumber =
+    activeVariant.originalMrp && activeVariant.originalMrp > sellingPriceNumber
+      ? activeVariant.originalMrp - sellingPriceNumber
+      : 0;
 
   const isFav = favorites.includes(product.id);
   const isCompared = compareIds.includes(product.id);
@@ -142,20 +150,20 @@ export default function ProductCard({ product }) {
         </div>
       </div>
 
-      {/* Product Image Box */}
+      {/* Full Mobile Picture Container (Uncropped Top-to-Bottom) */}
       <Link
         to={`/iphone/${product.slug || product.id}`}
-        className="relative h-44 rounded-2xl bg-[#08090C]/80 border border-[#C5C7CC]/10 flex items-center justify-center overflow-hidden mb-4"
+        className="relative h-60 sm:h-64 p-4 rounded-2xl bg-[#08090C]/85 border border-[#C5C7CC]/10 flex items-center justify-center overflow-hidden mb-4"
       >
         <div className="device-glow-backdrop" />
         <img
           src={product.image}
           alt={`${product.name} ${selectedStorage} ${selectedColor}`}
           loading="lazy"
-          className="relative z-10 max-h-38 w-auto object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_14px_26px_rgba(0,0,0,0.75)]"
+          className="relative z-10 w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_14px_26px_rgba(0,0,0,0.75)]"
         />
         <span className="absolute bottom-2.5 right-2.5 z-20 px-2.5 py-1 rounded-full bg-[#111318]/90 border border-[#C5C7CC]/20 text-[10px] font-semibold text-[#C5C7CC] opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1">
-          Details <ExternalLink className="w-2.5 h-2.5 text-[#3478F6]" />
+          Full Specs <ExternalLink className="w-2.5 h-2.5 text-[#3478F6]" />
         </span>
       </Link>
 
@@ -237,24 +245,33 @@ export default function ProductCard({ product }) {
           </div>
         </div>
 
-        {/* Selling Price & Actions */}
+        {/* Selling Price & Clear Breakdown */}
         <div className="pt-3 border-t border-[#C5C7CC]/10 space-y-2.5">
-          <div className="flex items-baseline justify-between gap-2">
-            <div>
-              <span className="text-xl font-extrabold text-white tabular-nums">
-                {sellingPriceFormatted}
-              </span>
-              {mrpFormatted && activeVariant.originalMrp > sellingPriceNumber && (
-                <span className="ml-2 text-xs text-[#858A94] line-through tabular-nums">
-                  {mrpFormatted}
+          <div className="space-y-1">
+            <div className="flex items-baseline justify-between gap-2">
+              <div>
+                <span className="text-2xl font-extrabold text-white tabular-nums">
+                  {sellingPriceFormatted}
+                </span>
+                {mrpFormatted && activeVariant.originalMrp > sellingPriceNumber && (
+                  <span className="ml-2 text-xs text-[#858A94] line-through tabular-nums">
+                    {mrpFormatted}
+                  </span>
+                )}
+              </div>
+              {savingsNumber > 0 && (
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#3478F6]/15 border border-[#3478F6]/35 text-[#93C5FD] tabular-nums">
+                  Save {formatINR(savingsNumber)}
                 </span>
               )}
             </div>
-            {product.discountPercent > 0 && (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#3478F6]/15 border border-[#3478F6]/35 text-[#93C5FD]">
-                {product.discountPercent}% OFF
+
+            <div className="flex items-center justify-between text-[11px] bg-[#08090C] border border-[#C5C7CC]/10 rounded-lg px-2.5 py-1.5 text-[#C5C7CC]">
+              <span>Cashify App Ref:</span>
+              <span className="font-mono font-bold text-[#93C5FD] tabular-nums">
+                {cashifyPriceFormatted} + ₹500
               </span>
-            )}
+            </div>
           </div>
 
           <div className="grid grid-cols-12 gap-2">

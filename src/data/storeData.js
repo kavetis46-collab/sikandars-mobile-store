@@ -72,34 +72,32 @@ const makeVariants = (list) =>
     };
   });
 
-// Verified Official Apple Newsroom & Wikimedia Images
+// Verified Full-Phone Studio Cutouts & Product Images (Zero Shop Counter / Cropped Camera Shots)
 export const IPHONE_16_PRO_MAX_IMAGES = {
-  heroDuo: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-240909_inline.jpg.large.jpg",
-  finishLineup: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-finish-lineup-240909_big.jpg.large.jpg",
-  cameraSystem: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-camera-system-240909_inline.jpg.large.jpg",
-  desertCutout: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_Desert_Titanium_Rear.png?width=600",
-  screenCutout: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_screen.png?width=600",
-  storeBoxStock: "https://lh3.googleusercontent.com/Y6eRQr50pTtuYEs0g55ljofWjM3HLStoYFVJCYCCaGLjwTikL9oqbS4BJ9iI4yhXWsinGnBXhDBCC7AB9w=w600-rw",
-  storeCounterStock: "https://lh3.googleusercontent.com/tzJoPiFPlLtP8e9v-tfbiVPczbnslw-UU4ysdRcm_mR6QcodMM49DSpfVUo3qN2NorgyQ72tXE7DazZ1uQ=w600-rw",
-  storeInspectionDesk: "https://lh3.googleusercontent.com/-VuECFMulcl6GsV1loRwPLSIItWHnmjubnIBojpF2bVPoLf70ajDbytqqlMZrZx6QXpkHTxK5GZ7vydTTQ=w600-rw"
+  heroDuo: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_screen.png?width=700",
+  finishLineup: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_Desert_Titanium_Rear.png?width=700",
+  desertCutout: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_Desert_Titanium_Rear.png?width=650",
+  screenCutout: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_screen.png?width=650",
+  iphone17Studio: "https://commons.wikimedia.org/wiki/Special:FilePath/Mist_Blue_iPhone_17.jpg?width=650",
+  iphone15Studio: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_15_pro_max.png?width=650",
 };
 
 const IMG = {
-  iphone18Pro: "https://www.apple.com/v/iphone-18-pro/d/images/meta/iphone-18-pro_overview__bl9no3txkonm_og.png",
-  iphoneAir: "https://www.apple.com/v/iphone-air/i/images/meta/iphone-air_overview__dwhg6l117yqa_og.png",
-  iphone17: "https://www.apple.com/v/iphone-17/i/images/meta/iphone-17_overview__cg0rlzmbhl7m_og.png",
+  iphone18Pro: "https://commons.wikimedia.org/wiki/Special:FilePath/Black_iPhone_17.jpg?width=600",
+  iphoneAir: "https://commons.wikimedia.org/wiki/Special:FilePath/White_iPhone_17.jpg?width=600",
+  iphone17: "https://commons.wikimedia.org/wiki/Special:FilePath/Mist_Blue_iPhone_17.jpg?width=600",
   iphone16ProMax: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_Desert_Titanium_Rear.png?width=600",
-  iphone16Pro: "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-camera-system-240909_inline.jpg.large.jpg",
-  iphone16Lineup: "https://www.apple.com/newsroom/images/2024/09/apple-introduces-iphone-16-and-iphone-16-plus/article/Apple-iPhone-16-finish-lineup-240909_big.jpg.large.jpg",
-  iphone15ProMax: "https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/article/Apple-iPhone-15-Pro-lineup-hero-230912_Full-Bleed-Image.jpg.large.jpg",
-  iphone15Pro: "https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/tile/Apple-iPhone-15-Pro-lineup-hero-230912.jpg.og.jpg",
-  iphone15Lineup: "https://www.apple.com/newsroom/images/2023/09/apple-debuts-iphone-15-and-iphone-15-plus/article/Apple-iPhone-15-lineup-hero-230912_inline.jpg.large.jpg",
-  iphone14Pro: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-Pro-iPhone-14-Pro-Max-deep-purple-220907_inline.jpg.large.jpg",
-  iphone14Lineup: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-iPhone-14-Plus-hero-220907_Full-Bleed-Image.jpg.large.jpg",
-  iphone13Pro: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_09142021_inline.jpg.large.jpg",
-  iphone13Lineup: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iphone13_hero_09142021_inline.jpg.large.jpg",
-  iphone12Pro: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone12pro_10132020_big.jpg.large.jpg",
-  iphone12Lineup: "https://www.apple.com/newsroom/images/product/iphone/standard/apple_iphone-12_new-design_10132020_big.jpg.large.jpg"
+  iphone16Pro: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Pro_Max_screen.png?width=600",
+  iphone16Lineup: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_16_Ultramarine_Rear.png?width=600",
+  iphone15ProMax: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_15_pro_max.png?width=600",
+  iphone15Pro: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_15_pro.png?width=600",
+  iphone15Lineup: "https://commons.wikimedia.org/wiki/Special:FilePath/Apple_iPhone_15.png?width=600",
+  iphone14Pro: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_14_Pro_Deep_Purple.jpg?width=600",
+  iphone14Lineup: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_14_Product_Red.jpg?width=600",
+  iphone13Pro: "https://commons.wikimedia.org/wiki/Special:FilePath/Back_of_the_iPhone_13_Pro.jpg?width=600",
+  iphone13Lineup: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_13_Pro.jpg?width=600",
+  iphone12Pro: "https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_12_Pro_Max.png?width=600",
+  iphone12Lineup: "https://commons.wikimedia.org/wiki/Special:FilePath/Iphone-12-product--red.png?width=600"
 };
 
 const rawProducts = [
@@ -1052,7 +1050,7 @@ export const storeData = {
     {
       id: "reel-1",
       title: "iPhone 18 Pro & 16 Pro Max Titanium Stock Ready!",
-      caption: "Fresh certified units just landed at Jagdish Market! Every iPhone from 12 mini to 18 Pro Max in all colors, RAM & storage variants. Transparent Cashify App + ₹500 showroom pricing! 📱✨",
+      caption: "Fresh certified units just landed at Jagdish Market! Every iPhone from 12 mini to 18 Pro Max in all colors, RAM & storage variants. Transparent Cashify App + ₹500 showroom pricing!",
       thumbnail: IMG.iphone18Pro,
       views: "52.4K",
       likes: "3.8K",
@@ -1064,8 +1062,8 @@ export const storeData = {
     {
       id: "reel-2",
       title: "Unbeatable Buy Pricing: Cashify App + ₹500 Only!",
-      caption: "See the price on Cashify App, pay just ₹500 more at our Abids counter for instant physical inspection, 3uTools report, and 6-month store warranty. Zero waiting! 🤝💵",
-      thumbnail: IPHONE_16_PRO_MAX_IMAGES.storeBoxStock,
+      caption: "See the price on Cashify App, pay just ₹500 more at our Abids counter for instant physical inspection, 3uTools report, and 6-month store warranty.",
+      thumbnail: IMG.iphone16ProMax,
       views: "64.8K",
       likes: "5.1K",
       audio: "Trending Audio – Hyderabad Tech Beats",
@@ -1076,8 +1074,8 @@ export const storeData = {
     {
       id: "reel-3",
       title: "Live 3uTools Verification Before You Buy",
-      caption: "Check original battery cycles, TrueTone, FaceID, RAM, and serial numbers on the big monitor before paying a single rupee. 100% genuine Apple parts guaranteed. 🛠️",
-      thumbnail: IPHONE_16_PRO_MAX_IMAGES.storeInspectionDesk,
+      caption: "Check original battery cycles, TrueTone, FaceID, RAM, and serial numbers on the big monitor before paying a single rupee. 100% genuine Apple parts guaranteed.",
+      thumbnail: IMG.iphone15ProMax,
       views: "38.1K",
       likes: "2.9K",
       audio: "Tech Voiceover – Sikandar Bhai",
@@ -1088,8 +1086,8 @@ export const storeData = {
     {
       id: "reel-4",
       title: "iPhone 12, 13, 14 & 15 Full Color & Storage Showcase",
-      caption: "Every mini, Standard, Plus, Pro, and Pro Max in Fair, Good & Superb grades ready for same-day pickup in Abids or 2-hour delivery across Hyderabad! 🔥 #BuyiPhoneHyderabad",
-      thumbnail: IPHONE_16_PRO_MAX_IMAGES.storeCounterStock,
+      caption: "Every mini, Standard, Plus, Pro, and Pro Max in Fair, Good & Superb grades ready for pickup in Abids!",
+      thumbnail: IMG.iphone16Lineup,
       views: "59.0K",
       likes: "4.4K",
       audio: "Original Sound – Sikandar Store Vlogs",
@@ -1107,11 +1105,11 @@ export const storeData = {
       name: "Sharukuddin Shaik",
       date: "October 13, 2026",
       rating: 5,
-      avatar: "https://lh3.googleusercontent.com/a-/ALV-UjVR8WC7xJGFf2BgONdUBaP8iQzRLvnkPvHDpdGMrt-dgzNjTOl6JQ=s120-c-rp-mo-br100",
+      avatar: "",
       badge: "Verified iPhone Buyer",
       devicePurchased: "iPhone 16 Pro Max",
       category: "iPhone Purchase",
-      text: "Had a great experience purchasing the iPhone from this shop! The staff were friendly, professional, and helpful throughout the purchase. They explained everything clearly and made the buying experience smooth and hassle-free. Highly recommended for anyone planning to buy an iPhone! 📱✨ (SIKANDAR BHAI)",
+      text: "Had a great experience purchasing the iPhone from this shop! The staff were friendly, professional, and helpful throughout the purchase. They explained everything clearly and made the buying experience smooth and hassle-free. Highly recommended for anyone planning to buy an iPhone! (SIKANDAR BHAI)",
       likes: 18,
       verifiedSource: "Google Maps Verified"
     },
@@ -1120,7 +1118,7 @@ export const storeData = {
       name: "Md Jalal Uddin Mondal",
       date: "September 19, 2026",
       rating: 5,
-      avatar: "https://lh3.googleusercontent.com/a/ACg8ocKwp7orOom2yJXdCWJoZCDQyV2QDg66ml_B_TzbbbmhFKnwcQ=s120-c-rp-mo-br100",
+      avatar: "",
       badge: "Regular Customer Since 2003",
       devicePurchased: "iPhone 15 Pro Max",
       category: "iPhone Purchase",
@@ -1133,7 +1131,7 @@ export const storeData = {
       name: "kprc kprc",
       date: "October 13, 2026",
       rating: 5,
-      avatar: "https://lh3.googleusercontent.com/a-/ALV-UjWdwgwVfggSG8uAye155fhgeOO2hmAN_xOHTQKnkyq5XBdt42avXg=s120-c-rp-mo-ba12-br100",
+      avatar: "",
       badge: "Local Guide",
       devicePurchased: "iPhone Pro Series",
       category: "iPhone Purchase",
@@ -1146,7 +1144,7 @@ export const storeData = {
       name: "Narasimhulu Narasimhulu",
       date: "October 13, 2026",
       rating: 5,
-      avatar: "https://lh3.googleusercontent.com/a-/ALV-UjWrK7GYDkF9ZKPXNI8avjfMiZHIE37G-5m7J1L671AccJ3-SavI=s120-c-rp-mo-br100",
+      avatar: "",
       badge: "Customer Since 2013",
       devicePurchased: "Multiple iPhone Purchases",
       category: "Repeat Buyer",
@@ -1159,7 +1157,7 @@ export const storeData = {
       name: "Jude Samuel",
       date: "October 8, 2026",
       rating: 5,
-      avatar: "https://lh3.googleusercontent.com/a/ACg8ocJIgLeXyab61Dsdggx8lzrZCaIVauLkIMQRyPR-dxhqEwrV7g=s120-c-rp-mo-br100",
+      avatar: "",
       badge: "Verified Buyer",
       devicePurchased: "iPhone 14 Pro Max",
       category: "iPhone Purchase",
@@ -1172,7 +1170,7 @@ export const storeData = {
       name: "NIKHIL KUMAR BILLA",
       date: "August 13, 2026",
       rating: 5,
-      avatar: "https://lh3.googleusercontent.com/a/ACg8ocJzK-Z8LQI0rycdnJSHNgYfP18dQhRHXkNA5_z9TuZShMeV3Q=s120-c-rp-mo-br100",
+      avatar: "",
       badge: "Verified Buyer",
       devicePurchased: "iPhone 13 Pro",
       category: "Repeat Buyer",
@@ -1185,7 +1183,7 @@ export const storeData = {
       name: "Imran Khan",
       date: "August 1, 2026",
       rating: 5,
-      avatar: "https://lh3.googleusercontent.com/a-/ALV-UjVR8WC7xJGFf2BgONdUBaP8iQzRLvnkPvHDpdGMrt-dgzNjTOl6JQ=s120-c-rp-mo-br100",
+      avatar: "",
       badge: "Verified Buyer",
       devicePurchased: "iPhone Pro Max",
       category: "iPhone Purchase",
@@ -1216,34 +1214,24 @@ export const storeData = {
 
   gallery: [
     {
-      url: IPHONE_16_PRO_MAX_IMAGES.storeBoxStock,
-      caption: "Sealed & Grade A+ iPhone Pro Max Stock Showcase",
-      category: "Stock"
+      url: IPHONE_16_PRO_MAX_IMAGES.desertCutout,
+      caption: "iPhone 16 Pro Max Desert Titanium — Full Rear Studio View",
+      category: "Pro Max"
     },
     {
-      url: IPHONE_16_PRO_MAX_IMAGES.storeCounterStock,
-      caption: "Certified Pre-Owned iPhone 12 to 18 Series Counter",
-      category: "Stock"
+      url: IPHONE_16_PRO_MAX_IMAGES.screenCutout,
+      caption: "iPhone 16 Pro Max — Full Front Display Showcase",
+      category: "Pro Max"
     },
     {
-      url: "https://lh3.googleusercontent.com/Ej36echLGGpDrc0y0PtYJmAjLZMwUNOC8gDQRQcMc2KJQZEQISPbke9JNLPJwaUTGrd9GbN12pFlZsaV1w=w600-rw",
-      caption: "Storefront at Jagdish Market, Abids & Koti",
-      category: "Store"
+      url: IPHONE_16_PRO_MAX_IMAGES.iphone15Studio,
+      caption: "iPhone 15 Pro Max — Natural Titanium Full View",
+      category: "Pro"
     },
     {
-      url: IPHONE_16_PRO_MAX_IMAGES.storeInspectionDesk,
-      caption: "3uTools Live Verification & Buyer Testing Desk",
-      category: "Inspection"
-    },
-    {
-      url: "https://lh3.googleusercontent.com/LOQhCbRncxuMeU4lMe8hZCQVyS7vZc_DalfJqTZnrWqDOkKKTkRXfj_TfFCl41-xAyEjAWe30BIOOanyMg=w600-rw",
-      caption: "Original Box Packs & Charging Accessories",
-      category: "Accessories"
-    },
-    {
-      url: "https://lh3.googleusercontent.com/S_gadSVQN1zPDmJ4587gmax4pwdJM9YM6CxYaX-tSZI4ecffhnuHoSX0eLUsv4MrKr6co-IKAUxgxC-_ow=w600-rw",
-      caption: "iPhone Pro Max Lineup Ready for Buyer Pickup",
-      category: "Stock"
+      url: IPHONE_16_PRO_MAX_IMAGES.iphone17Studio,
+      caption: "iPhone 17 Series — Studio Mist Blue",
+      category: "Latest"
     }
   ],
 
@@ -1288,7 +1276,7 @@ export const storeData = {
       title: "100% 3uTools Verified Battery Health & Original Parts Check",
       date: "November 6, 2026",
       tag: "Buyer Assurance",
-      image: IPHONE_16_PRO_MAX_IMAGES.storeInspectionDesk,
+      image: IMG.iphone15ProMax,
       summary: "Every iPhone passes our rigorous physical & diagnostic inspection at Abids Shopping Center before handover."
     }
   ]

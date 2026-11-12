@@ -67,9 +67,9 @@ export default function InstagramFeedSection() {
               {/* Profile Avatar with Electric Cobalt / Cyan Ring */}
               <div className="relative p-1 rounded-full bg-gradient-to-tr from-[#0066FF] via-[#00F0FF] to-[#262F40] shadow-xl shadow-[#0066FF]/25 shrink-0">
                 <img
-                  src="https://lh3.googleusercontent.com/Y6eRQr50pTtuYEs0g55ljofWjM3HLStoYFVJCYCCaGLjwTikL9oqbS4BJ9iI4yhXWsinGnBXhDBCC7AB9w=w600-rw"
+                  src="/icon.svg"
                   alt="Sikandar's Mobile Store Instagram"
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-[#0A0D14]"
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-contain bg-[#08090C] p-2 border-2 border-[#0A0D14]"
                   loading="lazy"
                   width="96"
                   height="96"

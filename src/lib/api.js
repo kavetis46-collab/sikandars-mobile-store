@@ -92,9 +92,8 @@ function getFallbackProducts() {
       slug: p.id,
       galleryImages: [
         p.image,
-        IPHONE_16_PRO_MAX_IMAGES.finishLineup,
-        IPHONE_16_PRO_MAX_IMAGES.cameraSystem,
-        IPHONE_16_PRO_MAX_IMAGES.storeInspectionDesk,
+        IPHONE_16_PRO_MAX_IMAGES.screenCutout,
+        IPHONE_16_PRO_MAX_IMAGES.desertCutout,
       ].filter(Boolean),
       conditionGrade: "Good",
       returnPolicy: "7-Day Functional Verification Guarantee at Abids Showroom",

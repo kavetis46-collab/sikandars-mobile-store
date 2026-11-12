@@ -141,12 +141,12 @@ export default function ProductDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         {/* Left Gallery Showcase (Front / Rear / Angles) */}
         <div className="lg:col-span-6 space-y-4">
-          <div className="surface-charcoal p-8 h-[380px] sm:h-[480px] flex items-center justify-center relative overflow-hidden">
+          <div className="surface-charcoal p-6 h-[380px] sm:h-[480px] flex items-center justify-center relative overflow-hidden">
             <div className="device-glow-backdrop" />
             <img
               src={gallery[activePhotoIndex] || product.image}
               alt={`${product.name} angle ${activePhotoIndex + 1}`}
-              className="relative z-10 max-h-[380px] w-auto object-contain drop-shadow-[0_25px_55px_rgba(0,0,0,0.85)]"
+              className="relative z-10 w-full h-full object-contain drop-shadow-[0_25px_55px_rgba(0,0,0,0.85)]"
             />
           </div>
 
@@ -195,7 +195,7 @@ export default function ProductDetailPage() {
               {product.name}
             </h1>
 
-            <div className="flex items-baseline gap-3 pt-2">
+            <div className="flex flex-wrap items-baseline gap-3 pt-2">
               <span className="text-3xl sm:text-4xl font-extrabold text-white tabular-nums">
                 {priceFormatted}
               </span>
@@ -204,6 +204,24 @@ export default function ProductDetailPage() {
                   {formatINR(activeVariant.originalMrp)}
                 </span>
               )}
+              {activeVariant.originalMrp > priceNumber && (
+                <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 text-xs font-bold text-emerald-300 tabular-nums">
+                  Save {formatINR(activeVariant.originalMrp - priceNumber)}
+                </span>
+              )}
+            </div>
+            <div className="inline-flex flex-wrap items-center gap-2 rounded-lg border border-white/10 bg-[#08090C]/80 px-3 py-1.5 text-xs text-[#C5C7CC] tabular-nums">
+              <span className="text-[#858A94]">Cashify App Ref:</span>
+              <span className="font-semibold text-white">
+                {formatINR(
+                  Number(
+                    activeVariant.cashifyPrice ||
+                      product.cashifyPrice ||
+                      Math.max(0, priceNumber - 500)
+                  )
+                )}
+              </span>
+              <span className="text-[#3478F6] font-bold">+ ₹500 Store Margin</span>
             </div>
           </div>
 
