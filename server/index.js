@@ -16,6 +16,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "sikandar-mobile-store-dev-secret-c
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use("/uploads", express.static(uploadsDir));
+app.use("/images", express.static(path.resolve("public/images")));
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadsDir),

@@ -243,27 +243,15 @@ function seedInitialData() {
       );
     }
   } else {
-    // Keep existing seeded product images & gallery clean (replace old cropped/shop photos)
+    // Keep seeded products synchronized with storeData authentic images & blank placeholders
     const updateMedia = db.prepare(
       "UPDATE products SET image = ?, gallery_images = ? WHERE id = ?"
     );
     for (const p of storeData.products) {
-      const existing = db.prepare("SELECT image, gallery_images FROM products WHERE id = ?").get(p.id);
-      if (existing && (
-        existing.image.includes("apple.com") ||
-        existing.image.includes("googleusercontent") ||
-        existing.image.includes("camera-system") ||
-        existing.gallery_images.includes("apple.com") ||
-        existing.gallery_images.includes("googleusercontent") ||
-        existing.gallery_images.includes("camera-system")
-      )) {
-        const gallery = [
-          p.image,
-          IPHONE_16_PRO_MAX_IMAGES.screenCutout,
-          IPHONE_16_PRO_MAX_IMAGES.desertCutout,
-        ].filter(Boolean);
-        updateMedia.run(p.image, JSON.stringify([...new Set(gallery)]), p.id);
-      }
+      const gallery = Array.isArray(p.galleryImages) && p.galleryImages.length > 0
+        ? p.galleryImages
+        : (p.image ? [p.image] : []);
+      updateMedia.run(p.image || "", JSON.stringify(gallery), p.id);
     }
   }
 

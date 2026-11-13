@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   ShieldCheck,
   Sparkles,
+  Camera,
 } from "lucide-react";
 import BrandLogo from "./BrandLogo";
 import { useStore } from "../context/StoreContext";
@@ -16,9 +17,10 @@ import { buildWhatsAppEnquiryUrl } from "../lib/api";
 
 const HERO_IDS = [
   "iphone-16-pro-max",
-  "iphone-17-pro-max",
+  "iphone-18-pro-max",
+  "iphone-17",
   "iphone-15-pro-max",
-  "iphone-14-pro-max",
+  "iphone-14-plus",
   "iphone-13",
 ];
 
@@ -202,11 +204,23 @@ export default function HeroSection() {
                     transition={{ duration: 0.35 }}
                     className="relative z-10 w-full h-[320px] sm:h-[380px] flex items-center justify-center"
                   >
-                    <img
-                      src={activeProduct.image}
-                      alt={`${activeProduct.name} full phone`}
-                      className="w-full h-full object-contain drop-shadow-[0_24px_45px_rgba(0,0,0,0.8)]"
-                    />
+                    {activeProduct.image ? (
+                      <img
+                        src={activeProduct.image}
+                        alt={`${activeProduct.name} full phone`}
+                        className="w-full h-full object-contain drop-shadow-[0_24px_45px_rgba(0,0,0,0.8)]"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center text-center p-6 rounded-2xl border border-dashed border-[#C5C7CC]/20 bg-[#08090C]/60">
+                        <div className="w-14 h-14 rounded-full bg-[#111318] border border-[#C5C7CC]/25 flex items-center justify-center mb-3 text-[#C5C7CC]">
+                          <Camera className="w-7 h-7 stroke-[1.5]" />
+                        </div>
+                        <p className="text-sm font-bold text-white tracking-wide">Photo Awaiting Upload</p>
+                        <p className="text-xs text-[#858A94] mt-1 max-w-[200px]">
+                          Sikandar Bhai is uploading store photo separately
+                        </p>
+                      </div>
+                    )}
                   </motion.div>
                 </AnimatePresence>
               )}

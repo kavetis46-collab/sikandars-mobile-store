@@ -10,6 +10,7 @@ import {
   Cpu,
   HardDrive,
   ExternalLink,
+  Camera,
 } from "lucide-react";
 import { formatINR } from "../data/storeData";
 import { buildWhatsAppEnquiryUrl, submitCustomerEnquiry } from "../lib/api";
@@ -150,18 +151,33 @@ export default function ProductCard({ product }) {
         </div>
       </div>
 
-      {/* Full Mobile Picture Container (Uncropped Top-to-Bottom) */}
+      {/* Full Mobile Picture Container (Uncropped Top-to-Bottom or Blank Stock Placeholder) */}
       <Link
         to={`/iphone/${product.slug || product.id}`}
         className="relative h-60 sm:h-64 p-4 rounded-2xl bg-[#08090C]/85 border border-[#C5C7CC]/10 flex items-center justify-center overflow-hidden mb-4"
       >
         <div className="device-glow-backdrop" />
-        <img
-          src={product.image}
-          alt={`${product.name} ${selectedStorage} ${selectedColor}`}
-          loading="lazy"
-          className="relative z-10 w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_14px_26px_rgba(0,0,0,0.75)]"
-        />
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={`${product.name} ${selectedStorage} ${selectedColor}`}
+            loading="lazy"
+            className="relative z-10 w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_14px_26px_rgba(0,0,0,0.75)]"
+          />
+        ) : (
+          <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center p-3 rounded-xl border border-dashed border-[#C5C7CC]/20 bg-[#111318]/50">
+            <div className="w-10 h-10 rounded-full bg-[#08090C] border border-[#C5C7CC]/25 flex items-center justify-center mb-2 text-[#858A94]">
+              <Camera className="w-5 h-5 stroke-[1.5]" />
+            </div>
+            <p className="text-[11px] font-bold text-white tracking-wide">Photo Awaiting Upload</p>
+            <p className="text-[10px] text-[#858A94] mt-0.5 leading-tight max-w-[170px]">
+              Sikandar Bhai is uploading store photo separately
+            </p>
+            <span className="mt-2 text-[9px] font-bold text-[#3478F6] uppercase tracking-wider">
+              Ask Live Photos on WhatsApp &rarr;
+            </span>
+          </div>
+        )}
         <span className="absolute bottom-2.5 right-2.5 z-20 px-2.5 py-1 rounded-full bg-[#111318]/90 border border-[#C5C7CC]/20 text-[10px] font-semibold text-[#C5C7CC] opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1">
           Full Specs <ExternalLink className="w-2.5 h-2.5 text-[#3478F6]" />
         </span>

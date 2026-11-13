@@ -119,11 +119,21 @@ export default function ProductDetailsModal({
           </div>
 
           <div className="relative z-10 my-5 w-52 h-60 flex items-center justify-center">
-            <img
-              src={product.image}
-              alt={`${product.name} - ${selectedColor}`}
-              className="w-full h-full object-contain drop-shadow-[0_20px_35px_rgba(0,102,255,0.28)] rounded-xl"
-            />
+            {product.image ? (
+              <img
+                src={product.image}
+                alt={`${product.name} - ${selectedColor}`}
+                className="w-full h-full object-contain drop-shadow-[0_20px_35px_rgba(0,102,255,0.28)] rounded-xl"
+              />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center text-center p-4 rounded-xl border border-dashed border-[#262F40] bg-[#111318]/60">
+                <div className="w-10 h-10 rounded-full bg-[#0A0D14] border border-[#262F40] flex items-center justify-center mb-2 text-[#94A3B8]">
+                  <Camera className="w-5 h-5" />
+                </div>
+                <p className="text-xs font-bold text-white">Photo Awaiting Upload</p>
+                <p className="text-[10px] text-[#94A3B8] mt-0.5">Sikandar Bhai is uploading store photo separately</p>
+              </div>
+            )}
           </div>
 
           {/* Transparent Cashify App + ₹500 Card */}

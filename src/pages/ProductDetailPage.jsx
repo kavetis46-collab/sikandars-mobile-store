@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   ShoppingCart,
   ArrowLeftRight,
+  Camera,
 } from "lucide-react";
 import { fetchProductBySlug, buildWhatsAppEnquiryUrl, submitCustomerEnquiry } from "../lib/api";
 import { formatINR } from "../data/storeData";
@@ -97,9 +98,10 @@ export default function ProductDetailPage() {
   }
 
   const gallery =
-    Array.isArray(product.galleryImages) && product.galleryImages.length > 0
-      ? product.galleryImages
+    Array.isArray(product.galleryImages) && product.galleryImages.filter(Boolean).length > 0
+      ? product.galleryImages.filter(Boolean)
       : [product.image].filter(Boolean);
+  const activeImage = gallery[activePhotoIndex] || product.image || "";
 
   const variants = product.variants || [{ storage: "128GB", storePrice: product.displayPrice || 25500 }];
   const activeVariant = variants.find((v) => v.storage === selectedStorage) || variants[0];
@@ -143,11 +145,31 @@ export default function ProductDetailPage() {
         <div className="lg:col-span-6 space-y-4">
           <div className="surface-charcoal p-6 h-[380px] sm:h-[480px] flex items-center justify-center relative overflow-hidden">
             <div className="device-glow-backdrop" />
-            <img
-              src={gallery[activePhotoIndex] || product.image}
-              alt={`${product.name} angle ${activePhotoIndex + 1}`}
-              className="relative z-10 w-full h-full object-contain drop-shadow-[0_25px_55px_rgba(0,0,0,0.85)]"
-            />
+            {activeImage ? (
+              <img
+                src={activeImage}
+                alt={`${product.name} angle ${activePhotoIndex + 1}`}
+                className="relative z-10 w-full h-full object-contain drop-shadow-[0_25px_55px_rgba(0,0,0,0.85)]"
+              />
+            ) : (
+              <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center p-6 rounded-2xl border border-dashed border-[#C5C7CC]/20 bg-[#08090C]/60">
+                <div className="w-14 h-14 rounded-full bg-[#111318] border border-[#C5C7CC]/25 flex items-center justify-center mb-3 text-[#C5C7CC]">
+                  <Camera className="w-7 h-7 stroke-[1.5]" />
+                </div>
+                <h3 className="text-base font-bold text-white tracking-wide">Photo Awaiting Upload</h3>
+                <p className="text-xs text-[#858A94] mt-1.5 max-w-xs">
+                  Sikandar Bhai is uploading authentic showroom photos for {product.name} separately.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleWhatsAppEnquiry}
+                  className="mt-4 btn-electric px-5 py-2.5 text-xs gap-1.5"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                  <span>Request Live Photos on WhatsApp</span>
+                </button>
+              </div>
+            )}
           </div>
 
           {gallery.length > 1 && (

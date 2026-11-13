@@ -15,7 +15,7 @@ export default function StoreGallery() {
   const [activeFilter, setActiveFilter] = useState('All');
 
   const photos = storeData.gallery || [];
-  const categories = ['All', 'Stock', 'Store', 'Service', 'Inspection', 'Accessories'];
+  const categories = ['All', 'Pro Max', 'Stock', 'Store', 'Exchange'];
 
   const filteredPhotos = activeFilter === 'All' 
     ? photos 

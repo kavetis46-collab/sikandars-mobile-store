@@ -11,6 +11,12 @@
   "categories": ["shopping", "lifestyle", "utilities"],
   "icons": [
     {
+      "src": "/images/store-stock/store-logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
